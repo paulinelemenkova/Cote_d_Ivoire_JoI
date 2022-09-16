@@ -13,7 +13,8 @@
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+%\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{backcolour}{RGB}{255,250,240}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
@@ -127,16 +128,95 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_01}
-	\caption{Topographic map of Côte d'Ivoire. Mapping: GMT. Source: author.\label{fig2}}
+	\caption{Topographic map of Côte d'Ivoire. Mapping: GMT. Source: authors.\label{fig2}}
 \end{figure}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Materials and Methods}
 
+\begin{lstlisting}[language=python, caption=EarthPython code (1) used for plotting DEM in Figure 2.]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Open DEM by Rasterio which reads GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images
+with rio.open(dtm) as src:
+    elevation = src.read(1)
+# Plot the data
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    elevation,
+    ax=ax,
+    cmap="terrain",
+    title="Ditigal Terrain Model (DTM) of Kossou Lake, C\^ote d'Ivoire. \n Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. \nEntity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cpt: 'terrain'",
+    figsize=(10, 6),
+)
+plt.show()
+# Save figure with 300 dpi resolution
+plt.savefig('Figure_1_DEM_Kossou_1609.jpg', dpi=300)
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption=EarthPython code (2) used for plotting hillshade in Figure 3.]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Generate hillshade from DTM
+hillshade = es.hillshade(elevation)
+# Plot the data
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade,
+    ax=ax,
+    cbar=True,
+    cmap="cividis",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. \n Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. \nEntity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cmap=cividis",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_1_Hillshade_Kossou_1609.png', dpi=300)
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
+\begin{figure}[H]\centering
+	\includegraphics[width=12.0 cm]{Fig_02}
+	\caption{Ditigal Terrain Model (DTM) of Kossou Lake, Côte d'Ivoire. Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. Entity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cpt: 'terrain'. Mapping: Python. Source: authors.\label{fig2}}
+\end{figure}  
+
+\begin{figure}[H]\centering
+	\includegraphics[width=12.0 cm]{Fig_03}
+	\caption{Hillshade from DTM of Kossou Lake, Côte d'Ivoire. Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. Entity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cmap=cividis. Mapping: Python. Source: authors.\label{fig2}}
+\end{figure} 
 
 \subsection{Subsection}
 \subsubsection{Subsubsection}
