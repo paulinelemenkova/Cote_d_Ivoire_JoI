@@ -6,6 +6,8 @@
 
 
 \graphicspath{{figures/}} % path to folder with figures
+\usepackage{caption}
+\usepackage{subcaption}
 
 \usepackage{listings}
 \usepackage{xcolor}
@@ -80,30 +82,30 @@
 
 %=================================================================
 % Full title of the paper (Capitalized)
-\Title{Python Module EarthPy for Satellite Image Processing and Terrain Analysis of Côte d'Ivoire, West Africa}
+\Title{Python Library \emph{EarthPy} for Satellite Image Processing and Terrain Analysis of Côte d'Ivoire, West Africa}
 
 % MDPI internal command: Title for citation in the left column
-\TitleCitation{Python Module EarthPy for Satellite Image Processing and Terrain Analysis of Côte d'Ivoire, West Africa}
+\TitleCitation{Python Library \emph{EarthPy} for Satellite Image Processing and Terrain Analysis of Côte d'Ivoire, West Africa}
 
 % Author Orchid ID: enter ID or remove command
 \newcommand{\orcidauthorA}{0000-0002-5759-1089} % Add \orcidA{} behind the author's name
 %\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
 
 % Authors, for the paper (add full first names)
-\Author{Polina Lemenkova $^{1}$\orcidA{}}
+\Author{Olivier Debeir $^{1}$ and Polina Lemenkova $^{1}$\orcidA{}}
 % \dagger,\ddagger
 %\longauthorlist{yes}
 
 % MDPI internal command: Authors, for metadata in PDF
-\AuthorNames{Polina Lemenkova}
+\AuthorNames{Olivier Debeir $^{1}$ and Polina Lemenkova $^{1}$}
 
 % MDPI internal command: Authors, for citation in the left column
-\AuthorCitation{Lemenkova, P.}
+\AuthorCitation{Debeir, O.; Lemenkova, P.}
 % If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
 
 % Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
 \address{%
-$^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (EPB, Brussels Faculty of Engineering), Laboratory of Image Synthesis and Analysis, Building L, Campus de Solbosch CP131/3, Avenue Franklin D. Roosevelt 50, B-1050, Brussels, Belgium; polina.lemenkova@ulb.be or pauline.lemenkova@gmail.com}
+$^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (EPB, Brussels Faculty of Engineering), Laboratory of Image Synthesis and Analysis, Building L, Campus de Solbosch, ULB -- LISA CP165/57, Avenue Franklin D. Roosevelt 50, B-1050, Brussels, Belgium; polina.lemenkova@ulb.be or pauline.lemenkova@gmail.com}
 
 % Contact information of the corresponding author
 \corres{Correspondence: polina.lemenkova@ulb.be; Tel.: +32471860459 (P.L.)}
@@ -112,7 +114,7 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \abstract{A single paragraph of about 200 words maximum.}
 
 % Keywords
-\keyword{keyword 1; keyword 2; keyword 3 (List three to ten pertinent keywords specific to the article; yet reasonably common within the subject discipline.)} 
+\keyword{Image processing, remote sensing; programming; Python; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis; environment} 
 
 % The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
 %\PACS{J0101}
@@ -123,12 +125,13 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \begin{document}
 
 \section{Introduction}
-
+\newpage
 \section{Study Area}
 
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_01}
-	\caption{Topographic map of Côte d'Ivoire. Mapping: GMT. Source: authors.\label{fig2}}
+	\caption{Topographic map of Côte d'Ivoire. Mapping: GMT. Source: authors.
+	\label{fig1}}
 \end{figure}  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,7 +170,7 @@ ep.plot_bands(
 )
 plt.show()
 # Save figure with 300 dpi resolution
-plt.savefig('Figure_1_DEM_Kossou_1609.jpg', dpi=300)
+plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
 \end{lstlisting}
 
 \begin{lstlisting}[language=python, caption=EarthPython code (2) used for plotting hillshade in Figure 3.]
@@ -202,7 +205,60 @@ ep.plot_bands(
     figsize=(10, 10),
 )
 plt.show()
-plt.savefig('Figure_1_Hillshade_Kossou_1609.png', dpi=300)
+plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption=EarthPython code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5.]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Open DEM by Rasterio which reads GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images
+with rio.open(dtm) as src:
+    elevation = src.read(1)
+# Changing the azimuth of the sun of the hillshade layer to 210 degrees
+hillshade_azimuth_230 = es.hillshade(elevation, azimuth=230)
+# Plotting the hillshade layer with the modified azimuth
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade_azimuth_230,
+    ax=ax,
+    cbar=True,
+    cmap="plasma",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. Azimuth of sun is adjusted to 230 \N{DEGREE SIGN}",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_4_Azimuth_hillshade_Kossou.jpg', dpi=300)
+# Changing the angle altitude of sun
+hillshade_angle_10 = es.hillshade(elevation, altitude=10)
+# Plotting the hillshade layer with the modified angle altitude
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade_angle_10,
+    ax=ax,
+    cbar=True,
+    cmap="magma",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. Angle altitude is defined as 10 \N{DEGREE SIGN}",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
+
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,9 +271,29 @@ plt.savefig('Figure_1_Hillshade_Kossou_1609.png', dpi=300)
 
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_03}
-	\caption{Hillshade from DTM of Kossou Lake, Côte d'Ivoire. Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. Entity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cmap=cividis. Mapping: Python. Source: authors.\label{fig2}}
+	\caption{Hillshade from DTM of Kossou Lake, Côte d'Ivoire. Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. Entity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cmap=cividis. Mapping: Python. Source: authors.\label{fig3}}
 \end{figure} 
 
+%\newpage
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_04}
+         \caption{Azimuth of sun is adjusted to 230 in hillshade from DTM.}
+         \label{fig:04a}
+     \end{subfigure} \vfill \vspace{2mm}
+     \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_05}
+         \caption{Angle altitude is defined as 10 in hillshade from DTM.}
+         \label{fig:04a}
+     \end{subfigure}
+        \caption{Modified azimuth and sun angle degrees in hillshade of DTM of Kossou Lake, Côte d'Ivoire}
+        \label{fig4}
+\end{figure}
+
+\newpage
 \subsection{Subsection}
 \subsubsection{Subsubsection}
 
