@@ -138,7 +138,7 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Materials and Methods}
 
-\begin{lstlisting}[language=python, caption=EarthPython code (1) used for plotting DEM in Figure 2.]
+\begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2.]
 python3.10
 # Set home directory
 import os
@@ -174,7 +174,7 @@ plt.show()
 plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
 \end{lstlisting}
 
-\begin{lstlisting}[language=python, caption=EarthPython code (2) used for plotting hillshade in Figure 3.]
+\begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3.]
 python3.10
 # Set home directory
 import os
@@ -209,7 +209,7 @@ plt.show()
 plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
 \end{lstlisting}
 
-\begin{lstlisting}[language=python, caption=EarthPython code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5.]
+\begin{lstlisting}[language=python, caption=Python code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5.]
 python3.10
 # Set home directory
 import os
@@ -259,7 +259,65 @@ ep.plot_bands(
 )
 plt.show()
 plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
+\end{lstlisting}
 
+\begin{lstlisting}[language=r, caption=R code used for plotting color composites for bands of the satellite image]
+library(raster)
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535)
+plotRGB(rgb, stretch="lin")
+plotRGB(rgb, stretch="hist")
+# False color composites
+# Color Infrared: colors near-infrared (band 5) as red, red (band 4) as green, and green (band 3) as blue
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+rgb = stack(near.infrared, red, green)
+# Create an empty raster() with the top left (ymx and xmn) and bottom right (ymn and xmx) lat/long coordinates.
+#boundary = raster(ymx=6.91, xmn=-8.27, ymn=6.18, xmx=-4.83)
+#boundary = projectExtent(boundary, rgb@crs)
+#rgb = crop(rgb, boundary)
+plotRGB(rgb, scale=65535, stretch="lin")
+#
+# Landsat 8 OLI colour composite image, RGB=753
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 8 OLI colour composite image, RGB=765.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 8 OLI colour composite image, RGB=742.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 8 OLI colour composite image, RGB=573.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 8 OLI colour composite image, Color Infrared: RGB=543
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 8 OLI colour composite image, Color Infrared: RGB=654
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -301,42 +359,35 @@ plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
 \end{figure} 
 
 \begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=10cm]{Fig_07a.png}
-         \caption{Stretch improvement: 'linear'.}
-         \label{fig:04a}
-     \end{subfigure}
-     \vfill \vspace{2mm}
-     \begin{subfigure}[b]{0.6\textwidth}
-         \centering
-         \includegraphics[width=10cm]{Fig_07b.png}
-         \caption{Stretch improvement: 'histogram'.}
-         \label{fig:04a}
-     \end{subfigure}
-        \caption{Natural color composites of bands 2-3-4 with applied stretch option on 'plotRGB()' which improves the rendering of the scene: Kossou Lake, Côte d'Ivoire. Mapping: R. Source: authors}
-        \label{fig7}
+\makebox[\linewidth][c]{%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_07a}
+\caption{Bands 2-3-4, stretch improvement: 'linear'}
+\end{subfigure}%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_07b}
+\caption{Bands 2-3-4, stretch improvement: 'histogram'.}
+\end{subfigure}%
+}\\
+ \vfill \vspace{2mm}
+\makebox[\linewidth][c]{%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_08a}
+\caption{Bands 3-4-5: near-infrared (B5) as red, red (B4) as green, and green (B3) as blue.}
+\end{subfigure}%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_08b}
+\caption{Natural color (a) and (b) color composites of bands 2-3-4. False color composite (c) and (d) visualization of bands 7-6-5}
+\end{subfigure}%
+}
+\caption{Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}
 \end{figure}
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.7\textwidth}
-         \centering
-         \includegraphics[width=10cm]{Fig_08a}
-         \caption{False color composite visualization of bands 3-4-5: near-infrared (B5) as red, red (B4) as green, and green (B3) as blue.}
-         \label{fig:04a}
-     \end{subfigure} 
-     \vfill \vspace{2mm}
-     \begin{subfigure}[b]{0.7\textwidth}
-         \centering
-         \includegraphics[width=10cm]{Fig_08b}
-         \caption{False color composite visualization of bands 7-6-5}
-         \label{fig:04a}
-     \end{subfigure}
-        \caption{Landsat 8 OLI colour composite image: Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}
-        \label{fig8}
-\end{figure}
+%--------
 
 \begin{figure}
 \makebox[\linewidth][c]{%
