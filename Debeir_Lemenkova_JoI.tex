@@ -8,9 +8,10 @@
 \graphicspath{{figures/}} % path to folder with figures
 \usepackage{caption}
 \usepackage{subcaption}
-
+%\usepackage[export]{adjustbox}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{graphicx}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -296,8 +297,75 @@ plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_06}
 	\caption{SRTM3 Void Filled DEM (NASA/NGA) overlayed on top of a hillshade in Kossou Lake, Côte d'Ivoire, West Africa. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python. Source: authors.
-	\label{fig5}}
+	\label{fig6}}
 \end{figure} 
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.6\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_07a.png}
+         \caption{Stretch improvement: 'linear'.}
+         \label{fig:04a}
+     \end{subfigure}
+     \vfill \vspace{2mm}
+     \begin{subfigure}[b]{0.6\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_07b.png}
+         \caption{Stretch improvement: 'histogram'.}
+         \label{fig:04a}
+     \end{subfigure}
+        \caption{Natural color composites of bands 2-3-4 with applied stretch option on 'plotRGB()' which improves the rendering of the scene: Kossou Lake, Côte d'Ivoire. Mapping: R. Source: authors}
+        \label{fig7}
+\end{figure}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_08a}
+         \caption{False color composite visualization of bands 3-4-5: near-infrared (B5) as red, red (B4) as green, and green (B3) as blue.}
+         \label{fig:04a}
+     \end{subfigure} 
+     \vfill \vspace{2mm}
+     \begin{subfigure}[b]{0.7\textwidth}
+         \centering
+         \includegraphics[width=10cm]{Fig_08b}
+         \caption{False color composite visualization of bands 7-6-5}
+         \label{fig:04a}
+     \end{subfigure}
+        \caption{Landsat 8 OLI colour composite image: Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}
+        \label{fig8}
+\end{figure}
+
+\begin{figure}
+\makebox[\linewidth][c]{%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_09a}
+\caption{Bands 5-7-3.}
+\end{subfigure}%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_09b}
+\caption{Bands 7-4-2}
+\end{subfigure}%
+}\\
+ \vfill \vspace{2mm}
+\makebox[\linewidth][c]{%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_10a}
+\caption{Color Infrared bands 5-4-3.}
+\end{subfigure}%
+\begin{subfigure}[b]{.6\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Fig_10b}
+\caption{Bands 6-5-4}
+\end{subfigure}%
+}
+\caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}
+\end{figure}
 
 \newpage
 \subsection{Subsection}
