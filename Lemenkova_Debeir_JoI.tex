@@ -84,10 +84,10 @@
 
 %=================================================================
 % Full title of the paper (Capitalized)
-\Title{Satellite Image Processing by Python and R for Terrain Analysis of Côte d'Ivoire, West Africa}
+\Title{Satellite Image Processing by Python and R for Terrain Analysis of Côte d'Ivoire using Landsat 9 OLI/TIRS and SRTM DEM}
 
 % MDPI internal command: Title for citation in the left column
-\TitleCitation{Satellite Image Processing by Python and R for Terrain Analysis of Côte d'Ivoire, West Africa}
+\TitleCitation{Satellite Image Processing by Python and R for Terrain Analysis of Côte d'Ivoire using Landsat 9 OLI/TIRS and SRTM DEM}
 
 % Author Orchid ID: enter ID or remove command
 \newcommand{\orcidauthorA}{0000-0002-5759-1089} % Add \orcidA{} behind the author's name
@@ -116,7 +116,7 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \abstract{A single paragraph of about 200 words maximum.}
 
 % Keywords
-\keyword{Image processing, remote sensing; programming; Python; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis; environment} 
+\keyword{Image processing, remote sensing; programming; Python; R; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis} 
 
 % The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
 %\PACS{J0101}
@@ -186,7 +186,7 @@ for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
         \label{fig0}
 \end{figure}
 
-\subsubsection{Creating single band and composite maps}
+\subsubsection{Visualising single bands and generating composite maps}
 \begin{lstlisting}[language=r, caption=R code used for deriving satellite mage information and statistics and inspecting the Landsat 8-9 OLI bands]
 library(terra)
 ## terra version 1.2.11
@@ -227,12 +227,89 @@ s <- stack(r1, r2)
 landsat <- rast(filenames)
 landsat
 # The layers represent reflection intensity in the following wavelengths: Ultra Blue, Blue, Green, Red, Near Infrared (NIR), Shortwave Infrared (SWIR) 1, Shortwave Infrared (SWIR) 2, Panchromatic, Cirrus, Thermal Infrared (TIRS) 1, Thermal Infrared (TIRS) 2.
+\end{lstlisting} 
 
+\begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images]
+library(terra)
+## terra version 1.2.11
+# Change working directory
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+b1 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B1.TIF') # Ultra Blue
+b2 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF') # Blue
+b3 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF') # Green
+b4 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF') # Red
+b5 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF') # NIR
+b6 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF') # Green
+b7 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF') # Red
+b8 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B8.TIF') # Panchrom.
+b9 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B9.TIF') # Cirrus
+b10 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B10.TIF') # TIRS 1
+b11 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B11.TIF') # TIRS 2.
+# Plotting natural color composite from bands B4, B3 and B2.
+landsatRGB <- c(b4, b3, b2)
+plotRGB(landsatRGB, stretch = "lin")
+# Plotting 11 original individual layers as raw bands of the Landsat-9 OLI.
+par(mfrow = c(4, 3))
+plot(b1, main = "Ultra Blue (Band 1)", col = gray(0:100 / 100), legend=FALSE)
+plot(b2, main = "Blue (Band 2)", col = gray(0:100 / 100), legend=FALSE)
+plot(b3, main = "Green (Band 3)", col = gray(0:100 / 100), legend=FALSE)
+plot(b4, main = "Red (Band 4)", col = gray(0:100 / 100), legend=FALSE)
+plot(b5, main = "NIR (Band 5)", col = gray(0:100 / 100), legend=FALSE)
+plot(b6, main = "SWIR (Band 6)", col = gray(0:100 / 100), legend=FALSE)
+plot(b7, main = "NIR (Band 7)", col = gray(0:100 / 100), legend=FALSE)
+plot(b8, main = "Panchrom. (Band 8)", col = gray(0:100 / 100), legend=FALSE)
+plot(b9, main = "Cirrus (Band 9)", col = gray(0:100 / 100), legend=FALSE)
+plot(b10, main = "TIRS 1 (Band 10)", col = gray(0:100 / 100), legend=FALSE)
+plot(b11, main = "TIRS 2 (Band 11)", col = gray(0:100 / 100), legend=FALSE)
+landsatRGB <- c(b4, b3, b2)
+plotRGB(landsatRGB, stretch = "lin")
+\end{lstlisting} 
+
+\begin{lstlisting}[language=r, caption=R code for removing the four bands from the dataset]
+library(terra)
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
+filenames
+landsat <- rast(filenames)
+landsat
+# Removing the unnecessary four bands: Panchromatic, Cirrus, TIRS1, TIRS2.
+landsatsub <- subset(landsat, 1:7)
+names(landsatsub)
+# Checking Nnumber of bands in the original and new data
+nlyr(landsatsub)
+# Renaming the bands
+names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SWIR2")
+names(landsatsub)
+\end{lstlisting} 
+
+\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between selected Landsat bands]
+# Relation between bands
+library(terra)
+pairs(landsatsub[[1:2]], hist=TRUE, cor=TRUE, use="pairwise.complete.obs", maxcells=100000, main = "Correlation of Band 1 (Ultra-blue) against Blue (Band 2)")
+pairs(landsatsub[[4:5]], hist=TRUE, cor=TRUE, maxcells=100000, main = "Correlation of Band 4 (Red) against NIR (Band 5)")
 \end{lstlisting} 
 
 \begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Correlation_12.jpg}
+         \caption{Band 1 against Band 2}
+         \label{fig:00a}
+     \end{subfigure} \hfill \hspace{2mm}
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Correlation_45.jpg}
+         \caption{Band 4 against Band 5.}
+         \label{fig:00a}
+     \end{subfigure}
+        \caption{Inspecting correlation between Landsat bands for selected Landsat-8 OLI/TIRS C1 bands in multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig0}
+\end{figure}
+
+\begin{figure}[H]
 \makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Bands_11_vert.jpg}}%
-	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-8 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale visualization: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
+	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale visualization: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
 	\label{fig1}
 \end{figure} 
 
@@ -260,43 +337,38 @@ green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
 near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 rgb = stack(near.infrared, red, green)
-# Create an empty raster() with the top left (ymx and xmn) and bottom right (ymn and xmx) lat/long coordinates.
-#boundary = raster(ymx=6.91, xmn=-8.27, ymn=6.18, xmx=-4.83)
-#boundary = projectExtent(boundary, rgb@crs)
-#rgb = crop(rgb, boundary)
 plotRGB(rgb, scale=65535, stretch="lin")
-#
-# Landsat 8 OLI colour composite image, RGB=753
+# Landsat 9 OLI/TIRS colour composite image, RGB=753
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
 rgb = stack(near.infrared, red, green)
 plotRGB(rgb, scale=65535, stretch="hist")
-# Landsat 8 OLI colour composite image, RGB=765.
+# Landsat 9 OLI/TIRS colour composite image, RGB=765.
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
 blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 rgb = stack(red, green, blue)
 plotRGB(rgb, scale=65535, stretch="hist")
-# Landsat 8 OLI colour composite image, RGB=742.
+# Landsat 9 OLI/TIRS colour composite image, RGB=742.
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
 blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
 rgb = stack(red, green, blue)
 plotRGB(rgb, scale=65535, stretch="hist")
-# Landsat 8 OLI colour composite image, RGB=573.
+# Landsat 9 OLI/TIRS colour composite image, RGB=573.
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
 blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
 rgb = stack(red, green, blue)
 plotRGB(rgb, scale=65535, stretch="hist")
-# Landsat 8 OLI colour composite image, Color Infrared: RGB=543
+# Landsat 9 OLI/TIRS colour composite image, Color Infrared: RGB=543
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
 near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
 rgb = stack(near.infrared, red, green)
 plotRGB(rgb, scale=65535, stretch="hist")
-# Landsat 8 OLI colour composite image, Color Infrared: RGB=654
+# Landsat 9 OLI/TIRS colour composite image, Color Infrared: RGB=654
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
 red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
 near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
@@ -511,7 +583,7 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
          \caption{}
          \label{fig:00a}
      \end{subfigure}
-        \caption{\textbf{(a)}: Grayscale visualization of the Landsat OLI/TIRS image with enlarged fragment of Kossou Lake in SWIR, Band 6. Mapping: R. \textbf{(b)}: Enlarged cropped SRTM3 Void Filled DEM (NASA/NGA) overlayed on top of a hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
+        \caption{\textbf{(a)}: Landsat OLI/TIRS image with enlarged fragment of Kossou Lake: grayscale visualization of SWIR Band 6. Mapping: R. \textbf{(b)}: Enlarged fragment of the cropped SRTM3 Void Filled DEM overlayed on top of the hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
         \label{fig0}
 \end{figure}
 
