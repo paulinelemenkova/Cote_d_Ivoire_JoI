@@ -20,6 +20,8 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{RGB}{255,255,255}
 \definecolor{SlateGray}{HTML}{708090}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
@@ -36,7 +38,9 @@
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
-    tabsize=2
+    tabsize=2,
+    frame=topline,
+    frame=topline|bottomline,
     }
 
 \lstset{style=mystyle}
@@ -164,6 +168,7 @@ The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene c
 \subsection{Image processing in R}
 
 \subsubsection{Deriving information on satellite image properties and spatial statistics}
+
 \begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
 \end{lstlisting}
