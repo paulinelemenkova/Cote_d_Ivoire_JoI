@@ -132,11 +132,16 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \section{Introduction}
 Accurate processing of satellite image is essential to the environmental modelling and mapping, as remote sensing data are the important source of spatial information derived from Earth observation. The main focus for image processing is the deriving of information from the raw bitmap data. In this context, the search for effective methods of image processing resulted in the variety of existing GIS software with specially designed embedded functions for raster data processing. However, in many practical situation, GIS present limitations either due to the commercial licence of software or functional restrictions. Accordingly, open source programming solutions are critical to process satellite imagery, since recent studies revealed that scripting techniques enable to handle Earth observation data effectively and accurately \cite{ELLEFSEN20191171,Lemenkova202212,Lemenkova202216,4160259}. 
 
-Python is undoubtedly one of the most successful programming languages \cite{van1995python}. The rich collection of its constantly developing libraries (e.g., \cite{ROBERTS2022105192,CHEN2022105362}) has recently built up with EarthPy, tailored for a wide variety of spatial tasks and geo-information data processing. Yet another fundamental tool for spatial data processing is presented by R language \cite{RCoreTeam}, which also accounts for different statistical components available in a variety of its packages.
+Repeated structured representing similar objects on the Earth's surface are common in many types of satellite images as pixels with comparable ranges of values. These are especially prevailing in regions with distinct land cover types usually depicting similar or comparable land cover structure, such as forests or other vegetation types, rivers, mountains, deserts, urban areas, geological objects etc. Identifying and recognising these areas is possible using the information of value of pixel brightness, intensity and textural features \cite{8519176}. Algorithms of image classification and processing are based on detecting the pixels and classifying the image using binary data derived from raster cells. Algorithms of image classification and processing are based on reading the information from the pixels comprising the image. The analysis of the binary data derived from raster cells enables  classifying the image and mapping diverse phenomena, processes and objects based on image interpretation.
 
+Python is undoubtedly one of the most successful programming languages \cite{van1995python}. The rich collection of its constantly developing libraries (e.g., \cite{ROBERTS2022105192,CHEN2022105362}) has recently built up with EarthPy, tailored for a wide variety of spatial tasks and geo-information data processing. Yet another fundamental tool for spatial data processing is presented by R language \cite{RCoreTeam}, which also accounts for different statistical components available in a variety of its packages. 
+
+The goal of this paper is to present the application of Python and R algorithms for image processing with aim at terrain modelling (visualization and analysis of slope, aspect and elevation) and computing selected vegetation indices using the principles of map algebra and band combinations. 
 
 \newpage
 \section{Study Area}
+
+The land cover types of Côte d'Ivoire are associated with the two major vegetation types of the West Africa -- forest and savanna. The separation between them passes approximately parallel to the coast leaving Bouak\'{e} to the north \cite{Rougerie}, Figure \ref{fig1}. The vegetation types are controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire, where it eliminates the forest and imposes the savannah, while tropical regime characterises the southern parts with dominating forests \cite{Tricart}. Such environmental setting limits farming and agricultural activities which are mostly focused on cocoa \cite{Losch,Planhol,Smithetal2014,Laderach} due to the climatic suitability. 
 
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_01}
@@ -144,7 +149,9 @@ Python is undoubtedly one of the most successful programming languages \cite{van
 	\label{fig1}}
 \end{figure}  
 
+Urban and industrial growth are exceptional for Côte d'Ivoire since 1950s, due to the demographic growth and population acceleration in the urban agglomerations \cite{Dubresson,Chaleard,Cotten1974,Cotten1973}. Geographically, this results in the spatially increased areas of cities and modified transport network \cite{Cotten1985}. Narrow continental shelf restricts fishing activities of local population \cite{Sournia}. Recently, Côte d'Ivoire experiences environmental changes common for humid West Africa, which include deforestation and fragmentation of ecosystems \cite{Chatelainetal2010}, fluctuations in species richness in savannah biomes \cite{Kolongo}, and increase in habitat heterogeneity which affects biodiversity and species community structure \cite{Yeo}. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Materials and Methods}
 
 \subsection{Data}
@@ -766,6 +773,7 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
+Integrated and wider use of regional environmental resources present the potential for sustainable development of Côte-d'Ivoire, which in turn requires regular monitoring of the environmental conditions of the country using satellite images processed by the advanced methods.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
