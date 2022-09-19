@@ -143,7 +143,7 @@ The goal of this paper is to present the application of Python and R algorithms 
 \newpage
 \section{Study Area}
 
-The land cover types of Côte d'Ivoire are associated with the two major vegetation types of the West Africa -- forest and savanna. The separation between them passes approximately parallel to the coast leaving Bouak\'{e} to the north \cite{Rougerie}, Figure \ref{fig1}. The vegetation types are controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire, where it eliminates the forest and imposes the savannah, while tropical regime characterises the southern parts with dominating forests \cite{Tricart}. Such environmental setting limits farming and agricultural activities which are mostly focused on cocoa \cite{Losch,Planhol,Smithetal2014,Laderach} and food-producing crops \cite{Sawadogo} due to the climatic suitability. 
+The land cover types of Côte d'Ivoire are associated with the two major vegetation types of the West Africa -- forest and savanna. The separation between them passes circa parallel to the coast north off Bouak\'{e} \cite{Rougerie}, Figure \ref{fig1}. The vegetation types are controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire, where it eliminates forests and imposes the savannah, while tropical regime characterises the southern parts with dominating forests \cite{Tricart}. Favourable climatic and environmental setting of Côte d'Ivoire maintain active farming and agricultural activities which make it the world's largest cocoa producer \cite{Losch,Planhol,Smithetal2014,Laderach} and active exporter of food-producing crops \cite{Sawadogo}, e.g., coffee, bananas, pineapples and palm oil \cite{Pelissier}. 
 
 \begin{figure}[H]\centering
 	\includegraphics[width=12.0 cm]{Fig_01}
@@ -179,6 +179,7 @@ The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene c
 
 \newpage
 \subsection{Image processing in R}
+The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The resource of RColorBrewer package were used for visualization \cite{Neuwirth}.
 
 \subsubsection{Deriving information on satellite image properties and spatial statistics}
 
