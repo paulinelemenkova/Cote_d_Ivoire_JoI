@@ -143,7 +143,7 @@ Recent advances in geospatial data processing \cite{8226275} and image classific
 An essential advantage of the programming languages for image processing consists in their compatibility. Thus, in contrast to the stand along state-of-the-art GIS software, scripting libraries can be integrated with other GIS via modules, plugins and toolkits \cite{6407912,7378577,VOS2019104528}. For instance, novel libraries of Python enable to perform various tasks of image processing and spatial analysis through integration \cite{1247428,Rey2010PySALAP,Rey2010}. Selected recent examples include, for instance, image interpolation, calibration and correlation \cite{DEDEUSFILHO2022101131}, compressed sensing and image reconstruction \cite{FARRENS2020100402}, identifying and extracting the vertical features \cite{GAO2022105503}, meteorological modelling \cite{6528254} with resulted images in compatible formats. A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has recently built up with EarthPy, tailored for spatial tasks of geo-information data processing \cite{wasser2019EarthPyAP}. 
 
 Following the idea of using the advanced programming methods used to visualise a representation of object features and classes on the Earth's surface, the goal of this paper is to present the application of Python and R algorithms for image processing. Specific objectives include the following tasks: \emph{i)} plotting the colour composite of the Landsat OLI/TIRS  image by the combinations of three channel sensor bands to display the image; \emph{ii)}; computing the selected vegetation indices using the principles of map algebra based on DNs of reflectance value of pixels in selected spectral bands -- NIR and red \emph{iii)} 
-terrain modelling with geomorphic visualization of slope, aspect and elevation for relief analysis. 
+terrain modelling with geomorphic visualization of slope, aspect, hillshade and elevation for the relief analysis using the SRTM DEM data. 
 
 %\newpage
 \section{Study Area}
@@ -790,7 +790,15 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
-Integrated and wider use of regional environmental resources present the potential for sustainable development of Côte-d'Ivoire, which in turn requires regular monitoring of the environmental conditions of the country using satellite images processed by the advanced methods.
+Integrated and wider use of regional environmental resources present the potential for sustainable development of Côte-d'Ivoire. This requires regular monitoring of the environmental conditions of the country using satellite images. In the data science and analysis, processing satellite images using advanced programming methods is a challenging problem. In this paper, we presented the solution of this problem by the straightforward yet effective approach based on combining libraries of Python and R languages for processing of raster data in a scripting framework. 
+
+First, the terrain surface materials were differentiated by the RGB triplet colours by plotting the colour composite of the Landsat 98 OLI/TIRS image using R library 'raster'. The colours correspond to the composites of the RGB signals scattered from the natural and built environment which resulted in various DN values of pixel cells in the raster matrix. The tested combinations of the three channels as sensor bands enabled to display the image and visualise the appearance of various objects on the terrain using distinct colours using R library 'terra'. We compared the correlation between Landsat bands for selected Landsat-8 OLI/TIRS C1 bands in multispectral image for bands 1 and 2 (Blue and Green) and 4 and 5 (red and NOR), correspondingly.
+
+We then computed the three selected vegetation indices - NDVI, SAVI and EVI2 using the principles of map algebra based on DNs of reflectance value of pixels in selected spectral bands -- NIR and red. As demonstrated, the major effect of spectral reflectance from healthy green vegetation in visible in the NIR region of the spectrum of the image with the strong NIR response from it raising sharply for  healthy vegetation in excellent conditions. Conversely, areas with poor or damaged vegetation are represented by low NIR response which decreases in the maps of the vegetation indices. 
+
+Finally, the terrain modelling was performed using the SRTM DEM with high resolution using the algorithms of Python library EarthPy by combining the topographic 3D data with spatial information for geomorphic visualization of slope, aspect and elevation for the relief analysis. We presented the methods as a series of scripts with detailed explanation of the functionality of codes and effects on parameters of the image.
+
+Deriving the information from the remotely sensed data
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
