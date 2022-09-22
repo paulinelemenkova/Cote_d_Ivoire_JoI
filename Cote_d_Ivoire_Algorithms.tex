@@ -188,7 +188,7 @@ The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene c
 
 %\newpage
 \subsection{Image processing in R}
-The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The resource of RColorBrewer package were used for visualization \cite{Neuwirth}.
+The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The colour scheme resource of RColorBrewer package were used for visualization and plotting \cite{Neuwirth}.
 
 \subsubsection{Deriving information on satellite image properties and spatial statistics}
 To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using the regular expression by the command-line utilities of Unix as a combination of grep, gdal and echo, Listing \ref{lst:01}. 
@@ -216,9 +216,12 @@ for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
         \label{fig03}
 \end{figure}
 
-The spatial information of the Landsat channels (bands) is presented in metadata shown in Figure \ref{fig:03b}, inspected by R. It shows the number and location of the spectral measurements, spatial extent, geodetic information (coordinate reference system, ellipsoid and datum) obtained by the GPS of the spacecraft, spatial and the radiometric resolution of the image.   Each image (the band of the Landsat scene) is read-in to R SpatRaster object class, which represents the equalised area of rectangular cells as regards the units of the coordinate reference system, Figure \ref{fig:03b}.
+The spatial information of the Landsat channels (bands) is presented in metadata shown in Figure \ref{fig:03b}, inspected by R. It shows the number and location of the spectral measurements, spatial extent, geodetic information (coordinate reference system, ellipsoid and datum) obtained by the GPS of the spacecraft, spatial and the radiometric resolution of the image. Each image (the band of the Landsat scene) is read-in to R SpatRaster object class, which represents the equalised area of rectangular cells as regards the units of the coordinate reference system, Figure \ref{fig:03b}. 
 
 \subsubsection{Visualising single bands and generating composite maps}
+
+The properties of the image were accessed from a SpatRaster object using R commands, Listing \ref{lst:02}, where we inspected the coordinate reference system (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other band (here: target Band 1, Ultra Blue) by created a RasterBrick multi-layer object, Listing \ref{lst:02}. 
+
 \begin{lstlisting}[language=r, caption=R code used for deriving satellite mage information and statistics and inspecting the Landsat 8-9 OLI bands, label={lst:02}]
 library(terra)
 ## terra version 1.2.11
@@ -249,7 +252,7 @@ s
 # Creating a list of raster layers to use
 filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
 filenames
-# Resampling raster in Band 8 (panchromatic) to the structure of all other bands using Band 1, to ignore the small difference, and the rasters have the same number of rows and columns:
+# Resampling raster in Band 8 (panchromatic) to the structure of Band 1:
 library(raster)
 r1 = raster::brick("LC09_L1TP_197055_20220111_20220122_02_T1_B8.tif")
 r2 = raster::brick("LC09_L1TP_197055_20220111_20220122_02_T1_B1.tif")
@@ -258,8 +261,9 @@ s <- stack(r1, r2)
 # Creating the multi-layer SpatRaster using the filenames
 landsat <- rast(filenames)
 landsat
-# The layers represent reflection intensity in the following wavelengths: Ultra Blue, Blue, Green, Red, Near Infrared (NIR), Shortwave Infrared (SWIR) 1, Shortwave Infrared (SWIR) 2, Panchromatic, Cirrus, Thermal Infrared (TIRS) 1, Thermal Infrared (TIRS) 2.
 \end{lstlisting} 
+
+The layers were then read in the 'landsat' object where the layers are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a. coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). The visuallization of the single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig05}. The visual inspection of the satellite image product built from the monochrome image data (Figure \ref{fig05}) is useful to extract a general information on general large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using their spatial propertiesrelated to the pixel brightness values. 
 
 \begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images, label={lst:03}]
 library(terra)
@@ -597,7 +601,7 @@ plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
 \section{Results}
 %--------
 \subsection{Color composites}
-In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared band (B5) was representing red, red (B4) as green, and green (B3) as blue.
+In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrared band (B5) was representing red, red (B4) as green, and green (B3) as blue.
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][r]{%
