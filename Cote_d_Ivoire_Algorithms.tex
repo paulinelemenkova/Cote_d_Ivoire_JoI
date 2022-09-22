@@ -357,7 +357,7 @@ Cells with low spectral reflectance in a target band mostly have low reflectance
         \label{fig05}
 \end{figure}
 
-Plotting the colour composite of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of matrix scene. The three bands assigned to each of the three colour primaries (RGB) displayed the image, Listing \ref{lst:06}.
+Since there is not much information in the monochrome bands, they were combined into the several composites to create more meaningful plots. Plotting the colour composites of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of matrix scene. The three bands assigned to each of the three colour primaries (RGB) displayed the image, Listing \ref{lst:06}.
 
 \begin{lstlisting}[language=r, caption=R code used for plotting color composites for bands of the satellite image, label={lst:06}]
 library(raster)
@@ -413,7 +413,11 @@ rgb = stack(near.infrared, red, green)
 plotRGB(rgb, scale=65535, stretch="hist")
 \end{lstlisting}
 
-Computing vegetation indices is an important environmental tool based on the information from pixel value, which in turn is based on spectral reflectance of Red and NIR bands measured by the sensor. It is commonly computed with a spatial statistics and algebra of bands, using cell values defined on the scene, Listing \ref{lst:07}. The reason for selecting NIR and Red for computing the vegetation indices is because the vegetation appears brighter in these bands since it reflects more energy in NIR/Red bands compared to other wavelengths. Contrarily, water absorbs most of the energy in the NIR band and is represented by black to very dark brown colours. Through a series of interactions among scene elements, they  are allocated to the classes based on the weighted values of their relative proportions.
+The vegetation indices were computed based on the arithmetically transformed combination of bands. This results from the existing formulae for band computations using mathematical operations among the cell brightness in the scenes using addition, subtraction and division of the brightnesses of the NIR and Red Bands of Landsat image. Differences in bands highlight the regions of enhanced and more healthy vegetation in the target area of image which is useful for environmental monitoring and ecological assessment. The resultant image shows the brightness values of vegetation modified by colour palettes made using arithmetic operations on composite bands. 
+
+The most widely used and well known vegetation index is the Normalised Difference Vegetation Index (NDVI) which applies the ratio of the difference in values between Red and NIR bands and their sum. Similar to the NDVI, Enhanced Vegetation Index (EVI) quantifies vegetation greenness with added corrections for atmospheric conditions and canopy background noise. Besides, EVI is more sensitive in forest areas with more dense canopy and vegetation coverage, which is useful for the forest regions of Côte d'Ivoire. The Soil Adjusted Vegetation Index (SAVI) is built up using NDVI with correction for the effects from soil brightness in the regions where vegetative cover is low, e.g. newly deforested areas, desert and fragmented savannah of Côte d'Ivoire. 
+
+Computing vegetation indices is an important environmental tool based on the information from pixel value, which in turn is based on spectral reflectance of Red and NIR bands measured by the sensor. It is commonly computed with a spatial statistics and algebra of bands, using cell values defined on the scene, Listing \ref{lst:07}. The reason for selecting NIR and Red for computing the vegetation indices is because the vegetation appears brighter in these bands since it reflects more energy in NIR/Red bands compared to other wavelengths. Contrarily, water absorbs most of the energy in the NIR band and is represented by black to very dark brown colours. Through a series of interactions among scene elements, they are allocated to the classes based on the weighted values of their relative proportions.
 
 \begin{lstlisting}[language=r, caption=R code used for computing vegetation indices from bands of the satellite image, label={lst:07}]
 # Computing vegetation indices
@@ -834,6 +838,7 @@ DCW & Digital Chart of the World \\
 DN & Digital Number \\
 DEM & Digital Elevation Model \\
 DTM & Digital Terrain Model \\
+EVI & Enhanced Vegetation Index \\
 GEBCO & General Bathymetric Chart of the Oceans \\
 GDAL & Geospatial Data Abstraction Library \\
 GIS & Geographic Information System \\
@@ -843,8 +848,10 @@ GPS & Global Positioning System \\
 Landsat 8-9 OLI/TIRS & Landsat 8-9 Operational Land Imager and Thermal Infrared \\
 LiDAR & Light Detection and Ranging \\ 
 NASA & National Aeronautics and Space Administration \\
+NDVI & Normalized Difference Vegetation Index \\
 NGA & National Geospatial-Intelligence Agency \\
 NIR & Near Infrared \\
+SAVI & Soil-Adjusted Vegetation Index \\
 SRTM & Shuttle Radar Topography Mission \\
 SWIR & Short Wave InfraRed \\
 USGS & United States Geological Survey \\
