@@ -148,13 +148,13 @@ terrain modelling with geomorphic visualization of slope, aspect, hillshade and 
 %\newpage
 \section{Study Area}
 
-The study ares is focused on Côte d'Ivoire, West Africa, Figure \ref{fig1}. 
+The study ares is focused on Côte d'Ivoire, West Africa, Figure \ref{fig01}. 
 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=12.0 cm]{Fig_01}
 	\caption{Topographic map of Côte d'Ivoire. Mapping software: Generic Mapping Tools (GMT) scripting toolset. Data source: GEBCO/SRTM. Cartography: authors.
-	\label{fig1}}
+	\label{fig01}}
 \end{figure}  
 
 The terrain structure here forms the two parts: a coastal part formed by the alluvium and marine sands and a continental part with hilly relief \cite{Thomasset}. The land cover types are associated with the two major ecosystem types -- forest and savanna. The forests are distributed in the southern part of the country, while savanna -- in the north off Bouak\'{e} \cite{Rougerie}. The vegetation types are largely controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire with distributed savannah, while tropical regime characterises southern part with dominating forests \cite{Tricart}. Favourable climatic and environmental setting maintain farming and agricultural activities which make Côte d'Ivoire the world's largest cocoa producer \cite{Losch,Planhol,Smithetal2014,Laderach} and active exporter of food-producing crops \cite{Sawadogo}, such as coffee, bananas, pineapples and palm oil \cite{Pelissier}. 
@@ -166,54 +166,60 @@ Besides agriculture, the activities of population include exploration and mining
 \section{Materials and Methods}
 
 \subsection{Data}
-The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The data used for terrain analysis is SRTM Void Filled DEM, from the SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. Entity ID: SRTM3N07W006V2; tile coordinates: 5°00'00"-6°00'00"W, 7°00'00"-8°00'00"N. Aquisition: 2000-02-11. The data were collected from the USGS GloVis, a satellite image repository with open access to remotely sensed data, Figure \ref{fig0}. The general map showing study area has been plotted based on the GEBCO \cite{GEBCO} using methods of GMT scripting \cite{Wessel} described in previous works \cite{Lemenkova2022b,Lemenkova202217}.
+The data were collected from the USGS GloVis, a satellite image repository with open access to remotely sensed data, Figure \ref{fig02}. 
 
 \begin{figure}[H]
      \begin{subfigure}[r]{0.60\textwidth}
          \centering
-         \includegraphics[width=12cm]{Printscreen_3}
+         \includegraphics[width=11cm]{Fig_02a}
          \caption{Collecting Landsat 9 OLI/TIRS C2 L1.}
          \label{fig:00a}
      \end{subfigure} \vfill \vspace{2mm}
      \begin{subfigure}[r]{0.60\textwidth}
-         \includegraphics[width=12cm]{Printscreen_2}
+         \includegraphics[width=11cm]{Fig_02b}
          \caption{Collecting SRTM Void Filled DEM.}
          \label{fig:00a}
      \end{subfigure}
         \caption{Data capture from the USGS Global Visualization Viewer (GloVis) satellite image repository to accessing remote sensing data: Landsat 9 OLI/TIRS C2 L1 and SRTM DEM for terrain analysis}
-        \label{fig0}
+        \label{fig02}
 \end{figure}
 
-\newpage
+The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The space-based images were obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments onboard -- the Operational Land Imager (OLI-2) and Thermal Infrared Sensor (TIRS-2) for optical and thermals sensors, and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis is SRTM Void Filled DEM, from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA} with 3 arc-second resolution, 90 m. Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N. Acquisition: 2000-02-11. The general map showing study area has been plotted based on the GEBCO \cite{GEBCO} using methods of GMT scripting \cite{Wessel} described earlier \cite{Lemenkova2022b,Lemenkova202217}. 
+
+%\newpage
 \subsection{Image processing in R}
 The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The resource of RColorBrewer package were used for visualization \cite{Neuwirth}.
 
 \subsubsection{Deriving information on satellite image properties and spatial statistics}
+To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using the regular expression by the command-line utilities of Unix as a combination of grep, gdal and echo, Listing \ref{lst:01}. 
 
-\begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs]
+\begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs, label={lst:01}]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
-\end{lstlisting}
 
-\begin{figure}
+\end{lstlisting}The spatial resolution described by the pixel size is of 30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
+
+\begin{figure}[H]
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=7cm]{Fig_00a}
+         \includegraphics[width=7cm]{Fig_03a}
          \caption{Using grep and echo Unix utilities with 'gdalinfo' module of GDAL to scan metadata}
-         \label{fig:00a}
+         \label{fig:03a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=7cm]{Fig_00b}
+         \includegraphics[width=7cm]{Fig_03b}
          \caption{Creating SpatRaster objects in R and check spatial data: projection, datum, ellipsoid, etc.}
-         \label{fig:00a}
+         \label{fig:03b}
      \end{subfigure}
         \caption{Inspecting the geometry of Landsat bands (a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra' (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
-        \label{fig0}
+        \label{fig03}
 \end{figure}
 
+The spatial information of the Landsat channels (bands) is presented in metadata shown in Figure \ref{fig:03b}, inspected by R. It shows the number and location of the spectral measurements, spatial extent, geodetic information (coordinate reference system, ellipsoid and datum) obtained by the GPS of the spacecraft, spatial and the radiometric resolution of the image.   Each image (the band of the Landsat scene) is read-in to R SpatRaster object class, which represents the equalised area of rectangular cells as regards the units of the coordinate reference system, Figure \ref{fig:03b}.
+
 \subsubsection{Visualising single bands and generating composite maps}
-\begin{lstlisting}[language=r, caption=R code used for deriving satellite mage information and statistics and inspecting the Landsat 8-9 OLI bands]
+\begin{lstlisting}[language=r, caption=R code used for deriving satellite mage information and statistics and inspecting the Landsat 8-9 OLI bands, label={lst:02}]
 library(terra)
 ## terra version 1.2.11
 # Change working directory
@@ -255,7 +261,7 @@ landsat
 # The layers represent reflection intensity in the following wavelengths: Ultra Blue, Blue, Green, Red, Near Infrared (NIR), Shortwave Infrared (SWIR) 1, Shortwave Infrared (SWIR) 2, Panchromatic, Cirrus, Thermal Infrared (TIRS) 1, Thermal Infrared (TIRS) 2.
 \end{lstlisting} 
 
-\begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images]
+\begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images, label={lst:03}]
 library(terra)
 ## terra version 1.2.11
 # Change working directory
@@ -291,7 +297,7 @@ landsatRGB <- c(b4, b3, b2)
 plotRGB(landsatRGB, stretch = "lin")
 \end{lstlisting} 
 
-\begin{lstlisting}[language=r, caption=R code for removing the four bands from the dataset]
+\begin{lstlisting}[language=r, caption=R code for removing the four bands from the dataset, label={lst:04}]
 library(terra)
 setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
 filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
@@ -308,7 +314,7 @@ names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SW
 names(landsatsub)
 \end{lstlisting} 
 
-\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between selected Landsat bands]
+\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between selected Landsat bands, label={lst:05}]
 # Relation between bands
 library(terra)
 pairs(landsatsub[[1:2]], hist=TRUE, cor=TRUE, use="pairwise.complete.obs", maxcells=100000, main = "Correlation of Band 1 (Ultra-blue) against Blue (Band 2)")
@@ -319,34 +325,25 @@ pairs(landsatsub[[4:5]], hist=TRUE, cor=TRUE, maxcells=100000, main = "Correlati
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=7cm]{Correlation_12.jpg}
+         \includegraphics[width=7cm]{Fig_04a.jpg}
          \caption{Band 1 against Band 2}
          \label{fig:00a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=7cm]{Correlation_45.jpg}
+         \includegraphics[width=7cm]{Fig_04b.jpg}
          \caption{Band 4 against Band 5.}
          \label{fig:00a}
      \end{subfigure}
         \caption{Correlation between Landsat bands for selected Landsat-8 OLI/TIRS C1 bands in multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
-        \label{fig0}
+        \label{fig04}
 \end{figure}
 
 \begin{figure}[H]
-\makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Bands_11_vert.jpg}}%
+\makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_05.jpg}}%
 	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale visualization: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
-	\label{fig1}
+	\label{fig05}
 \end{figure} 
-
-%\newpage
-%\begin{landscape}
-%\begin{figure}[H]\centering
-%	\includegraphics[width=22.0 cm]{Bands_11.jpg}
-%	\caption{Individual 11 layers (bands) of the multi-spectral image Landsat-8 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale visualization: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.
-%	\label{fig1}}
-%\end{figure} 
-%\end{landscape}
 
 Plotting the colour composite of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of matrix scene. The three bands assigned to each of the three colour primaries (RGB) displayed the image, Listing \ref{lst:06}.
 
@@ -472,7 +469,7 @@ The problem of terrain analysis in image processing can be referred as spatial d
 
 The terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \cite{Hunter2007MatplotlibA2}, rasterio \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}.
 
-\begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2.]
+\begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2, label={lst:08}]
 python3.10
 # Set home directory
 import os
@@ -508,7 +505,7 @@ plt.show()
 plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
 \end{lstlisting}
 
-\begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3.]
+\begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3, label={lst:09}]
 python3.10
 # Set home directory
 import os
@@ -543,7 +540,7 @@ plt.show()
 plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
 \end{lstlisting}
 
-\begin{lstlisting}[language=python, caption=Python code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5.]
+\begin{lstlisting}[language=python, caption=Python code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5, label={lst:10}]
 python3.10
 # Set home directory
 import os
@@ -606,12 +603,12 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.90\linewidth][r]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_07a}
+			\includegraphics[width=0.95\textwidth]{Fig_06a}
 		\caption{Bands 2-3-4, stretch improvement: 'linear'}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-		\includegraphics[width=0.95\textwidth]{Fig_07b}
+		\includegraphics[width=0.95\textwidth]{Fig_06b}
 		\caption{Bands 2-3-4, stretch improvement: 'histogram'.}
 	\end{subfigure}%
 }\\
@@ -619,28 +616,28 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.90\linewidth][r]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_08a}
+			\includegraphics[width=0.95\textwidth]{Fig_06c}
 		\caption{Bands 3-4-5.}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-		\includegraphics[width=0.95\textwidth]{Fig_08b}
+		\includegraphics[width=0.95\textwidth]{Fig_06d}
 		\caption{Bands 7-6-5}
 	\end{subfigure}%
 }
-\caption{Natural color composites: (a) and (b). False color composites: (c) and (d). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig7}
+\caption{Natural color composites: (a) and (b). False color composites: (c) and (d). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig06}
 \end{figure}
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_09a}
+			\includegraphics[width=0.95\textwidth]{Fig_07a}
 		\caption{Bands 5-7-3.}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_09b}
+			\includegraphics[width=0.95\textwidth]{Fig_07b}
 		\caption{Bands 7-4-2}
 	\end{subfigure}%
 }\\
@@ -648,16 +645,16 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_10a}
+			\includegraphics[width=0.95\textwidth]{Fig_07c}
 		\caption{Bands 5-4-3 (Color Infrared).}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_10b}
+			\includegraphics[width=0.95\textwidth]{Fig_07d}
 		\caption{Bands 6-5-4}
 	\end{subfigure}%
 }
-\caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}
+\caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig07}
 \end{figure}
 
 \subsection{Computing Vegetation Indices}
@@ -666,17 +663,17 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{NDVI.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_08a.jpg}
 		\caption{NDVI ratio based vegetation index}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.61\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Histogram.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_08b.jpg}
 		\caption{Data distribution within the computed NDVI}
 	\end{subfigure}%
 }
        \caption{Normalized Difference Vegetation Index (NDVI) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
-        \label{fig0}
+        \label{fig08}
 \end{figure}
 
 \subsubsection{Soil Adjusted Vegetation Index (SAVI)}
@@ -684,36 +681,35 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{SAVI.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_09a.jpg}
 		\caption{SAVI ratio based vegetation index}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.61\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{SAVI_histogram.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_09b.jpg}
 		\caption{Data distribution within the computed SAVI}
 	\end{subfigure}%
 }
        \caption{Soil Adjusted Vegetation Index (SAVI) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
-        \label{fig0}
+        \label{fig09}
 \end{figure}
-
 
 \subsubsection{Enhanced Vegetation Index 2 (EVI2)}
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{EVI2.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_10a.jpg}
 		\caption{EVI2 ratio based vegetation index}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.61\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{EVI2_histogram.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_10b.jpg}
 		\caption{Data distribution within the computed EVI2}
 	\end{subfigure}%
 }
        \caption{Enhanced Vegetation Index 2 (EVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
-        \label{fig0}
+        \label{fig10}
 \end{figure}
 
 \subsubsection{Atmospherically Resistant Vegetation Index 2 (ARVI2)}
@@ -721,17 +717,17 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{ARVI2.png}
+			\includegraphics[width=0.95\textwidth]{Fig_11a.png}
 		\caption{ARVI2 ratio based vegetation index}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.61\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{ARVI2_histogram.jpg}
+			\includegraphics[width=0.95\textwidth]{Fig_11b.jpg}
 		\caption{Data distribution within the computed EVI2}
 	\end{subfigure}%
 }
        \caption{Atmospherically Resistant Vegetation Index 2 (ARVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
-        \label{fig0}
+        \label{fig11}
 \end{figure}
 
 \newpage
@@ -740,30 +736,30 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=8.6cm]{Kossou_Lake}
+         \includegraphics[width=8.6cm]{Fig_12a}
          \caption{}
          \label{fig:00a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includegraphics[width=7cm]{Fig_06}
+         \includegraphics[width=7cm]{Fig_12b}
          \caption{}
          \label{fig:00a}
      \end{subfigure}
         \caption{\textbf{(a)}: Landsat OLI/TIRS image with enlarged fragment of Kossou Lake: grayscale visualization of SWIR Band 6. Mapping: R. \textbf{(b)}: Enlarged fragment of the cropped SRTM3 Void Filled DEM overlayed on top of the hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
-        \label{fig0}
+        \label{fig12}
 \end{figure}
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_02}
+			\includegraphics[width=0.95\textwidth]{Fig_13a}
 		\caption{DTM of Kossou Lake, Côte d'Ivoire.}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_03}
+			\includegraphics[width=0.95\textwidth]{Fig_13b}
 		\caption{Hillshade from DTM of Kossou Lake, Côte d'Ivoire.}
 	\end{subfigure}%
 }\\
@@ -771,16 +767,16 @@ In Figure \ref{fig7} Bands 3-4-5 were taken in inverse way where near-infrared b
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_04}
+			\includegraphics[width=0.95\textwidth]{Fig_13c}
 		\caption{Azimuth of sun: 230\textdegree , hillshade from DTM.}
 	\end{subfigure}%
 	\begin{subfigure}[b]{.6\textwidth}
 		\centering
-			\includegraphics[width=0.95\textwidth]{Fig_05}
+			\includegraphics[width=0.95\textwidth]{Fig_13d}
 		\caption{Sun angle altitude: 10\textdegree , hillshade from DTM.}
 	\end{subfigure}%
 }
-\caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors.}
+\caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors.} \label{fig13}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -830,6 +826,7 @@ GDAL & Geospatial Data Abstraction Library \\
 GIS & Geographic Information System \\
 GloVis & Global Visualization Viewer \\
 GMT & Generic Mapping Tools \\
+GPS & Global Positioning System \\
 Landsat 8-9 OLI/TIRS & Landsat 8-9 Operational Land Imager and Thermal Infrared \\
 LiDAR & Light Detection and Ranging \\ 
 NASA & National Aeronautics and Space Administration \\
