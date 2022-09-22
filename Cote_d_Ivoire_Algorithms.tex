@@ -481,9 +481,7 @@ axis(side=1, at = seq(-0.4, 0.1, 0.1), labels = seq(-0.4, 0.1, 0.1))
 \end{lstlisting}
 
 \subsection{Terrain Analysis in Python}
-The problem of terrain analysis in image processing can be referred as spatial data modelling with classification of cells according to values of elevations and obtaining relevant derivatives and variables for visualization of slope, aspect and hillshade using parameters of sun and azimuth. The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination.
-
-The terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \cite{Hunter2007MatplotlibA2}, rasterio \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}.
+The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination. Technically, the terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \cite{Hunter2007MatplotlibA2}, rasterio \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}. The GeoTIFF has been visualized for modelling DEM using the Rasterio library which read the dataset as a raster array of cells, reads the GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images, Listing \ref{lst:08}. Using the Rasterio, the elevation data were read in as values of heights contained in the cells of the raster. The terrain is then plotted as an array of cells representing land surface according to the elevation values, Listing \ref{lst:08}. 
 
 \begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2, label={lst:08}]
 python3.10
@@ -504,7 +502,7 @@ import numpy as np
 from matplotlib.colors import ListedColormap
 import plotly.graph_objects as go
 np.seterr(divide='ignore', invalid='ignore')
-# Open DEM by Rasterio which reads GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images
+# Open DEM by Rasterio 
 with rio.open(dtm) as src:
     elevation = src.read(1)
 # Plot the data
@@ -798,7 +796,7 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Discussion}
-
+The problem of terrain analysis in image processing can be referred as spatial data modelling with classification of cells according to values of elevations and obtaining relevant derivatives and variables for visualization of slope, aspect and hillshade using parameters of sun and azimuth. The terrain analysis using Python is based on the visualising the topographic data as 3D pots, which highlights the fundamental importance of topography for Earth modelling. The relief has effects on various components of the Earth’s system, comprised by tectonic-geological, climate, hydrologic processes and soil-vegetation parameters. The topography regulates and controls climate processes, e.g., precipitation, wind direction and strength. Therefore, it plays a crucial role in the environmental dynamics and ecosystem functioning, which includes the uneven distribution and contrasting types of vegetation in the hilly and coastal areas of Côte d'Ivoire. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusions}
