@@ -684,7 +684,13 @@ The false colour composite where NIR, Red, and Green bands are mixed are represe
 \subsection{Computing Vegetation Indices}
 \subsubsection{Normalized Difference Vegetation Index (NDVI)}
 
-The vegetation index uses the arithmetics of bands in Red and NIR because plants absorbs Red and strongly reflect NIR waves. Using this fundamental property, the vegetation indices are used to evaluate vegetation health and assess vigour of plants in agricultural regions. The general NDVI lies in the diapason of -1 to +1, and the majority of values are restricted by the range of -0.1 to 0.5, Figure \ref{fig08}. Negative values of the NDVI correspond to water or very moist soil areas, as shown by beige to white colours in Figure \ref{fig08}, while higher NDVI values signify a dense vegetation canopy which is depicted by bright green, Figure \ref{fig08}. 
+The NDVI aims at quantifying the concentrations of green leaf canopy and indicates healthy vigour vegetation by using the arithmetics of bands in Red and NIR, Equation \ref{eq:1}.
+
+\begin{equation}\label{eq:1}
+NDVI=\dfrac{(NIR-Red)}{(NIR+Red)}
+\end{equation}
+
+ Originally tested in 1974 \cite{1974NASSP}, it received a wide recognition and is now the most famous and often used vegetation index. The selection of the Red and NIR bands in the NDVI is explained by the specific certain abilities of plants to selectively absorb, reflect or transmit the frequencies in the wavebands: plants absorbs Red and strongly reflect NIR waves. Practically, the NDVI enables to indicate the green vegetation density covering the terrain surface  and identify where plants are thriving and where they are under stress, i.e., due to lack of water.
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -703,8 +709,16 @@ The vegetation index uses the arithmetics of bands in Red and NIR because plants
         \label{fig08}
 \end{figure}
 
+Using this fundamental property, the NDVI is used to evaluate vegetation health and assess vigour of plants in agricultural regions. The general NDVI lies in the diapason of -1 to +1, and the majority of values are restricted by the range of -0.1 to 0.5, Figure \ref{fig08}. Negative values of the NDVI correspond to water or very moist soil areas, as shown by beige to white colours in Figure \ref{fig08}, while higher NDVI values signify a dense vegetation canopy which is depicted by bright green, Figure \ref{fig08}. 
+
 \subsubsection{Soil Adjusted Vegetation Index (SAVI)}
-The SAVI is a distance-based vegetation index which adjusts the NDVI for soil brightness where vegetation coverage is low in urban densely built-up areas and bare soil \cite{HUETE1988295}. The SAVI index is a more finer indicator, compared to NDVI, used to analyse the Landsat OLI/TIRS scene and assess whether the land coverage contains healthy green vegetation with correction on brightness with the majority of values lying in the diapason of -0.1 to 0.1, Figure \ref{fig09}. Thus, the main advantage of SAVI is the emphasised colour of the vegetation canopy corrected for soil brightness.
+The SAVI is a distance-based vegetation index which adjusts the NDVI for soil brightness where vegetation coverage is low in urban densely built-up areas and bare soil \cite{HUETE1988295} using the arithmetic expression in Equation \ref{eq:2}.
+
+\begin{equation}\label{eq:2}
+SAVI=\dfrac{(NIR-Red)}{(NIR+Red+L)}*(1+L)
+\end{equation}
+
+where L is a soil brightness correction factor, which is defined as 0.5 to adjust the most of land cover types. The SAVI index is a more finer indicator, compared to NDVI, used to analyse the Landsat OLI/TIRS scene and assess whether the land coverage contains healthy green vegetation with correction on brightness with the majority of values lying in the diapason of -0.1 to 0.1, Figure \ref{fig09}. Thus, the main advantage of SAVI is the emphasised colour of the vegetation canopy corrected for soil brightness. Compared to the NDVI and EVI, which are affected by the soil brightness, SAVI index showed better results in differentiating between the vegetation and soil land cover types.
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -725,7 +739,19 @@ The SAVI is a distance-based vegetation index which adjusts the NDVI for soil br
 
 \subsubsection{Enhanced Vegetation Index 2 (EVI2)}
 
-The EVI is an optimised spectral imaging transformation of NIR and Red image bands aimed at enhancing the contribution of vegetation properties. It allows the robust spatial and temporal correlation of terrestrial chlorophyll and photosynthetic activity which affects the structure of canopy in various types of vegetation including the savannah and forests. Ratios of NIR and Red spectral bands on the image enable to decrease the topographic effect of the Earth's relief. Therefore, the visualised EVI highlights and stresses the small differences in the spectral reflectance characteristics between vegetation and all other land cover types. The range of the values lies in the diapason between the -0.2 to 0.2, Figure \ref{fig10}. 
+The EVI is an optimised spectral imaging transformation of NIR and Red image bands aimed at enhancing the contribution of vegetation properties \cite{JIANG20083833} using Equation \ref{eq:3}:
+
+\begin{equation}\label{eq:3}
+EVI=\dfrac{(NIR-Red)}{(NIR+C1*Red-C2*Blue+L)}
+\end{equation}
+
+For here the updated and adjusted formula for EVI2 was developed as a satellite vegetation index for the Moderate Resolution Imaging Spectroradiometers (MODIS) and adopted for the Landsat TM/ETM+ series. The expression is defined as follows, Equation \ref{eq:4}: 
+
+\begin{equation}\label{eq:4}
+EVI2=2.4*\dfrac{(NIR-Red)}{(NIR+Red+1)}
+\end{equation}
+
+ It allows the robust spatial and temporal correlation of terrestrial chlorophyll and photosynthetic activity which affects the structure of canopy in various types of vegetation including the savannah and forests. Ratios of NIR and Red spectral bands on the image enable to decrease the topographic effect of the Earth's relief. Therefore, the visualised EVI highlights and stresses the small differences in the spectral reflectance characteristics between vegetation and all other land cover types. The range of the values lies in the diapason between the -0.2 to 0.2, Figure \ref{fig10}. 
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -745,6 +771,14 @@ The EVI is an optimised spectral imaging transformation of NIR and Red image ban
 \end{figure}
 
 \subsubsection{Atmospherically Resistant Vegetation Index 2 (ARVI2)}
+
+For Côte d'Ivoire, the values of ARVI range from -0.28 to -0.1, Figure \ref{fig11}, although in general the diapason of ARVI values may vary from -1 to 1 following the Equation \ref{eq:5}: 
+
+\begin{equation}\label{eq:4}
+ARVI=2.4*\dfrac{(NIR-Red)}{(NIR+Red+1)}
+\end{equation}
+
+It shows the regions of high atmospheric aerosol content with higher moisture. In comparison to NDVI, the ARVI adjusts and minimises the atmospheric scattering effects due to the blue light reflectance values, which also affect the reflectance in the red light \cite{134076}. 
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -866,6 +900,7 @@ GMT & Generic Mapping Tools \\
 GPS & Global Positioning System \\
 Landsat 8-9 OLI/TIRS & Landsat 8-9 Operational Land Imager and Thermal Infrared \\
 LiDAR & Light Detection and Ranging \\ 
+MODIS & Moderate Resolution Imaging Spectroradiometers \\
 NASA & National Aeronautics and Space Administration \\
 NDVI & Normalized Difference Vegetation Index \\
 NGA & National Geospatial-Intelligence Agency \\
