@@ -519,6 +519,8 @@ plt.show()
 plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
 \end{lstlisting}
 
+The hillshade was calculated using the altitude of sun as a light source in zenith and azimuth of the illumination source, Listing \ref{lst:09}. The slope and aspect of the terrain are used as auxiliary variables for terrain modelling. The hillshade modelling inherently related to static cartographic representations of the Earth's topography. Hillshade is used for the geomorphometric representation of the terrain of Côte d'Ivoire. 
+
 \begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3, label={lst:09}]
 python3.10
 # Set home directory
@@ -554,7 +556,9 @@ plt.show()
 plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
 \end{lstlisting}
 
-\begin{lstlisting}[language=python, caption=Python code (3) and (4) used for plotting hillshade with changed azimuth and sun angle values for Figures 4 and 5, label={lst:10}]
+Hillshade represents the terrain with hypothetical illumination value in monochrome scale (0-255) with cells on the raster scene showing the terrain surface with a given specified light source. The illumination was changed to 10\degree and 230 \degree (in radians) to better represent the spatial model of the relief of Côte d'Ivoire, Listing \ref{lst:10}. 
+
+\begin{lstlisting}[language=python, caption=Python code used for plotting the hillshade with changed azimuth and sun angle values for Figures 4 and 5, label={lst:10}]
 python3.10
 # Set home directory
 import os
@@ -605,6 +609,8 @@ ep.plot_bands(
 plt.show()
 plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
 \end{lstlisting}
+
+We applied the Python and R algorithms which take the terrain characteristics of the Earth and image properties into account when plotting raster scenes. Exploiting the characteristics of the satellite bands we recover from each channel in various wavebands data on spectral reflectance of the cells which correspond to the objects located on the Earth. Interpretation of these values. Different brightness of each land cover types (e.g., forests, rivers, lakes and other water bodies, urban spaces) are based on their spectral reflectance in various wavebands which give information regarding the characteristics of typical cover types. In turn, the models of geomorphometry, presented using Python scripts, enable to predict the distribution of various soil properties and associated vegetation types which are related to specific slope steepness. Another application is  hazard risk assessment in applied geology, i.e., estimation of probability of erosion, landslides and avalanche events in the mountainous region. Using scripts of Python and R for environmental modelling reduces the time of data processing and increases the precision of models through automation of data processing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
