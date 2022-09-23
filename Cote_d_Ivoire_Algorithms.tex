@@ -617,7 +617,7 @@ We applied the Python and R algorithms which take the terrain characteristics of
 \section{Results}
 %--------
 \subsection{Color composites}
-In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrared band (B5) was representing red, red (B4) as green, and green (B3) as blue.
+Colour image maps created by different combinations of recorded Landsat OLI/TIRS bands, in the sequence from top to bottom displayed respectively as natural and false composites,  Figure \ref{fig06}. The use of natural (or true) colour composites is widely applied for general environmental monitoring, since it exposes more characteristics regarding the landscape and land cover types than the monochrome images. 
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][r]{%
@@ -648,6 +648,8 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
 \caption{Natural color composites: (a) and (b). False color composites: (c) and (d). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig06}
 \end{figure}
 
+Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour composite. Since its appearance is similar to the normal aerial photograph, this composite is advantageous for mapping vegetation and agricultural coverage and discriminating the vegetation from bare soils and growing crop, Figure \ref{fig06}, a) and b). In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where NIR Band 5 was representing red, Red Band 4 as green, and Green Band 3 as blue. The improvement of the image has been performed using linear and histogram stretching. In this band composite, the broadleaf healthy vegetation has a deeper reddish hue, while lighter hues are related to the grasslands, savannahs or sparsely vegetated areas, and soil is represented by various hues depending on the soil type, from dark to light browns. The populated urban areas are shown in light-grey to white spots. 
+
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
@@ -677,8 +679,13 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
 \caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig07}
 \end{figure}
 
+The false colour composite where NIR, Red, and Green bands are mixed are represented by the mix of 3-4-5, which prints the optical data with vegetation dominating by the bright red hues due to the chlorophyll reflection, while agricultural lands are depicted by cyan. The bare soils appear as shades of white to light grey, blueish, or green in the agricultural regions, depending on the crop type. The darker shades of each colour indicate moister soil, and cities by hues of steel grey, Figure \ref{fig06}, c). The combination of Bands 7-6-5 shows the mix of SWIR 2, SWIR 1 and NIR. Here the crop lands are coloured yellow, while vegetation areas are shown as bright ultramarine blue, Figure \ref{fig06}, d). Figure \ref{fig07} shows different cases of false colour composites mixed with NIR, SWIR2 and Green (a), SWIR 2, Red and Blue (b), NIR, Red and Green (c) and SWIR 1, Red and Green (d).
+
 \subsection{Computing Vegetation Indices}
 \subsubsection{Normalized Difference Vegetation Index (NDVI)}
+
+The vegetation index uses the arithmetics of bands in Red and NIR because plants absorbs Red and strongly reflect NIR waves. Using this fundamental property, the vegetation indices are used to evaluate vegetation health and assess vigour of plants in agricultural regions. The general NDVI lies in the diapason of -1 to +1, and the majority of values are restricted by the range of -0.1 to 0.5, Figure \ref{fig08}. Negative values of the NDVI correspond to water or very moist soil areas, as shown by beige to white colours in Figure \ref{fig08}, while higher NDVI values signify a dense vegetation canopy which is depicted by bright green in Figure \ref{fig08}. 
+
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
@@ -695,6 +702,8 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
        \caption{Normalized Difference Vegetation Index (NDVI) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
         \label{fig08}
 \end{figure}
+
+The SAVI is a distance-based vegetation index which adjusts the NDVI for soil brightness where vegetation coverage is low in urban densely built-up areas and bare soil \cite{HUETE1988295}. The SAVI index is a more finer indicator, compared to NDVI, used to analyse the Landsat OLI/TIRS scene and assess whether the land coverage contains healthy green vegetation with correction on brightness with the majority of values lying in the diapason of -0.1 to 0.1, Figure \ref{fig09}. Thus, the main advantage of SAVI is the emphasised colour of the vegetation canopy corrected for soil brightness.
 
 \subsubsection{Soil Adjusted Vegetation Index (SAVI)}
 \begin{figure}[H]
@@ -715,6 +724,7 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
 \end{figure}
 
 \subsubsection{Enhanced Vegetation Index 2 (EVI2)}
+
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
 	\begin{subfigure}[b]{.68\textwidth}
@@ -750,22 +760,26 @@ In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where near-infrare
         \label{fig11}
 \end{figure}
 
-\newpage
+%\newpage
 \subsection{Terrain Analysis}
 \begin{figure}[H]
-     \centering
-     \begin{subfigure}[b]{0.45\textwidth}
-         \centering
-         \includegraphics[width=8.6cm]{Fig_12a}
+%     \centering
+\makebox[0.97\linewidth][r]{%
+     \begin{subfigure}[b]{0.68\textwidth}
+%         \centering
+%        		\includegraphics[width=8.6cm]{Fig_12a}
+		\includegraphics[width=0.95\textwidth]{Fig_12a}
          \caption{}
          \label{fig:00a}
      \end{subfigure} \hfill \hspace{2mm}
-     \begin{subfigure}[b]{0.45\textwidth}
-         \centering
-         \includegraphics[width=7cm]{Fig_12b}
+     \begin{subfigure}[b]{0.56\textwidth}
+ %        \centering
+ %        \includegraphics[width=7cm]{Fig_12b}
+         \includegraphics[width=0.95\textwidth]{Fig_12b}
          \caption{}
          \label{fig:00a}
      \end{subfigure}
+}
         \caption{\textbf{(a)}: Landsat OLI/TIRS image with enlarged fragment of Kossou Lake: grayscale visualization of SWIR Band 6. Mapping: R. \textbf{(b)}: Enlarged fragment of the cropped SRTM3 Void Filled DEM overlayed on top of the hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
         \label{fig12}
 \end{figure}
