@@ -2,7 +2,7 @@
 %  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
 
 %=================================================================
-\documentclass[algorithms,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
+\documentclass[ijgi,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
 
 \graphicspath{{figures/}} % path to folder with figures
 \usepackage{caption}
@@ -20,8 +20,6 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{RGB}{255,255,255}
 \definecolor{SlateGray}{HTML}{708090}
-%\usepackage{algorithm}
-%\usepackage{algpseudocode}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},   
@@ -122,9 +120,10 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \keyword{Image processing; remote sensing; programming; Python; R; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis} 
 
 % The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
-%\PACS{J0101}
-%\MSC{}
-%\JEL{}
+
+\PACS{91.10.Da; 91.10.Jf; 91.10.Sp; 91.10.Xa; 96.25.Vt; 91.10.Fc; 95.40.+s; 95.75.Qr; 95.75.Rs; 42.68.Wt}
+\MSC{86A30; 86-08; 86A99; 86A04}
+\JEL{Y91; Q20; Q24; Q23; Q3; Q01; R11; O44; O13; Q5; Q51; Q55; N57; C6; C61}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -132,7 +131,7 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \section{Introduction}
 Repeated structures representing similar objects on the Earth's surface are commonly depicted on the satellite images, represented by pixels comprising the matrix of the image scene with comparable range of values. Similar values of raster cells are prevailing in the regions with identical land cover types which comprise the mosaic of the diverse land structure on the Earth. Identifying and recognising these feature objects on the surface is possible using the parameters of pixels in the satellite images: brightness, resolution \cite{4426419,322052,5446016}, intensity \cite{4761020,8519176} and texture \cite{995559,899813,8868688}. Algorithms of image classification and processing enable to identify pixel values using binary data derived from raster cells. Such information derived from the interpretation of the satellite images have been traditionally used for the thematic mapping: land cover fractions \cite{COULIBALY2021108092}, vegetation types \cite{7729337,Lemenkova2020d,6946534,Lemenkova202019,6352694}, hydrologic and geomorphic modelling \cite{2015hydrologie}, urban sprawl, geological exploration and mining \cite{1457509,NGOM2022102873}. Besides the satellite images, another source of information for mapping is provided by airborne aeromagnetic surveys \cite{JESSELL2015440,SIAGNE2022104680} and LiDAR data for 3D terrain analysis \cite{SHARMA2021317,8978301,9213897,YEH2017236,9553919,LI201955,GUPTA2022100817}. 
 
-Since remote sensing data present the important source of spatial information, accurate processing of satellite images is essential for the environmental modelling and mapping. The algorithms of image classification and processing are diverse with general idea based on reading the information from the pixels comprising the image. The analysis of this information enables mapping the diverse phenomena, processes and objects based on image classification and interpretation of information derived from Earth observation data \cite{PERIN2021106694,PAHLEVAN2022112860,Lemenkova202141,ABU2021107863,ATTOUMANE2022103285}. The main objective of image processing is deriving this information from the raw data in raster format. In this context, the search for effective methods of image processing resulted in the variety of existing GIS software with specially designed embedded functions for raster data processing. However, in many practical situations, GIS present limitations either due to the commercial licence of software (e.g., ArcGIS, Erdas Imagine, eCognition) or functional restrictions (e.g., SAGA GIS, QGIS). Accordingly, open source programming tool present effective solutions that are able to process satellite imagery using advanced methods of machine learning \cite{MASOLELE2021112600,9066075,MARTINS2022113203,rs71114876}. Recent studies revealed that scripting techniques enable to handle Earth observation data effectively and accurately \cite{6344536,ELLEFSEN20191171,Lemenkova202212,6910592,Lemenkova202215,4160259}. A variety of existing programming languages raises the questions of optimal and effective tools suitable specifically for image processing. 
+Since remote sensing data present the important source of spatial information, accurate processing of satellite images is essential for the environmental modelling and mapping. The algorithms of image classification and processing are diverse with general idea based on reading the information from the pixels comprising the image. The analysis of this information enables mapping the diverse phenomena, processes and objects based on image classification and interpretation of information derived from Earth observation data \cite{PERIN2021106694,PAHLEVAN2022112860,Lemenkova202141,ABU2021107863,ATTOUMANE2022103285}. The main objective of image processing is deriving this information from the raw data in raster format. In this context, the search for effective methods of image processing resulted in the variety of existing GIS software with specially designed embedded functions for raster data processing. However, in many practical situations, GIS present limitations either due to the commercial licence of software (e.g., ArcGIS, Erdas Imagine, eCognition) or functional restrictions (e.g., SAGA GIS, QGIS). Accordingly, open source programming tool present effective solutions that are able to process satellite imagery using advanced methods of machine learning \cite{MASOLELE2021112600,9066075,MARTINS2022113203,rs71114876}. Recent studies revealed that scripting techniques enable to handle Earth observation data effectively and accurately \cite{6344536,ELLEFSEN20191171,Lemenkova202212,6910592,Lemenkova202215,4160259}. A variety of existing programming languages raises the questions of optimal and effective tools suitable for image processing and remote sensing data analysis in environmental modelling. 
 
 Python is undoubtedly one of the most successful high-level programming languages \cite{van1995python}. It become one of the most powerful tools that can be used for data science. Besides general applications in data science and machine learning \cite{8757088,DebeirDecaestecker,Debeir2008,9719489}, Python can be applied for modelling Earth phenomena using libraries specially designed for spatial analysis \cite{Ahmed}. Image and signal processing by object-oriented algorithms of Python is pervasive in Earth sciences and provides solutions to a wide class of problems in a variety of domains. Particular examples of using Python have been reported in geodetic studies \cite{Zhou2021GPS2spaceAO}, topographic analysis \cite{9254627}, hydrogeological modelling \cite{Mogaji}, modelling air pollution and land use \cite{Maetal2020}, batch spatial data processing \cite{6057428}, creating panorama images \cite{JASKOLKA2019e02560}, scanning tunneling microscopy \cite{BASTIDAS2021150821}, to mention a few. The general idea behind the image processing is that vegetation properties, topographic relief and land cover types can be depicted using data derived from the cells of the raster images. These data can be interpreted and visualized using the properties of DNs of the pixels which depend on the texture, composition and fabric of the objects shaping the face of the Earth \cite{YUAN2022106966}. 
 
@@ -140,7 +139,7 @@ R language is another fundamental tool for spatial data processing \cite{RCoreTe
 
 Recent advances in geospatial data processing \cite{8226275} and image classification \cite{9844952,8117873} have made R successful for remote sensing data processing including classification and segmentation of complex scenes. This poses us a new way to process and model satellite images and derive spatially structured information from the scenes. By modelling the spatial variations in the landscape structure, such as vegetation and topography, methods of geospatial R libraries 'terra' and 'raster' consider spatial dimensions of the image when manipulating the remote sensing data. Thus, using the similarity between the values of pixels, the feature extraction is defined for the classification of variables, e.g., vegetation types on the scene. In this regard, optimal selection of spectral bands for classifications of the image is indispensable for scene analysis, which is possible in 'terra' package of R. 
 
-An essential advantage of the programming languages for image processing consists in their compatibility. Thus, in contrast to the stand along state-of-the-art GIS software, scripting libraries can be integrated with other GIS via modules, plugins and toolkits \cite{6407912,7378577,VOS2019104528}. For instance, novel libraries of Python enable to perform various tasks of image processing and spatial analysis through integration \cite{1247428,Rey2010PySALAP,Rey2010}. Selected recent examples include, for instance, image interpolation, calibration and correlation \cite{DEDEUSFILHO2022101131}, compressed sensing and image reconstruction \cite{FARRENS2020100402}, identifying and extracting the vertical features \cite{GAO2022105503}, meteorological modelling \cite{6528254} with resulted images in compatible formats. A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has recently built up with EarthPy, tailored for spatial tasks of geo-information data processing \cite{wasser2019EarthPyAP}. 
+An essential advantage of the programming languages for image processing consists in their compatibility. Thus, in contrast to the stand along state-of-the-art GIS software, scripting libraries can be integrated with other GIS via modules, plugins and toolkits \cite{6407912,7378577,VOS2019104528}. For instance, novel libraries of Python enable to perform various tasks of image processing and spatial analysis through integration \cite{1247428,Rey2010PySALAP,Rey2010}. Selected recent examples include, for instance, image interpolation, calibration and correlation \cite{DEDEUSFILHO2022101131}, compressed sensing and image reconstruction \cite{FARRENS2020100402}, identifying and extracting the vertical features \cite{GAO2022105503}, meteorological modelling \cite{6528254} with resulted images in compatible formats. A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has recently built up with EarthPy, tailored for spatial tasks of geo-information data processing \cite{wasser2019EarthPyAP}.  
 
 Following the idea of using the advanced programming methods used to visualise a representation of object features and classes on the Earth's surface, the goal of this paper is to present the application of Python and R algorithms for image processing. Specific objectives include the following tasks: \emph{i)} plotting the colour composite of the Landsat OLI/TIRS  image by the combinations of three channel sensor bands to display the image; \emph{ii)}; computing the selected vegetation indices using the principles of map algebra based on DNs of reflectance value of pixels in selected spectral bands -- NIR and red \emph{iii)} 
 terrain modelling with geomorphic visualization of slope, aspect, hillshade and elevation for the relief analysis using the SRTM DEM data. 
@@ -152,10 +151,10 @@ The study ares is focused on Côte d'Ivoire, West Africa, Figure \ref{fig01}.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=12.0 cm]{Fig_01}
+	\includegraphics[width=11.0 cm]{Fig_01}
 	\caption{Topographic map of Côte d'Ivoire. Mapping software: Generic Mapping Tools (GMT) scripting toolset. Data source: GEBCO/SRTM. Cartography: authors.
 	\label{fig01}}
-\end{figure}  
+\end{figure} 
 
 The terrain structure here forms the two parts: a coastal part formed by the alluvium and marine sands and a continental part with hilly relief \cite{Thomasset}. The land cover types are associated with the two major ecosystem types -- forest and savanna. The forests are distributed in the southern part of the country, while savanna -- in the north off Bouak\'{e} \cite{Rougerie}. The vegetation types are largely controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire with distributed savannah, while tropical regime characterises southern part with dominating forests \cite{Tricart}. Favourable climatic and environmental setting maintain farming and agricultural activities which make Côte d'Ivoire the world's largest cocoa producer \cite{Losch,Planhol,Smithetal2014,Laderach} and active exporter of food-producing crops \cite{Sawadogo}, such as coffee, bananas, pineapples and palm oil \cite{Pelissier}. 
 
@@ -171,12 +170,12 @@ The data were collected from the USGS GloVis, a satellite image repository with 
 \begin{figure}[H]
      \begin{subfigure}[r]{0.60\textwidth}
          \centering
-         \includegraphics[width=11cm]{Fig_02a}
+         \includegraphics[width=9cm]{Fig_02a}
          \caption{Collecting Landsat 9 OLI/TIRS C2 L1.}
          \label{fig:00a}
      \end{subfigure} \vfill \vspace{2mm}
      \begin{subfigure}[r]{0.60\textwidth}
-         \includegraphics[width=11cm]{Fig_02b}
+         \includegraphics[width=9cm]{Fig_02b}
          \caption{Collecting SRTM Void Filled DEM.}
          \label{fig:00a}
      \end{subfigure}
