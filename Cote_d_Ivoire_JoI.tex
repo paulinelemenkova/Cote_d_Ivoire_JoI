@@ -115,7 +115,7 @@ $^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (
 \corres{Correspondence: polina.lemenkova@ulb.be; Tel.: +32471860459 (P.L.)}
 
 % Abstract
-\abstract{Programming algorithms for the terrain analysis and environmental monitoring from satellite images have been successful in dealing with challenging multispectral remote sensing data. In this paper, the problem of deriving information on vegetation coverage and relief parameters is addressed, dealing with the case of Landsat 9 OLI/TIRS and SRTM DEM datasets covering the territory of Côte d'Ivoire, West Africa. The vegetation pattern in this region is heterogeneous which reflects the complexity of the terrain structure. Due to the high level of spatial detail, high-resolution satellite images require efficient algorithms of data handling, including image resampling, band composition, statistical processing and map algebra for rapid calculation of the raster cells. This requires the advanced programming algorithms targeted at image processing. To this end, we used the EarthPy library of Python and 'raster' and 'terra' packages of R for image processing. The methodology included creating colour composites as RGB triplets using monochrome bands, computing four vegetation indices (NDVI, SAVI, EVI2 and ARVI2) and geomorphic terrain modelling. Compared to the state-of-the-art GIS solutions, the functionality of scripts proved the effective and robust handling of the geospatial data. The scripting algorithms of Python and R demonstrated high quality, speed and effectiveness of code, in contrast to the existing GIS approaches for remote sensing data processing. The upscaled mapping was shown at the two hierarchical levels: regional environmental analysis of the Yamoussoukro surroundings and local topographic modelling of the Kossou Lake.}
+\abstract{\textcolor{blue}{In this paper we propose an advanced scripting approach to process satellite images, such as Landsat, and to model terrain using the Digital Elevation Model (DEM) dataset covering the territory of Côte d'Ivoire, West Africa}. The problem of deriving information on vegetation coverage and relief parameters is addressed \textcolor{blue}{using EarthPy library of Python and 'raster' and 'terra' packages of R}. The methodology included computing vegetation indices and geomorphic terrain modelling. \textcolor{blue}{Four vegetation indices have been computed and visualised using R: Normalized Difference Vegetation Index (NDVI), Enhanced Vegetation Index 2 (EVI2), Soil Adjusted Vegetation Index (SAVI) and Atmospherically Resistant Vegetation Index 2 (ARVI2). The SAVI index demonstrated to be more suitable and better adjusted to the vegetation analysis, which is beneficial for the agricultural monitoring in C\^ote d'Ivoire. The terrain analysis has been performed using Python and included slope, aspect, hillshade and relief modelling using DEM.} The vegetation pattern in \textcolor{blue}{Côte d'Ivoire} is heterogeneous, which reflects the complexity of the terrain structure. \textcolor{blue}{Therefore, we performed terrain and vegetation data modelling to analyse the relationship between regional topography and environmental setting in the study area}. \textcolor{blue}{We compared our approaches on the} hierarchical levels: regional environmental analysis of the Yamoussoukro surroundings and local topographic modelling of the Kossou Lake. \textcolor{blue}{Tested} algorithms of data \textcolor{blue}{processing included} image resampling, band composition, statistical analysis and map algebra \textcolor{blue}{used for} calculation of the vegetation indices in Côte d'Ivoire. This study \textcolor{blue}{shown} the advanced programming algorithms targeted at image processing.}
 
 % Keywords
 \keyword{Image processing; remote sensing; programming; Python; R; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis} 
@@ -184,12 +184,10 @@ The data were collected from the \hl{United States Geological Survey} (USGS) \hl
          \centering
          \includegraphics[width=9cm]{Fig_02a}
          \caption{Collecting Landsat 9 OLI/TIRS C2 L1.}
-         \label{fig:00a}
      \end{subfigure} \vfill \vspace{2mm}
      \begin{subfigure}[r]{0.60\textwidth}
          \includegraphics[width=9cm]{Fig_02b}
          \caption{Collecting SRTM Void Filled DEM.}
-         \label{fig:00a}
      \end{subfigure}
         \caption{Data capture from the USGS Global Visualization Viewer (GloVis) satellite image repository to accessing remote sensing data: Landsat 9 OLI/TIRS C2 L1 and SRTM DEM for terrain analysis}
         \label{fig02}
@@ -358,13 +356,11 @@ pairs(landsatsub[[4:5]], hist=TRUE, cor=TRUE, maxcells=100000, main = "Correlati
          \centering
          \includegraphics[width=7cm]{Fig_05a.jpg}
          \caption{Band 1 against Band 2}
-         \label{fig:00a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=7cm]{Fig_05b.jpg}
          \caption{Band 4 against Band 5.}
-         \label{fig:00a}
      \end{subfigure}
         \caption{Correlation between \hl{the} selected Landsat-8 OLI/TIRS C1 bands in \hl{a} multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
         \label{fig05}
@@ -843,14 +839,12 @@ Cartographic visualization is an essential application of satellite image \hl{an
 %        		\includegraphics[width=8.6cm]{Fig_12a}
 		\includegraphics[width=0.95\textwidth]{Fig_12a}
          \caption{}
-         \label{fig:00a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[r]{0.56\textwidth}
  %        \centering
  %        \includegraphics[width=7cm]{Fig_12b}
          \includegraphics[width=0.95\textwidth]{Fig_12b}
          \caption{}
-         \label{fig:00a}
      \end{subfigure}
 }
         \caption{\textbf{(a)}: Landsat OLI/TIRS image with enlarged fragment of Kossou Lake: grayscale visualization of SWIR Band 6. Mapping: R. \textbf{(b)}: Enlarged fragment of the cropped SRTM3 Void Filled DEM overlayed on top of the hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
@@ -904,7 +898,9 @@ Integrated\hl{ }use of regional environmental resources \hl{presents} the potent
 
 \hl{For a terrain modelling, we applied the solutions of Python language where the problem of 3D spatial modelling from raster grid pattern is introduced by interpolation of cell values to spatial polygons, by EarthPy library}. The terrain modelling was performed based on the high-resolution SRTM DEM using\hl{embedded }algorithms by processing the topographic\hl{ }data for \hl{3D} geomorphic visualization of slope, aspect, hillshade and elevation. We \hl{ demonstrated these} methods as a series of scripts with detailed explanation of their functionality and the effects of the varied parameters on the image. The main advantage of \hl{using Python for spatial modelling} is that \hl{it enables to derive }information from the satellite images\hl{ in the } efficient \hl{way due to its straightforward syntax, and} to handle complex scenes of the remotely sensed data. As we demonstrated, using programming algorithms for processing multiple variables as raster matrices enables to automatically model spatial data with aim at depicting the nonlinear environmental \hl{and topographic} links among the near-surface processes and highlighting the complex relationships between the objects forming the terrain \hl{shape and diverse} landscapes on the Earth. 
 
-\hl{A }wide variety of \hl{Earth's features can} be depicted on the maps by \hl{satellite images} interpretation: climate change, urban sprawl, vegetation degradation, deforestation, \hl{topographic variations, or land cover change. At the same time, the analysis of the complexity of particular spatial phenomena require advanced methods of data processing to reveal the links and correlations among the objects and to map spatial patterns. For instance, topographic variations }in the relief \hl{may be caused} by the geologic effects and anthropogenic activities\hl{; the }environmental dynamics of the \hl{Earth's landscapes may involve nonlinear} long-term and short-term variations. \hl{The comprehensive analysis of such processes} requires\hl{ }automatic processing of\hl{ }large \hl{datasets} where conventional GIS \hl{are not effective enough}. \hl{As we demonstrated in this paper, the} effective way to handle this issue includes the performant technologies of\hl{ }high-level programming languages, such as Python and R, for automatic image processing \hl{and retrieval of spatial information from raster images. We shown that} algorithms of \hl{scripting} libraries can \hl{can be successfully used for}processing \hl{ }Earth observation data\hl{ and }geospatial\hl{ }modelling in a robust, automatic and effective way. 
+\hl{A }wide variety of \hl{Earth's features can} be depicted on the maps by \hl{satellite images} interpretation: climate change, urban sprawl, vegetation degradation, deforestation, \hl{topographic variations, or land cover change. At the same time, the analysis of the complexity of particular spatial phenomena require advanced methods of data processing to reveal the links and correlations among the objects and to map spatial patterns. For instance, topographic variations }in the relief \hl{may be caused} by the geologic effects and anthropogenic activities\hl{; the }environmental dynamics of the \hl{Earth's landscapes may involve nonlinear} long-term and short-term variations. \hl{The comprehensive analysis of such processes} requires\hl{ }automatic processing of\hl{ }large \hl{datasets} where conventional GIS \hl{are not effective enough}. 
+
+\hl{As we demonstrated in this paper, the} effective way to handle this issue includes the performant technologies of\hl{ }high-level programming languages, such as Python and R, for automatic image processing \hl{and retrieval of spatial information from raster images. We shown that} algorithms of \hl{scripting} libraries can \hl{can be successfully used for}processing \hl{ }Earth observation data\hl{ and }geospatial\hl{ }modelling in a robust, automatic and effective way. \hl{Programming algorithms for the terrain analysis and environmental monitoring from satellite images have been successful in dealing with challenging multispectral remote sensing data. Compared to the state-of-the-art GIS solutions, the functionality of Python and R scripts proved the effective and robust handling of the geospatial data. Specifically, their scripting algorithms demonstrated high quality, speed and effectiveness of code, in contrast to the existing GIS approaches for remote sensing data processing.}
 
 \hl{In future work, we plan to utilize combinations of other libraries of Python and R for spatial datasets, such as Sentinel-2A, SAR data for retrieving environmental parameters aimed at tropical forest mapping of Africa. Specifically, we intend to focus on the long-term analysis of the environmental dynamics using time series of satellite images. Spatial modelling of large series of satellite images involves several challenging problems with regard of their processing. For example, it is computationally challenging to deal with large spatio-temporal datasets and necessarily requires complex methods of their handling. To this end, we plan to develop effective approaches to map and model complex and large spatio-temporal datasets using scripting languages, which creates a valuable approach in the context of big Earth observation data and contributes to the development of contemporary cartography and mapping.}
 
