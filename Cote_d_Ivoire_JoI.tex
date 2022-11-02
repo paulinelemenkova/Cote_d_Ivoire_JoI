@@ -636,7 +636,9 @@ We applied\hl{ }Python and R algorithms which take the terrain characteristics o
 \section{Results and Discussion}
 %--------
 \subsection{Color composites}
-Colour image maps created by different combinations of recorded Landsat OLI/TIRS bands, in the sequence from top to bottom displayed respectively as natural and false composites,  Figure \ref{fig06}. The use of natural (or true) colour composites is widely applied for general environmental monitoring, since it exposes more characteristics regarding the landscape and land cover types than the monochrome images. 
+Colour image maps \hl{were} created by different combinations of \hl{the} recorded Landsat OLI/TIRS bands\hl{. In} the sequence from top to bottom \hl{they are} displayed respectively as natural and false composites, \hl{see} Figure \ref{fig06}. The use of natural (or true) colour composites is widely applied for general environmental monitoring, since it exposes more characteristics regarding the landscape and land cover types \hl{compared to} the monochrome images. 
+
+Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour composite. Since its appearance is similar to the normal aerial photograph, this composite is advantageous for mapping vegetation and agricultural coverage and discriminating the vegetation from bare soils and growing crop, Figure \ref{fig06}, a) and b). In Figure \ref{fig06}c) Bands 3-4-5 were taken in \hl{the} inverse way where NIR Band 5 was representing red, Red Band 4 as green, and Green Band 3 as blue. The improvement of the image has been performed using linear and histogram stretching\hl{, which consists in the adjustment of contrast in the colour tones of the images}. In this band composite, the broadleaf healthy vegetation has a deeper reddish hue, while lighter hues are related to the grasslands, savannahs or sparsely vegetated areas, and soil is represented by various hues depending on the soil type, from dark to light browns. The populated urban areas are shown in light-grey to white spots. 
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][r]{%
@@ -667,7 +669,9 @@ Colour image maps created by different combinations of recorded Landsat OLI/TIRS
 \caption{Natural color composites: (a) and (b). False color composites: (c) and (d). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig06}
 \end{figure}
 
-Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour composite. Since its appearance is similar to the normal aerial photograph, this composite is advantageous for mapping vegetation and agricultural coverage and discriminating the vegetation from bare soils and growing crop, Figure \ref{fig06}, a) and b). In Figure \ref{fig06}c) Bands 3-4-5 were taken in inverse way where NIR Band 5 was representing red, Red Band 4 as green, and Green Band 3 as blue. The improvement of the image has been performed using linear and histogram stretching. In this band composite, the broadleaf healthy vegetation has a deeper reddish hue, while lighter hues are related to the grasslands, savannahs or sparsely vegetated areas, and soil is represented by various hues depending on the soil type, from dark to light browns. The populated urban areas are shown in light-grey to white spots. 
+The false colour composite\hl{, }where NIR, Red, and Green bands are mixed\hl{, is} represented by the mix of \hl{bands} 3-4-5, which prints the optical data with vegetation dominating by the bright red hues due to the chlorophyll reflection, while agricultural lands are depicted by cyan. The bare soils \hl{in this combination appears}  as shades of white to light grey, blueish, or green in the agricultural regions, depending on the crop type. The darker shades of each colour indicate moister soil\hl{ }and cities by hues of steel grey, Figure \ref{fig06}, c). The combination of Bands 7-6-5 shows the mix of SWIR 2, SWIR 1 and NIR. Here the crop lands are coloured yellow, while vegetation areas are shown as bright ultramarine blue, Figure \ref{fig06}, d). 
+
+Figure \ref{fig07} shows different cases of false colour composites mixed with NIR, SWIR2 and Green (a), SWIR 2, Red and Blue (b), NIR, Red and Green (c) and SWIR 1, Red and Green (d). \hl{Since NIR light is reflected from the surfaces with higher levels of vegetation, but is absorbed by water, such band combinations are useful for vegetation and agriculture applications, e.g. mapping forests and crops.}
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
@@ -698,7 +702,6 @@ Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour co
 \caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig07}
 \end{figure}
 
-The false colour composite where NIR, Red, and Green bands are mixed are represented by the mix of 3-4-5, which prints the optical data with vegetation dominating by the bright red hues due to the chlorophyll reflection, while agricultural lands are depicted by cyan. The bare soils appear as shades of white to light grey, blueish, or green in the agricultural regions, depending on the crop type. The darker shades of each colour indicate moister soil, and cities by hues of steel grey, Figure \ref{fig06}, c). The combination of Bands 7-6-5 shows the mix of SWIR 2, SWIR 1 and NIR. Here the crop lands are coloured yellow, while vegetation areas are shown as bright ultramarine blue, Figure \ref{fig06}, d). Figure \ref{fig07} shows different cases of false colour composites mixed with NIR, SWIR2 and Green (a), SWIR 2, Red and Blue (b), NIR, Red and Green (c) and SWIR 1, Red and Green (d).
 
 \subsection{Computing Vegetation Indices}
 \subsubsection{Normalized Difference Vegetation Index (NDVI)}
