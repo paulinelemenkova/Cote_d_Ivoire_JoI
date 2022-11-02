@@ -26,8 +26,8 @@
     keywordstyle=\bfseries,
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{SlateGray},
-    %basicstyle=\ttfamily\footnotesize,
-    basicstyle=\ttfamily\scriptsize,
+    basicstyle=\ttfamily\footnotesize,
+%    basicstyle=\ttfamily\scriptsize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=t, 
@@ -150,7 +150,7 @@ An essential advantage of the programming languages \hl{in} image processing con
 
 Following the idea of using the advanced programming methods used to visualise a representation of object features and classes on the Earth's surface, the goal of this paper is to present the application of Python and R algorithms for image processing. Specific objectives include the following tasks: \emph{i)} plotting the colour composite of the Landsat \hl{Operational Land Imager and Thermal Infrared} (OLI/TIRS) image by the combinations of three channel sensor bands to display the image; \emph{ii)}; computing the selected vegetation indices using the principles of map algebra based on DN of reflectance value of pixels in selected spectral bands -- \hl{Near Infrared} (NIR) and red\hl{;} \emph{iii)} terrain modelling with geomorphic visualization of slope, aspect, hillshade and elevation for\hl{ }relief analysis using the \hl{Shuttle Radar Topography Mission} (SRTM) \hl{Digital Elevation Model} (DEM) data. 
 
-\hl{To the best of our knowledge, no attempts have been made to utilize high-level scripting languages, such as Python and R, for mapping C\^ote d'Ivoire using satellite image processing. A related works to ours are some previous works} \cite{Chatelainetal2010,Hennenberg,ElShahat,Tangetal2016,Affianetal2009} \hl{in which the traditional GIS methods are applied to process spatiotemporal information for environmental mapping of C\^ote d'Ivoire and neighbouring African regions. The key difference between our work and theirs is that our method integrates high-level programming algorithms and pixel-based interactions and manipulations with data into the mapping framework by scripts.}
+\hl{To the best of our knowledge, no attempts have been made to utilize high-level scripting languages, such as Python and R, for mapping C\^ote d'Ivoire with a special focus on terrain modelling and vegetation indices derived from broadband multispectral data. A related works to ours are some previous works} \cite{Chatelainetal2010,Hennenberg,ElShahat,Tangetal2016,Affianetal2009} \hl{in which the traditional GIS methods are applied to process spatiotemporal information for environmental mapping of C\^ote d'Ivoire and neighbouring African regions. The key difference between our work and theirs is that our method integrates programming algorithms and pixel-based manipulations with data derived from the satellite images into the mapping framework by scripts.}
 
 \hl{The objectives of our study were to use the advanced functionality of several libraries of R and Python for treatment of image bands as variables in single scripts for processing each task separately: terrain modelling, computing vegetation indices through map algebra, combination of Landsat bands. Our method depends on using flexible algorithms of scripting languages by applying their syntax while conventional GIS-based approaches of mapping rely on the traditional GUI interface of the existing cartographic software with their restricted functionality. Thus, in contrast to the previous work, we used advanced libraries of Python and packages of R languages for processing high-resolution satellite images aimed at environmental assessment and mapping of C\^ote d'Ivoire and specifically, modelling the terrain in the surroundings of Kossou Lake, to the north of Yamoussoukro.}
 
@@ -231,9 +231,9 @@ The spatial information of the Landsat channels (bands) is presented in metadata
 
 \subsubsection{Visualising single bands and generating composite maps}
 
-The properties of the image were accessed from a SpatRaster object using R commands \hl{presented in} Listing \ref{lst:02}\hl{. Here} we inspected the \hl{Coordinate Reference System} (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other \hl{bands} (here: target Band 1, Ultra Blue) by created a RasterBrick multi-layer object, Listing \ref{lst:02}. 
+The properties of the image were accessed from a SpatRaster object using R commands \hl{presented in} Listing \ref{lst:02}\hl{. Here} we inspected the \hl{Coordinate Reference System} (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other \hl{bands} (here: target Band 1, Ultra Blue) by \hl{creating} a RasterBrick multi-layer object, Listing \ref{lst:02}. 
 
-\begin{lstlisting}[language=r, caption=R code used for deriving satellite mage information and statistics and inspecting the Landsat 8-9 OLI bands, label={lst:02}]
+\begin{lstlisting}[language=r, caption=R code used for \hl{inspecting the information and} statistics \hl{on} the Landsat 8-9 OLI bands, label={lst:02}]
 library(terra)
 ## terra version 1.2.11
 # Change working directory
@@ -274,7 +274,9 @@ landsat <- rast(filenames)
 landsat
 \end{lstlisting} 
 
-The layers were then read in the 'landsat' object where the layers are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a. coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). The visuallisation of the single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig04}. The visual inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) is useful to extract a general information on general large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using their spatial properties related to the pixel brightness values. 
+The layers were then read in the 'landsat' object where \hl{they} are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a., coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). 
+
+The \hl{visualization} of\hl{ }single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig04}. \hl{Visual} inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) is useful to extract\hl{ }general information on\hl{ }large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using \hl{ }spatial properties related to the \hl{values of the} pixel brightness. 
 
 \begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images, label={lst:03}]
 library(terra)
@@ -312,17 +314,17 @@ landsatRGB <- c(b4, b3, b2)
 plotRGB(landsatRGB, stretch = "lin")
 \end{lstlisting} 
 
-The difference in shades of grey correspond to the numerical values and range of pixel values in the different channels of Landsat, which is owing to the spectral \hl{reflectance} that differs in various bands for the objects of the Earth surface. Due to the individual reflectance of the solar radiation by features, the values differ accordingly. \hl{This} fundamental properties \hl{of} features enables to use combinations of various bands for a better \hl{representing} diverse phenomena and objects on the earth's surface. For example, particular applications of Landsat bands have for geology (SWIR Band 7, NIR Band 5 and Red Band 4) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR Band 7, Red Band 4 and Green Band 2), identifying difference between soil and vegetation (Green in Band 3) \cite{Richards,CampbellWynne}.
+The difference in shades of grey \hl{corresponds} to the numerical values and range of pixel values in\hl{ diverse} channels of Landsat, which is owing to the spectral \hl{reflectance} that differs in various bands for the objects of the Earth surface. Due to the individual reflectance of the solar radiation by features, the values differ accordingly. \hl{This} fundamental properties \hl{of} features enables to use combinations of various bands for a better \hl{representing} diverse phenomena and objects on the \hl{Earth's} surface. For example, particular applications of Landsat bands have for geology (SWIR Band 7, NIR Band 5 and Red Band 4) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR Band 7, Red Band 4 and Green Band 2), identifying difference between soil and vegetation (Green in Band 3) \cite{Richards,CampbellWynne}. \hl{Besides, the reflectance data from the selected bands of the Landsat images were used in the calculation of the four vegetation indices for study area using interactions of pixels in raster.}
 
-Subsetting the large files, such as multispectral Landsat dataset was done using the SpatRaster object and 'subset' function for processing only the necessary bands. In this, it enables to ignore the Cirrus, TIRS and other not relevant bands and leaving only the visible spectra. In this way, a a subset of target layers was selected from a SpatRaster and the other bands were removed from the dataset, respectively, using Listing \ref{lst:04}.
+Subsetting\hl{ }large files, such as multispectral Landsat dataset\hl{,} was done using\hl{ }SpatRaster object and 'subset' function for processing \hl{of} necessary bands. In this \hl{respect}, it enables to ignore the Cirrus, TIRS and other not relevant bands and \hl{to leave} only the visible spectra. In this way, a\hl{ }subset of target layers was selected from \hl{the} SpatRaster\hl{, while} the other bands were removed from the dataset, respectively, using Listing \ref{lst:04}.
 
 \begin{figure}[H]
 \makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_04.jpg}}%
-	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale visualization: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
+	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale \hl{mode}: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
 	\label{fig04}
 \end{figure} 
 
-\begin{lstlisting}[language=r, caption=R code for Subsetting large files using SpatRaster object, label={lst:04}]
+\begin{lstlisting}[language=r, caption=R code for \hl{subsetting the }large files using SpatRaster object, label={lst:04}]
 library(terra)
 setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
 filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
@@ -339,16 +341,16 @@ names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SW
 names(landsatsub)
 \end{lstlisting} 
 
-To compare bands in the pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in selected parts of the spectrum, the images were plotted pixel-by-pixel against those from corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
+To compare \hl{the} bands in the pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
 
-\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between selected Landsat bands, label={lst:05}]
+\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between \hl{the} selected Landsat bands, label={lst:05}]
 # Relation between bands
 library(terra)
 pairs(landsatsub[[1:2]], hist=TRUE, cor=TRUE, use="pairwise.complete.obs", maxcells=100000, main = "Correlation of Band 1 (Ultra-blue) against Blue (Band 2)")
 pairs(landsatsub[[4:5]], hist=TRUE, cor=TRUE, maxcells=100000, main = "Correlation of Band 4 (Red) against NIR (Band 5)")
 \end{lstlisting} 
 
-Cells with low spectral reflectance in a target band mostly have low reflectance in all the rest of the bands, which is caused by the albedo of the Earth's surface. However, the correlation between the Bands 1 and 2 shows more similarity between the bands, since all the pixels almost form the same line, while NIR and Red Bands demonstrate more differences in spectral reflectance of selected objects, which results in the scattered cloud of points representing the pixels on the scenes. The brightness of pixels in each layer indicate the amount of  incident solar radiation, which is reflected by the Earth's surface in a given wavelength diapason, which affect the similarity and difference in spectral bands. 
+\hl{The cells} with low spectral reflectance in a target band mostly have low reflectance in all the rest of the bands, which is caused by the albedo of the Earth's surface. However, the correlation between the Bands 1 and 2 shows more similarity between \hl{these} bands, since all the pixels almost form the same line, while NIR and Red Bands demonstrate more differences in spectral reflectance of \hl{the} selected objects, which results in the scattered cloud of points representing the pixels on the scenes. The brightness of pixels in each layer indicate the amount of  incident solar radiation, which is reflected by the Earth's surface in a given wavelength diapason, which \hl{affects} the similarity and \hl{the} difference in spectral bands \hl{of the Landsat scene}. 
 
 \begin{figure}[H]
      \centering
@@ -364,13 +366,13 @@ Cells with low spectral reflectance in a target band mostly have low reflectance
          \caption{Band 4 against Band 5.}
          \label{fig:00a}
      \end{subfigure}
-        \caption{Correlation between Landsat bands for selected Landsat-8 OLI/TIRS C1 bands in multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \caption{Correlation between \hl{the} selected Landsat-8 OLI/TIRS C1 bands in \hl{a} multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
         \label{fig05}
 \end{figure}
 
-Since there is not much information in the monochrome bands, they were combined into the several composites to create more meaningful plots. Plotting the colour composites of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of matrix scene. The three bands assigned to each of the three colour primaries \hl{Red Green Blue} (RGB) displayed the image, Listing \ref{lst:06}.
+Since there is not much information in the monochrome bands, they were combined into\hl{ }several composites to create more meaningful plots. Plotting the colour composites of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of \hl{the} matrix scene. The three bands assigned to each of the three colour primaries \hl{Red Green Blue} (RGB) displayed the image, Listing \ref{lst:06}.
 
-\begin{lstlisting}[language=r, caption=R code used for plotting color composites for bands of the satellite image, label={lst:06}]
+\begin{lstlisting}[language=r, caption=R code used for plotting \hl{the} color composites for bands of the satellite image, label={lst:06}]
 library(raster)
 blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
 green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
@@ -424,11 +426,11 @@ rgb = stack(near.infrared, red, green)
 plotRGB(rgb, scale=65535, stretch="hist")
 \end{lstlisting}
 
-The vegetation indices were computed based on the arithmetically transformed combination of bands. This results from the existing formulae for band computations using mathematical operations among the cell brightness in the scenes using addition, subtraction and division of the brightnesses of the NIR and Red Bands of Landsat image. Differences in bands highlight the regions of enhanced and more healthy vegetation in the target area of image which is useful for environmental monitoring and ecological assessment. The resultant image shows the brightness values of vegetation modified by colour palettes made using arithmetic operations on composite bands. 
+The vegetation indices were computed based on the arithmetically transformed combination of \hl{Landsat OLI/TIRS} bands. This results from the existing formulae for band computations using mathematical operations among the cell brightness in the scenes using \hl{techniques of map algebra including }addition, subtraction and division of the brightnesses of the NIR and Red Bands of \hl{the} Landsat image. \hl{The} differences in bands highlight the regions of \hl{the} enhanced and more healthy vegetation in the target area of image\hl{,} which is useful for \hl{the} environmental monitoring and ecological assessment. The resultant image shows the brightness values of vegetation modified by colour palettes made using arithmetic operations on \hl{the} composite bands. 
 
-The most widely used and well known vegetation index is the Normalised Difference Vegetation Index (NDVI) which applies the ratio of the difference in values between Red and NIR bands and their sum. Similar to the NDVI, Enhanced Vegetation Index (EVI) quantifies vegetation greenness with added corrections for atmospheric conditions and canopy background noise. Besides, EVI is more sensitive in forest areas with more dense canopy and vegetation coverage, which is useful for the forest regions of Côte d'Ivoire. The Soil Adjusted Vegetation Index (SAVI) is built up using NDVI with correction for the effects from soil brightness in the regions where vegetative cover is low, e.g. newly deforested areas, desert and fragmented savannah of Côte d'Ivoire. \hl{The Atmospherically Resistant Vegetation Index 2 (ARVI2) is the most applicable in regions of high atmospheric aerosol content. Examples of other environmental indices include, for instance, Normalized Difference Water Index (NDWI), modified Normalized Difference Water Index (MNDWI), and Water Ratio Index (WRI)} \cite{s22186827}.
+The most widely used and well known vegetation index is the Normalised Difference Vegetation Index (NDVI)\hl{,} which applies the ratio of the difference in values between Red and NIR bands and their sum. Similar to the NDVI, Enhanced Vegetation Index (EVI) quantifies vegetation greenness with added corrections for \hl{the} atmospheric conditions and canopy background noise. Besides, EVI is more sensitive in \hl{the} forest areas with \hl{much} more dense canopy and vegetation coverage, which is useful for the forest regions of Côte d'Ivoire. The Soil Adjusted Vegetation Index (SAVI) is built up using NDVI with \hl{a} correction for the effects from soil brightness in the regions where vegetative cover is low, e.g.\hl{, in} newly deforested areas, desert and fragmented savannah of Côte d'Ivoire. \hl{The} Atmospherically Resistant Vegetation Index 2 (ARVI2) is the most applicable {index} in \hl{the} regions of high atmospheric aerosol content. \hl{Examples of other environmental indices include, for instance, Normalized Difference Water Index (NDWI), modified Normalized Difference Water Index (MNDWI), and Water Ratio Index (WRI)} \cite{s22186827}.
 
-Computing vegetation indices is an important environmental tool based on the information from pixel value, which in turn is based on spectral reflectance of Red and NIR bands measured by the sensor. It is commonly computed with a spatial statistics and algebra of bands, using cell values defined on the scene, Listing \ref{lst:07}. The reason for selecting NIR and Red for computing the vegetation indices is because the vegetation appears brighter in these bands since it reflects more energy in NIR/Red bands compared to other wavelengths. Contrarily, water absorbs most of the energy in the NIR band and is represented by black to very dark brown colours. Through a series of interactions among scene elements, they are allocated to the classes based on the weighted values of their relative proportions.
+Computing vegetation indices is an important environmental tool\hl{, which is }based on the information from pixel value, \hl{indicating} spectral reflectance of \hl{the} Red and NIR bands\hl{,} measured by the sensor. It is commonly computed with a spatial statistics and algebra of bands, using cell values defined on the scene, \hl{as we demonstrated in} Listing \ref{lst:07}. The reason for selecting \hl{the} NIR and Red \hl{bands} for computing\hl{ }vegetation indices is because\hl{ }vegetation appears brighter in these bands\hl{, }since it reflects more energy in NIR/Red bands compared to \hl{the} other wavelengths. Contrarily, water absorbs most of the energy in the NIR band and is represented by black to very dark brown colours. Through a series of interactions among \hl{the} scene elements, they are allocated to the classes\hl{,} based on the weighted values of their relative proportions.
 
 \begin{lstlisting}[language=r, caption=R code used for computing vegetation indices from bands of the satellite image, label={lst:07}]
 # Computing vegetation indices
@@ -491,6 +493,8 @@ hist(arvi, font.main = 1, main = "ARVI2 values for Landsat-9 OLI/TIRS C1 image \
 axis(side=1, at = seq(-0.4, 0.1, 0.1), labels = seq(-0.4, 0.1, 0.1))
 \end{lstlisting}
 
+\hl{Mapping vegetation indices demonstrates a great potential of using map algebra and calculations techniques for the Landsat OLI/TIRS for detection of decline in vegetation and environmental monitoring. Moreover, this technique is also useful for agricultural applications where deteriorated sites may require remediation or close monitoring.} 
+ 
 \subsection{Terrain Analysis in Python}
 The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination. Technically, the terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \cite{Hunter2007MatplotlibA2}, rasterio \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}. The geospatial \hl{Tagged Image File Format (TIFF)} has been visualized for modelling DEM \hl{as GeoTIFF} using\hl{ }Rasterio library which \hl{reads} the dataset as a raster array of cells, reads the GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images, Listing \ref{lst:08}. Using the Rasterio, the elevation data were read in as values of heights contained in the cells of the raster. The terrain is then plotted as an array of cells representing land surface according to the elevation values, Listing \ref{lst:08}. 
 
@@ -964,7 +968,7 @@ WRI & Water Ratio Index \\
 \section*{Short Biography of Authors}
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_1.jpg}}}
-{\textbf{Polina Lemenkova} is an Engineer and a PhD student of Prof. Dr. O. Debeir in the Image Analysis Research Unit (LISA-IA) in École polytechnique de Bruxelles, Université Libre de Bruxelles. Her research interests are focused on cartography, spatial data analysis, remote sensing and applied programming. She has a strong research experience in Earth and environmental sciences, mapping and data visualization, specifically in geological and geophysical domains. Her current topic is on seismic data processing using machine learning methods and scripting languages.}
+{\textbf{Polina Lemenkova} is an Engineer and a PhD student of Prof. Dr. O. Debeir in the Image Analysis Research Unit (LISA-IA) in École polytechnique de Bruxelles, Université Libre de Bruxelles. Her research interests are focused on image processing, cartography, spatial data analysis, remote sensing and applied programming. She has a strong research experience in Earth and environmental sciences, mapping and data visualization, specifically in geological and geophysical domains. Her current topic is on seismic data processing using machine learning methods and scripting languages.}
 %
 \bio
 {\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_2.jpg}}}
