@@ -341,7 +341,7 @@ names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SW
 names(landsatsub)
 \end{lstlisting} 
 
-To compare \hl{the} bands in the pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
+\hl{To more thoroughly investigate the relationship between the spectral response in various wavelength diapasons, we examined the pairwise correlation between the selected bands. To this end, we compared the} bands in\hl{ }pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
 
 \begin{lstlisting}[language=r, caption=R code for inspecting the correlation between \hl{the} selected Landsat bands, label={lst:05}]
 # Relation between bands
@@ -496,7 +496,9 @@ axis(side=1, at = seq(-0.4, 0.1, 0.1), labels = seq(-0.4, 0.1, 0.1))
 \hl{Mapping vegetation indices demonstrates a great potential of using map algebra and calculations techniques for the Landsat OLI/TIRS for detection of decline in vegetation and environmental monitoring. Moreover, this technique is also useful for agricultural applications where deteriorated sites may require remediation or close monitoring.} 
  
 \subsection{Terrain Analysis in Python}
-The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination. Technically, the terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \cite{Hunter2007MatplotlibA2}, rasterio \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}. The geospatial \hl{Tagged Image File Format (TIFF)} has been visualized for modelling DEM \hl{as GeoTIFF} using\hl{ }Rasterio library which \hl{reads} the dataset as a raster array of cells, reads the GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images, Listing \ref{lst:08}. Using the Rasterio, the elevation data were read in as values of heights contained in the cells of the raster. The terrain is then plotted as an array of cells representing land surface according to the elevation values, Listing \ref{lst:08}. 
+\hl{To model the relationship between topographic variables and appearance, we applied Python algorithms for processing SRTM data by the 3D approach.} The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination. Technically, the terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \hl{for data visualization} \cite{Hunter2007MatplotlibA2}, Rasterio \hl{for processing gridded raster datasets} \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}\hl{, where NumPy operates with arrays in the matrix of raster cells and Plotly is used as additional graphical and plotting library.}
+
+The geospatial \hl{Tagged Image File Format (TIFF)} has been visualized for modelling DEM \hl{as GeoTIFF} using\hl{ }Rasterio library which \hl{reads} the dataset as a raster array of cells, reads the GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images, Listing \ref{lst:08}. Using\hl{ }Rasterio, the elevation data were read in as values of heights \hl{that are} contained in the cells of the \hl{corresponding} raster. The terrain is then plotted as an array of cells representing land surface according to the elevation values, \hl{as shown in} Listing \ref{lst:08}. 
 
 \begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2, label={lst:08}]
 python3.10
@@ -534,7 +536,7 @@ plt.show()
 plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
 \end{lstlisting}
 
-The hillshade was calculated using the altitude of sun as a light source in zenith and azimuth of the illumination source, Listing \ref{lst:09}. The slope and aspect of the terrain are used as auxiliary variables for terrain modelling. The hillshade modelling inherently related to static cartographic representations of the Earth's topography. Hillshade is used for the geomorphometric representation of the terrain of Côte d'Ivoire. 
+The hillshade was calculated using the altitude of sun as a light source in zenith and azimuth of the illumination source, Listing \ref{lst:09}. The slope and aspect of the terrain are used as auxiliary variables for \hl{the} terrain modelling. The hillshade modelling inherently related to \hl{a} static cartographic representations of the Earth's topography\hl{, thus, }hillshade is used for the geomorphometric representation of the terrain of Côte d'Ivoire. 
 
 \begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3, label={lst:09}]
 python3.10
@@ -571,7 +573,7 @@ plt.show()
 plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
 \end{lstlisting}
 
-Hillshade represents the terrain with hypothetical illumination value in monochrome scale (0-255) with cells on the raster scene showing the terrain surface with a given specified light source. The illumination was changed to 10\degree and 230 \degree (in radians) to better represent the spatial model of the relief of Côte d'Ivoire, Listing \ref{lst:10}. 
+Hillshade represents the terrain with hypothetical illumination value in \hl{the} monochrome scale (0-255) with cells on the raster scene showing the terrain surface with a given specified light source. The illumination was changed to 10\degree and 230 \degree (in radians) to better represent \hl{geospatial} model of the \hl{topographic} relief of Côte d'Ivoire, Listing \ref{lst:10}. 
 
 \begin{lstlisting}[language=python, caption=Python code used for plotting the hillshade with changed azimuth and sun angle values for Figures 4 and 5, label={lst:10}]
 python3.10
@@ -625,10 +627,12 @@ plt.show()
 plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
 \end{lstlisting}
 
-We applied the Python and R algorithms which take the terrain characteristics of the Earth and image properties into account when plotting raster scenes. Exploiting the characteristics of the satellite bands we recover from each channel in various wavebands data on spectral reflectance of the cells which correspond to the objects located on the Earth. Interpretation of these values. Different brightness of each land cover types (e.g., forests, rivers, lakes and other water bodies, urban spaces) are based on their spectral reflectance in various wavebands which give information regarding the characteristics of typical cover types. In turn, the models of geomorphometry, presented using Python scripts, enable to predict the distribution of various soil properties and associated vegetation types which are related to specific slope steepness. Another application is  hazard risk assessment in applied geology, i.e., estimation of probability of erosion, landslides and avalanche events in the mountainous region. Using scripts of Python and R for environmental modelling reduces the time of data processing and increases the precision of models through automation of data processing.
+\hl{Our current limitations is that we assume the data to be of high resolution which, however, may affect the resulting topographic model by coarse resolution data, i.e., lesser meters in one pixel will give a rough representation of the Earth's surface and miss smaller landforms in the landscape. With this regard, it is strongly recommended to apply high-resolution data for a precise representation of the Earth. Another point of concern is to select a correct view shed and azimuth for modelling aspect, slope and elevation, which is is actual for the mountainous regions and rugged relief. Therefore, although Python-based method of the terrain modelling can potentially handle materials with coarser or unknown resolution of the original data,  the results may be hiding selected structures on the Earth's surface. The same point concerns the applications of R for image processing which results in data precision corresponding to the original resolution of the input dataset. In our future woks, we are very interested in extending our work to handle higher resolution imagery, such as Sentinel 2A with 10 m, or Satellite pour l'Observation de la Terre (SPOT) with up to 1.5 m spatial resolution in panchromatic and multispectral channels.}
+
+We applied\hl{ }Python and R algorithms which take the terrain characteristics of the Earth and image properties into account when plotting raster scenes. Exploiting the characteristics of the satellite bands\hl{, }we recover from each channel in various wavebands data on spectral reflectance of the cells which correspond to the objects located on the Earth. Interpretation of these values \hl{is} based on their spectral reflectance in various wavebands\hl{, }which \hl{gives} information regarding the characteristics of typical \hl{land} cover types. \hl{This is possible by the analysis of different} brightness of each land cover types\hl{, }e.g., forests, rivers, lakes and other water bodies, urban spaces\hl{. }In turn, the \hl{geomorphometric} models \hl{performed} using Python scripts\hl{ }enable to predict the distribution of various soil properties and associated vegetation types which are related to \hl{the} specific slope steepness \hl{and regional topographic features}. Another application \hl{of terrain models} is hazard risk assessment in applied geology, \hl{for instance}, estimation of \hl{the} probability of erosion, landslides and avalanche events in the mountainous \hl{regions}. \hl{Major advantage of} using scripts of Python and R for environmental modelling \hl{is that it} reduces the time of data processing and increases the precision of models through automation of data processing\hl{, since scripts can be repeated for other regions and applied in similar studies.}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+%\newpage
 \section{Results and Discussion}
 %--------
 \subsection{Color composites}
@@ -944,6 +948,7 @@ NIR & Near Infrared \\
 RGB & Red Green Blue \\
 SAGA & System for Automated Geoscientific Analyses \\
 SAVI & Soil-Adjusted Vegetation Index \\
+SPOT & Satellite pour l'Observation de la Terre \\
 SRTM & Shuttle Radar Topography Mission \\
 SWIR & Short Wave InfraRed \\
 3D & Three-dimensional \\
