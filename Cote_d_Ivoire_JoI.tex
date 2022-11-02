@@ -159,7 +159,7 @@ Following the idea of using the advanced programming methods used to visualise a
 %\newpage
 \section{Study Area}
 
-The study area is focused on \hl{the central part of} Côte d'Ivoire, West Africa, Figure \ref{fig01}. \hl{In particular, the region of} Kossou Lake \hl{was selected} as an enlarged fragment \hl{for} terrain \hl{analysis}. This lake has been created artificially following the construction of\hl{ }dam across the Bandama River. \hl{It has} functional environmental aspects\hl{, serving as a habitat} for dominant biotas\hl{ and supporting local} food webs. \hl{Nowadays, Kossou Lake} forms one of the \hl{most} important inland water bodies of Côte d'Ivoire \hl{and} plays an essential ecological role in the environment of sub-Saharan Africa \cite{MSISKA2009487}. 
+The study area is focused on \hl{the central part of} Côte d'Ivoire, West Africa, Figure \ref{fig01}. \hl{In particular, the region of} Kossou Lake \hl{was selected} as an enlarged fragment \hl{for the} terrain \hl{analysis}. This lake has been created artificially following the construction of\hl{ }dam across the Bandama River. \hl{It has} functional environmental aspects\hl{, serving as a habitat} for dominant biotas\hl{ and supporting local} food webs. \hl{Nowadays, Kossou Lake} forms one of the \hl{most} important inland water bodies of Côte d'Ivoire \hl{and} plays an essential ecological role in the environment of sub-Saharan Africa \cite{MSISKA2009487}. 
 
 \begin{figure}[H]
 \centering
@@ -168,7 +168,7 @@ The study area is focused on \hl{the central part of} Côte d'Ivoire, West Afric
 	\label{fig01}}
 \end{figure} 
 
-\hl{C\^ote d'Ivoire is notable for diverse} terrain structure \hl{which has the two distinct} parts: a coastal \hl{region} formed by the alluvium and marine sands and a continental \hl{region} with hilly relief \cite{Thomasset}. The land cover types are associated with the two major ecosystem types -- forest and savanna\hl{ with} forests\hl{ }distributed \hl{mostly} in the southern part of the country, while savanna -- in the north\hl{,} off Bouak\'{e} \cite{Rougerie}. The vegetation types are largely controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire with \hl{dominating} savannah, while tropical regime characterises \hl{the} southern part \hl{of the country} with \hl{prevailing} forests \cite{Tricart}. Favourable climatic and environmental setting maintain farming and agricultural activities which make Côte d'Ivoire the\hl{ }largest cocoa producer\hl{ in the world} \cite{Losch,Planhol,Smithetal2014,Laderach} and \hl{an} active exporter of food-producing crops \cite{Sawadogo}, such as coffee, bananas, pineapples and palm oil \cite{Pelissier}. Besides agriculture, the activities of population include exploration and mining \cite{SAKO2018297,SAUERWEIN2020104323,MURRAY2019351} and limited fishing along the narrow continental shelf \hl{of the Atlantic Ocean} \cite{Sournia}. 
+\hl{C\^ote d'Ivoire is notable for diverse} terrain structure \hl{which has two distinct} parts: a coastal \hl{region} formed by the alluvium and marine sands and a continental \hl{region} with hilly relief \cite{Thomasset}. The land cover types are associated with the two major ecosystem types -- forest and savanna\hl{ with} forests\hl{ }distributed \hl{mostly} in the southern part of the country, while savanna -- in the north\hl{,} off Bouak\'{e} \cite{Rougerie}. The vegetation types are largely controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire with \hl{dominating} savannah, while tropical regime characterises \hl{the} southern part \hl{of the country} with \hl{prevailing} forests \cite{Tricart}. Favourable climatic and environmental setting maintain farming and agricultural activities which make Côte d'Ivoire the\hl{ }largest cocoa producer\hl{ in the world} \cite{Losch,Planhol,Smithetal2014,Laderach} and \hl{an} active exporter of food-producing crops \cite{Sawadogo}, such as coffee, bananas, pineapples and palm oil \cite{Pelissier}. Besides agriculture, the activities of population include exploration and mining \cite{SAKO2018297,SAUERWEIN2020104323,MURRAY2019351} and limited fishing along the narrow continental shelf \hl{of the Atlantic Ocean} \cite{Sournia}. 
 
 Recently, Côte d'Ivoire experiences environmental changes common for humid West Africa, which include deforestation and fragmentation of ecosystems \cite{Chatelain}, \hl{decrease} in species richness in savannah biomes \cite{Kolongo}, and increase in habitat heterogeneity\hl{,} which affects biodiversity and species community structure \cite{Yeo}. \hl{Apart from climate effects}, urban sprawl is exceptional for Côte d'Ivoire since 1950s, due to the natural demographic growth and acceleration of population in the industrial agglomerations \cite{Dubresson,Chaleard,Cotten1974,Cotten1973}. Geographically, this results in \hl{the} increased areas of cities and modified transport network \cite{Cotten1985}. \hl{Other environmental problems include water supply issues and pollution caused by the agro-industrial plantations} \cite{Doumouya}. 
 
@@ -207,20 +207,20 @@ To cope with a series of Landsat bands and for searching metadata, we examined t
 \begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs, label={lst:01}]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
 
-\end{lstlisting}The spatial resolution described by the pixel size is of 30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
+\end{lstlisting}The spatial resolution\hl{, corresponding to }the pixel size\hl{, }is\hl{ }30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
 
 \begin{figure}[H]
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=7cm]{Fig_03a}
-         \caption{Using grep and echo Unix utilities with 'gdalinfo' module of GDAL to scan metadata}
+         \caption{Using grep and echo Unix utilities with 'gdalinfo' module\hl{ }to scan \hl{the} metadata}
          \label{fig:03a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=7cm]{Fig_03b}
-         \caption{Creating SpatRaster objects in R and check spatial data: projection, datum, ellipsoid, etc.}
+         \caption{Creating SpatRaster objects in R and \hl{checking} spatial data: projection, datum, ellipsoid\hl{.}}
          \label{fig:03b}
      \end{subfigure}
         \caption{Inspecting the geometry of Landsat bands (a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra' (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
@@ -893,8 +893,6 @@ Integrated\hl{ }use of regional environmental resources \hl{presents} the potent
 
 \hl{In future work, we plan to utilize combinations of other libraries of Python and R for spatial datasets, such as Sentinel-2A, SAR data for retrieving environmental parameters aimed at tropical forest mapping of Africa. Specifically, we intend to focus on the long-term analysis of the environmental dynamics using time series of satellite images. Spatial modelling of large series of satellite images involves several challenging problems with regard of their processing. For example, it is computationally challenging to deal with large spatio-temporal datasets and necessarily requires complex methods of their handling. To this end, we plan to develop effective approaches to map and model complex and large spatio-temporal datasets using scripting languages, which creates a valuable approach in the context of big Earth observation data and contributes to the development of contemporary cartography and mapping.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \funding{This research has received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
 
 \institutionalreview{Not applicable}
@@ -951,6 +949,7 @@ WRI & Water Ratio Index \\
 \end{tabular}
 }
 
+\begin{adjustwidth}{-\extralength}{0cm}
 \reftitle{References}
 
 % Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
@@ -962,7 +961,16 @@ WRI & Water Ratio Index \\
 \bibliography{IvoryCoast.bib}
 %\nocite{*}
 
+\section*{Short Biography of Authors}
+\bio
+{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_1.jpg}}}
+{\textbf{Polina Lemenkova} is an Engineer and a PhD student of Prof. Dr. O. Debeir in the Image Analysis Research Unit (LISA-IA) in École polytechnique de Bruxelles, Université Libre de Bruxelles. Her research interests are focused on cartography, spatial data analysis, remote sensing and applied programming. She has a strong research experience in Earth and environmental sciences, mapping and data visualization, specifically in geological and geophysical domains. Her current topic is on seismic data processing using machine learning methods and scripting languages.}
+%
+\bio
+{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_2.jpg}}}
+{\textbf{Olivier Debeir} is a Head of the Image Analysis Research Unit (LISA-IA) in the École polytechnique de Bruxelles (Brussels Faculty of Engineering), Université Libre de Bruxelles. His research interest is in addressing questions related to artificial intelligence and machine learning in general, and specifically on computer vision, graphics, image analysis, segmentation and classification, pattern recognition and deep learning. His research activity also concerns applied statistics and diverse algorithms of data analysis and modelling in natural sciences. He is an expert in programming languages.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\end{adjustwidth}
+\end{adjustwidth}
 \end{document}
 
