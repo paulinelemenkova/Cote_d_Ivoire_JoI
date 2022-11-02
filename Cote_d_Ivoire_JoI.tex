@@ -341,7 +341,7 @@ names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SW
 names(landsatsub)
 \end{lstlisting} 
 
-\hl{To more thoroughly investigate the relationship between the spectral response in various wavelength diapasons, we examined the pairwise correlation between the selected bands. To this end, we compared the} bands in\hl{ }pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
+\hl{To more thoroughly investigate the relationship between the spectral response of various land cover types in different wavelength diapasons, we examined pairwise correlation between the selected bands. To this end, we compared the} bands in\hl{ }pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
 
 \begin{lstlisting}[language=r, caption=R code for inspecting the correlation between \hl{the} selected Landsat bands, label={lst:05}]
 # Relation between bands
@@ -908,15 +908,17 @@ Integrated\hl{ }use of regional environmental resources \hl{presents} the potent
 
 \hl{In future work, we plan to utilize combinations of other libraries of Python and R for spatial datasets, such as Sentinel-2A, SAR data for retrieving environmental parameters aimed at tropical forest mapping of Africa. Specifically, we intend to focus on the long-term analysis of the environmental dynamics using time series of satellite images. Spatial modelling of large series of satellite images involves several challenging problems with regard of their processing. For example, it is computationally challenging to deal with large spatio-temporal datasets and necessarily requires complex methods of their handling. To this end, we plan to develop effective approaches to map and model complex and large spatio-temporal datasets using scripting languages, which creates a valuable approach in the context of big Earth observation data and contributes to the development of contemporary cartography and mapping.}
 
+\authorcontributions{Supervision, conceptualization, methodology, resources, funding acquisition, project administration, O.D; writing---original draft preparation, software, data curation, visualization, formal analysis, validation, writing---review and editing, investigation, P.L. All authors have read and agreed to the published version of the manuscript.}
+
 \funding{This research has received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
 
 \institutionalreview{Not applicable}
 
 \informedconsent{Not applicable}
 
-\dataavailability{Not applicable} 
+\dataavailability{The open GitHub repository with Python and R scripts used for image processing in this study: \href{https://github.com/paulinelemenkova/Cote_d_Ivoire_R_Python_Listings}{https://github.com/paulinelemenkova/Cote\_d\_Ivoire\_R\_Python\_Listings} (accessed on 02 November 2022)}
 
-\acknowledgments{We thank the two anonymous reviewers for comments and reading of this manuscript}
+\acknowledgments{The authors thank the anonymous reviewers for their careful reading, critical suggestions and constructive comments that helped improve a previous version of this manuscript.}
 
 \conflictsofinterest{The authors declare no conflict of interest} 
 
@@ -925,7 +927,7 @@ The following abbreviations are used in this manuscript:\\
 
 \noindent 
 \begin{tabular}{@{}ll}
-ARVI2 & Atmospherically Resistant Vegetation Index 2 \\
+ARVI & Atmospherically Resistant Vegetation Index \\
 CPT & Colour Palette Table \\
 CRS & Coordinate Reference System \\
 DCW & Digital Chart of the World \\
