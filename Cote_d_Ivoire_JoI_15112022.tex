@@ -177,7 +177,7 @@ Recently, Côte d'Ivoire experiences environmental changes common for humid West
 \section{Materials and Methods}
 
 \subsection{Data}
-The data were collected from the \hl{United States Geological Survey} (USGS) \hl{Global Visualization Viewer} (GloVis), a satellite image repository with open access to remotely sensed data, Figure \ref{fig02}. 
+The data were collected from the United States Geological Survey (USGS) Global Visualization Viewer (GloVis), a satellite image repository with open access to remotely sensed data, Figure \ref{fig02}. 
 
 \begin{figure}[H]
      \begin{subfigure}[r]{0.60\textwidth}
@@ -193,45 +193,45 @@ The data were collected from the \hl{United States Geological Survey} (USGS) \hl
         \label{fig02}
 \end{figure}
 
-The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The space-based images were obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments onboard -- the Operational Land Imager (OLI-2) and Thermal Infrared Sensor (TIRS-2) for optical and thermals sensors, and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis is SRTM Void Filled DEM, from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA} with 3 arc-second resolution, 90 m. Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N. Acquisition: 2000-02-11. The general map showing study area has been plotted based on the \hl{General Bathymetric Chart of the Oceans} (GEBCO) \cite{GEBCO} \hl{by} GMT scripting \cite{Wessel}\hl{, using existing methodology} \cite{Lemenkova2022b,Lemenkova202217}. 
+The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The space-based images were obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments onboard -- the Operational Land Imager (OLI-2) and Thermal Infrared Sensor (TIRS-2) for optical and thermals sensors, and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis is SRTM Void Filled DEM, from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA} with 3 arc-second resolution, 90 m. Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N. Acquisition: 2000-02-11. The general map showing study area has been plotted based on the General Bathymetric Chart of the Oceans (GEBCO) \cite{GEBCO} by GMT scripting \cite{Wessel}, using existing methodology \cite{Lemenkova2022b,Lemenkova202217}. 
 
 %\newpage
 \subsection{Image processing in R}
-The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The colour scheme resource of RColorBrewer package \hl{was} used for visualization and plotting \cite{Neuwirth}.
+The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The colour scheme resource of RColorBrewer package was used for visualization and plotting \cite{Neuwirth}.
 
 \subsubsection{Deriving information on satellite image properties and spatial statistics}
-To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using\hl{ }regular expression by the command-line utilities of Unix as a combination of grep, \hl{Geospatial Data Abstraction Library} (GDAL) and echo, Listing \ref{lst:01}. 
+To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using regular expression by the command-line utilities of Unix as a combination of grep, Geospatial Data Abstraction Library (GDAL) and echo, Listing \ref{lst:01}. 
 
 \begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs, label={lst:01}]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
 
-\end{lstlisting}The spatial resolution\hl{, corresponding to }the pixel size\hl{, }is\hl{ }30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
+\end{lstlisting}The spatial resolution, corresponding to the pixel size, is 30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
 
 \begin{figure}[H]
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=7cm]{Fig_03a}
-         \caption{Using grep and echo Unix utilities with 'gdalinfo' module\hl{ }to scan \hl{the} metadata}
+         \caption{Using grep and echo Unix utilities with 'gdalinfo' module to scan the metadata}
          \label{fig:03a}
      \end{subfigure} \hfill \hspace{2mm}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=7cm]{Fig_03b}
-         \caption{Creating SpatRaster objects in R and \hl{checking} spatial data: projection, datum, ellipsoid\hl{.}}
+         \caption{Creating SpatRaster objects in R and checking spatial data: projection, datum, ellipsoid.}
          \label{fig:03b}
      \end{subfigure}
         \caption{Inspecting the geometry of Landsat bands (a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra' (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
         \label{fig03}
 \end{figure}
 
-The spatial information of the Landsat channels (bands) is presented in metadata\hl{, as} shown in Figure \ref{fig:03b}, inspected by R. It \hl{indicates} the number and location of the spectral measurements, spatial extent, geodetic information (Coordinate Reference System \hl{(CRS)}, ellipsoid and datum) obtained by the \hl{Global Positioning System} (GPS) of the spacecraft, spatial and the radiometric resolution of the image. Each image (the band of the Landsat scene) is read-in to \hl{the} R SpatRaster object class, which represents the equalised area of \hl{the} rectangular cells \hl{with} regards \hl{to} the units of the \hl{CRS}, Figure \ref{fig:03b}. 
+The spatial information of the Landsat channels (bands) is presented in metadata, as shown in Figure \ref{fig:03b}, inspected by R. It indicates the number and location of the spectral measurements, spatial extent, geodetic information (Coordinate Reference System (CRS), ellipsoid and datum) obtained by the Global Positioning System (GPS) of the spacecraft, spatial and the radiometric resolution of the image. Each image (the band of the Landsat scene) is read-in to the R SpatRaster object class, which represents the equalised area of the rectangular cells with regards to the units of the CRS, Figure \ref{fig:03b}. 
 
 \subsubsection{Visualising single bands and generating composite maps}
 
-The properties of the image were accessed from a SpatRaster object using R commands \hl{presented in} Listing \ref{lst:02}\hl{. Here} we inspected the \hl{Coordinate Reference System} (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other \hl{bands} (here: target Band 1, Ultra Blue) by \hl{creating} a RasterBrick multi-layer object, Listing \ref{lst:02}. 
+The properties of the image were accessed from a SpatRaster object using R commands presented in Listing \ref{lst:02}. Here we inspected the Coordinate Reference System (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other bands (here: target Band 1, Ultra Blue) by creating a RasterBrick multi-layer object, Listing \ref{lst:02}. 
 
-\begin{lstlisting}[language=r, caption=R code used for \hl{inspecting the information and} statistics \hl{on} the Landsat 8-9 OLI bands, label={lst:02}]
+\begin{lstlisting}[language=r, caption=R code used for inspecting the information and statistics on the Landsat 8-9 OLI bands, label={lst:02}]
 library(terra)
 ## terra version 1.2.11
 # Change working directory
@@ -272,9 +272,9 @@ landsat <- rast(filenames)
 landsat
 \end{lstlisting} 
 
-The layers were then read in the 'landsat' object where \hl{they} are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a., coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). 
+The layers were then read in the 'landsat' object where they are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a., coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). 
 
-The \hl{visualization} of\hl{ }single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig04}. \hl{Visual} inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) is useful to extract\hl{ }general information on\hl{ }large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using \hl{ }spatial properties related to the \hl{values of the} pixel brightness. 
+The visualization of single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig04}. Visual inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) is useful to extract general information on large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using spatial properties related to the values of the pixel brightness. 
 
 \begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images, label={lst:03}]
 library(terra)
@@ -312,13 +312,13 @@ landsatRGB <- c(b4, b3, b2)
 plotRGB(landsatRGB, stretch = "lin")
 \end{lstlisting} 
 
-The difference in shades of grey \hl{corresponds} to the numerical values and range of pixel values in\hl{ diverse} channels of Landsat, which is owing to the spectral \hl{reflectance} that differs in various bands for the objects of the Earth surface. Due to the individual reflectance of the solar radiation by features, the values differ accordingly. \hl{This} fundamental properties \hl{of} features enables to use combinations of various bands for a better \hl{representing} diverse phenomena and objects on the \hl{Earth's} surface. For example, particular applications of Landsat bands have for geology (SWIR Band 7, NIR Band 5 and Red Band 4) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR Band 7, Red Band 4 and Green Band 2), identifying difference between soil and vegetation (Green in Band 3) \cite{Richards,CampbellWynne}. \hl{Besides, the reflectance data from the selected bands of the Landsat images were used in the calculation of the four vegetation indices for study area using interactions of pixels in raster.}
+The difference in shades of grey corresponds to the numerical values and range of pixel values in diverse channels of Landsat, which is owing to the spectral reflectance that differs in various bands for the objects of the Earth surface. Due to the individual reflectance of the solar radiation by features, the values differ accordingly. This fundamental properties of features enables to use combinations of various bands for a better representing diverse phenomena and objects on the Earth's surface. For example, particular applications of Landsat bands have for geology (SWIR Band 7, NIR Band 5 and Red Band 4) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR Band 7, Red Band 4 and Green Band 2), identifying difference between soil and vegetation (Green in Band 3) \cite{Richards,CampbellWynne}. Besides, the reflectance data from the selected bands of the Landsat images were used in the calculation of the four vegetation indices for study area using interactions of pixels in raster.
 
-Subsetting\hl{ }large files, such as multispectral Landsat dataset\hl{,} was done using\hl{ }SpatRaster object and 'subset' function for processing \hl{of} necessary bands. In this \hl{respect}, it enables to ignore the Cirrus, TIRS and other not relevant bands and \hl{to leave} only the visible spectra. In this way, a\hl{ }subset of target layers was selected from \hl{the} SpatRaster\hl{, while} the other bands were removed from the dataset, respectively, using Listing \ref{lst:04}.
+Subsetting large files, such as multispectral Landsat dataset, was done using SpatRaster object and 'subset' function for processing of necessary bands. In this respect, it enables to ignore the Cirrus, TIRS and other not relevant bands and to leave only the visible spectra. In this way, a subset of target layers was selected from the SpatRaster, while the other bands were removed from the dataset, respectively, using Listing \ref{lst:04}.
 
 \begin{figure}[H]
 \makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_04.jpg}}%
-	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale \hl{mode}: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
+	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale mode: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
 	\label{fig04}
 \end{figure} 
 
