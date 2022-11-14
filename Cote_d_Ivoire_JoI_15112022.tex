@@ -1,0 +1,993 @@
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[jimaging,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
+
+\graphicspath{{figures/}} % path to folder with figures
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage[export]{adjustbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{gensymb} % for degree symbol
+\usepackage{lscape}
+\usepackage{pxfonts}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{RGB}{255,255,255}
+\definecolor{SlateGray}{HTML}{708090}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    keywordstyle=\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{SlateGray},
+    basicstyle=\ttfamily\footnotesize,
+%    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=t, 
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=topline|bottomline,
+    }
+
+\lstset{style=mystyle}
+\captionsetup[lstlisting]{position=top, margin=0cm,labelfont={bf, small, stretch=1.17}, labelsep=colon, textfont={small, stretch=1.17}, aboveskip=6pt, singlelinecheck=off, justification=justified}
+	
+\usepackage{soul} % highlighting text
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+
+%---------
+% article
+%---------
+
+%=================================================================
+% MDPI internal commands
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2022}
+\copyrightyear{2022}
+%\externaleditor{Academic Editor: Firstname Lastname}
+\datereceived{} 
+%\daterevised{} % Only for the journal Acoustics
+\dateaccepted{} 
+\datepublished{} 
+%\datecorrected{} % Corrected papers include a "Corrected: XXX" date in the original paper.
+%\dateretracted{} % Corrected papers include a "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%------------------------------------------------------------------
+% The following line should be uncommented if the LaTeX file is uploaded to arXiv.org
+%\pdfoutput=1
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, lineno, float, amsmath, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, cleveref, amsthm, hyphenat, natbib, hyperref, footmisc, url, geometry, newfloat, caption
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Satellite Image Processing by Python and R Using Landsat 9 OLI/TIRS and SRTM DEM Data on Côte d'Ivoire, West Africa}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Satellite Image Processing by Python and R Using Landsat 9 OLI/TIRS and SRTM DEM Data on Côte d'Ivoire, West Africa}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0000-0002-5759-1089} % Add \orcidA{} behind the author's name
+\newcommand{\orcidauthorB}{0000-0002-6461-1551} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Polina Lemenkova $^{1}$\orcidA{} and Olivier Debeir $^{1}\orcidB{}$}
+% \dagger,\ddagger
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Polina Lemenkova $^{1}$ and Olivier Debeir $^{1}$}
+
+% MDPI internal command: Authors, for citation in the left column
+\AuthorCitation{Lemenkova, P.; Debeir, O.}
+% If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%
+$^{1}$ \quad Université Libre de Bruxelles, École polytechnique de Bruxelles (EPB, Brussels Faculty of Engineering), Laboratory of Image Synthesis and Analysis, Building L, Campus de Solbosch, ULB -- LISA CP165/57, Avenue Franklin D. Roosevelt 50, B-1050, Brussels, Belgium}
+
+% Contact information of the corresponding author
+\corres{Correspondence: polina.lemenkova@ulb.be; Tel.: +32471860459 (P.L.)}
+
+% Abstract
+\abstract{\textcolor{blue}{In this paper we propose an advanced scripting approach to process satellite images, such as Landsat, and to model terrain using the Digital Elevation Model (DEM) dataset covering the territory of Côte d'Ivoire, West Africa}. The problem of deriving information on vegetation coverage and relief parameters is addressed \textcolor{blue}{using EarthPy library of Python and 'raster' and 'terra' packages of R}. The methodology included computing vegetation indices and geomorphic terrain modelling. \textcolor{blue}{Four vegetation indices have been computed and visualised using R: Normalized Difference Vegetation Index (NDVI), Enhanced Vegetation Index 2 (EVI2), Soil Adjusted Vegetation Index (SAVI) and Atmospherically Resistant Vegetation Index 2 (ARVI2). The SAVI index demonstrated to be more suitable and better adjusted to the vegetation analysis, which is beneficial for the agricultural monitoring in C\^ote d'Ivoire. The terrain analysis has been performed using Python and included slope, aspect, hillshade and relief modelling using DEM.} The vegetation pattern in \textcolor{blue}{Côte d'Ivoire} is heterogeneous, which reflects the complexity of the terrain structure. \textcolor{blue}{Therefore, we performed terrain and vegetation data modelling to analyse the relationship between regional topography and environmental setting in the study area}. \textcolor{blue}{We compared our approaches on the} hierarchical levels: regional environmental analysis of the Yamoussoukro surroundings and local topographic modelling of the Kossou Lake. \textcolor{blue}{Tested} algorithms of data \textcolor{blue}{processing included} image resampling, band composition, statistical analysis and map algebra \textcolor{blue}{used for} calculation of the vegetation indices in Côte d'Ivoire. This study \textcolor{blue}{shown} the advanced programming algorithms targeted at image processing.}
+
+% Keywords
+\keyword{Image processing; remote sensing; programming; Python; R; satellite image; Digital Terrain Model; cartography; mapping; spatial analysis} 
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+
+\PACS{91.10.Da; 91.10.Jf; 91.10.Sp; 91.10.Xa; 96.25.Vt; 91.10.Fc; 95.40.+s; 95.75.Qr; 95.75.Rs; 42.68.Wt}
+\MSC{86A30; 86-08; 86A99; 86A04}
+\JEL{Y91; Q20; Q24; Q23; Q3; Q01; R11; O44; O13; Q5; Q51; Q55; N57; C6; C61}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section{Introduction}
+Repeated structures representing similar objects on the Earth's surface are commonly depicted on the satellite images, represented by pixels comprising\hl{ }matrix of the image scene with comparable range of values. Similar values of raster cells are prevailing in\hl{ }regions with identical land cover types which comprise the mosaic of the diverse land structure on the Earth. Identifying and recognising these feature objects on the surface is possible using the parameters of pixels in the satellite images: brightness, resolution \cite{4426419,322052,5446016}, intensity \cite{4761020,8519176} and texture \cite{995559,899813,8868688}. Algorithms of image classification and processing enable to identify pixel values using binary data derived from raster cells. 
+
+\hl{Semantic} information \hl{obtained} from \hl{image }interpretation \hl{has} been traditionally used \hl{in} thematic mapping \hl{for analysis of diverse phenomena and processes on the Earth:} land cover fractions \cite{COULIBALY2021108092} \hl{and} vegetation types \cite{7729337,Lemenkova2020d,6946534,Lemenkova202019,6352694}, hydrologic and geomorphic modelling \cite{2015hydrologie}, \hl{detection of} urban sprawl, geological exploration and mining \cite{1457509,NGOM2022102873}. Besides\hl{ }satellite images, another source of information for mapping is provided by airborne aeromagnetic surveys \cite{JESSELL2015440,SIAGNE2022104680} and \hl{Light Detection and Ranging} (LiDAR) data for \hl{three-dimensional} (3D) terrain analysis \cite{SHARMA2021317,8978301,9213897,YEH2017236,9553919,LI201955,GUPTA2022100817}. The general idea behind\hl{ }image processing is that vegetation properties, topographic relief and land cover types can be depicted using data derived from the cells of the raster images. These data can be interpreted and visualized using \hl{ }properties of \hl{Digital Numbers} (DN) of the pixels which depend on\hl{ }texture, composition and fabric of the objects shaping the face of the Earth \cite{YUAN2022106966}.  
+
+\hl{Remote sensing data have great potential and important source of spatial information for various fields of geosciences, such as environmental and geologic mapping, climate and landscape change detection and so on. Therefore, effective and accurate technique of} satellite image\hl{ processing} is essential\hl{. For acquiring accurate scenes of interpreted images, many approaches have been developed. These include the diverse} algorithms of image classification and processing\hl{ }with \hl{a }general idea\hl{ }on reading the information from\hl{ }pixels comprising the image. The analysis of this information enables mapping the diverse phenomena, processes and objects based on\hl{ }interpretation of\hl{ }Earth observation data \cite{PERIN2021106694,PAHLEVAN2022112860,Lemenkova202141,ABU2021107863,ATTOUMANE2022103285}. 
+
+The main objective of image processing is deriving this information from the raw data in raster format. In this context, the search for effective methods of image processing resulted in the variety of existing \hl{Geographic Information System} (GIS) software with specially designed embedded functions for raster data processing. However, in many practical situations, GIS present limitations either due to the commercial licence of software \hl{associated with high cost} (e.g., ArcGIS, Erdas Imagine, eCognition) or functional restrictions (e.g., \hl{System for Automated Geoscientific Analyses} (SAGA) GIS, QGIS). \hl{Moreover, the GIS methods essentially need time and manual operational routine to arrive completion of image processing. Thus they are not suitable for processing large spatio-temporal datasets.} 
+
+\hl{Currently, }open source programming tool present \hl{more} effective solutions that are able to process satellite imagery using advanced methods of machine learning \hl{(ML)}\cite{MASOLELE2021112600,9066075,MARTINS2022113203,rs71114876}. \hl{Among them,} scripting techniques enable to handle Earth observation data effectively and accurately\hl{, as revealed in recent studies}\cite{6344536,ELLEFSEN20191171,Lemenkova202212,6910592,Lemenkova202215,4160259}. A variety of existing programming languages raises the questions of optimal and effective tools suitable for image processing and remote sensing data analysis in environmental modelling. \hl{In this paper, two approaches are proposed to solve the problem of satellite image processing by using Python and R programming languages. As the first approach, we propose the R packages 'terra' and 'raster' for calculation of vegetation indices through map algebra and creating colour band composites. For the second approach, we propose an application of Python library  EarthPy for terrain analysis, supported by auxiliary libraries (Matplotlib, NumPy, Rasterio, Plotly) for data processing and visualization. The combination of several libraries can efficiently utilize the properties and functionality of each to achieve effective image processing for geographical analysis.}
+
+\hl{In the first approach, we calculate vegetation indices and create band composites by R. The R programming }language is \hl{a} fundamental tool for spatial data processing \cite{RCoreTeam}\hl{. It} accounts for different statistical components\hl{, has} a variety of \hl{ }packages and rich graphical functionality \cite{Murrell}. \hl{The packages of R have} long been used for data retrieval, analysis, modelling and visualization in various industries including robotics, engineering and GIS \cite{7847824,Lemenkova2022a,9378399,Lemenkova202216,9390011}. R demonstrates \hl{the} superiority in statistical computing and graphics over common \hl{Graphical User Interface} (GUI)-based software for data analysis. Specifically, it excels in big data analysis \cite{7570960,9752002,6597171}, data mining \cite{7978404} and visualization functionality \cite{Lemenkova201991} which includes modelling and plotting supported through the variety of \hl{its} built-in packages. Owing to its long history of stable development, R has a more mature support of rich collection of libraries compared to Python, which contains a wide variety of the mathematical statistical tools, starting from the very basic functions to \hl{the} highly sophisticated algorithms \cite{9675988}. 
+
+Recent advances in geospatial data processing \cite{8226275} and image classification \cite{9844952,8117873} have made R successful for remote sensing data processing\hl{,} including \hl{image} classification and segmentation\hl{. }This poses us a new way to process and model satellite images and derive spatially structured information from the \hl{complex }scenes. By modelling\hl{ }spatial variations in\hl{ }landscape structure, \hl{including} vegetation and topography,\hl{ 'terra' and 'raster' }libraries \hl{of R} consider spatial dimensions of the image when manipulating\hl{ with} the \hl{remotely sensed} data. \hl{The }similarity between \hl{pixel values enables to extract} features\hl{ }for the classification of variables, e.g., vegetation types\hl{. }In this regard, optimal selection of spectral bands for \hl{ }is indispensable for scene analysis, which is possible in 'terra' package of R.
+
+\hl{The second approach relates to the terrain analysis techniques that use the syntax of Python.} Python is undoubtedly one of the most successful high-level programming languages \cite{van1995python}. It become one of the most powerful tools that can be used for data science. Besides general applications in data science and \hl{ML} \cite{8757088,DebeirDecaestecker,Debeir2008,9719489}, Python can be applied for modelling Earth \hl{observation data} using libraries\hl{ }designed for spatial analysis \cite{Ahmed}. Image and signal processing by object-oriented algorithms of Python \hl{are} pervasive in \hl{geosciences} and \hl{provide} solutions to a wide class of problems in a variety of domains. \hl{Examples} of using Python have been reported in geodetic studies \cite{Zhou2021GPS2spaceAO}, topographic analysis \cite{9254627}, hydrogeological modelling \cite{Mogaji}, modelling air pollution and land use \cite{Maetal2020}, batch spatial data processing \cite{6057428}, creating panorama images \cite{JASKOLKA2019e02560},\hl{ }tunneling microscopy \cite{BASTIDAS2021150821}\hl{, etc}. 
+
+An essential advantage of the programming languages \hl{in} image processing consists in their compatibility. \hl{In} contrast to the \hl{stand-alone} GIS software, scripting libraries can be integrated with other GIS via modules, plugins and toolkits \cite{6407912,7378577,VOS2019104528}. For instance, novel libraries of Python enable to perform various tasks of image processing and spatial analysis through integration \cite{1247428,Rey2010PySALAP,Rey2010}. \hl{Recent} examples include\hl{ }image interpolation, calibration and correlation \cite{DEDEUSFILHO2022101131}, compressed sensing and image reconstruction \cite{FARRENS2020100402}, identifying and extracting\hl{ }vertical features \cite{GAO2022105503}, meteorological modelling \cite{6528254} with resulted images in compatible formats. A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has recently built up with EarthPy, \hl{specially} tailored for spatial tasks of geo-information\hl{ }processing \cite{wasser2019EarthPyAP}.  
+
+Following the idea of using the advanced programming methods used to visualise a representation of object features and classes on the Earth's surface, the goal of this paper is to present the application of Python and R algorithms for image processing. Specific objectives include the following tasks: \emph{i)} plotting the colour composite of the Landsat \hl{Operational Land Imager and Thermal Infrared} (OLI/TIRS) image by the combinations of three channel sensor bands to display the image; \emph{ii)}; computing the selected vegetation indices using the principles of map algebra based on DN of reflectance value of pixels in selected spectral bands -- \hl{Near Infrared} (NIR) and red\hl{;} \emph{iii)} terrain modelling with geomorphic visualization of slope, aspect, hillshade and elevation for\hl{ }relief analysis using the \hl{Shuttle Radar Topography Mission} (SRTM) \hl{Digital Elevation Model} (DEM) data. 
+
+\hl{To the best of our knowledge, no attempts have been made to utilize high-level scripting languages, such as Python and R, for mapping C\^ote d'Ivoire with a special focus on terrain modelling and vegetation indices derived from broadband multispectral data. A related works to ours are some previous works} \cite{Chatelainetal2010,Hennenberg,ElShahat,Tangetal2016,Affianetal2009} \hl{in which the traditional GIS methods are applied to process spatiotemporal information for environmental mapping of C\^ote d'Ivoire and neighbouring African regions. The key difference between our work and theirs is that our method integrates programming algorithms and pixel-based manipulations with data derived from the satellite images into the mapping framework by scripts.}
+
+\hl{The objectives of our study were to use the advanced functionality of several libraries of R and Python for treatment of image bands as variables in single scripts for processing each task separately: terrain modelling, computing vegetation indices through map algebra, combination of Landsat bands. Our method depends on using flexible algorithms of scripting languages by applying their syntax while conventional GIS-based approaches of mapping rely on the traditional GUI interface of the existing cartographic software with their restricted functionality. Thus, in contrast to the previous work, we used advanced libraries of Python and packages of R languages for processing high-resolution satellite images aimed at environmental assessment and mapping of C\^ote d'Ivoire and specifically, modelling the terrain in the surroundings of Kossou Lake, to the north of Yamoussoukro.}
+
+\hl{Our main contributions can be summarized as follows: 1) the environmental mapping of C\^ote d'Ivoire based on modelling and visualization of several vegetation indices using 'terra' package; 2) the R-based approach for processing satellite images that takes into account information from pixels for automatic processing of raster data in spectral bands and computing cell values; 3) using EarthPy-based algorithms for deriving topographic information for spatial analysis of the heterogeneous landscape of Kossou Lake region to model terrain parameters: slope, aspect, hillslopes and stream channels of the hydrological network system automatically; 4) mapping spatial data by scripting libraries that improve on those obtained by state-of-the-art GIS traditionally used for cartographic visualization.} 
+
+%\newpage
+\section{Study Area}
+
+The study area is focused on \hl{the central part of} Côte d'Ivoire, West Africa, Figure \ref{fig01}. \hl{In particular, the region of} Kossou Lake \hl{was selected} as an enlarged fragment \hl{for the} terrain \hl{analysis}. This lake has been created artificially following the construction of\hl{ }dam across the Bandama River. \hl{It has} functional environmental aspects\hl{, serving as a habitat} for dominant biotas\hl{ and supporting local} food webs. \hl{Nowadays, Kossou Lake} forms one of the \hl{most} important inland water bodies of Côte d'Ivoire \hl{and} plays an essential ecological role in the environment of sub-Saharan Africa \cite{MSISKA2009487}. 
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=11.0 cm]{Fig_01}
+	\caption{Topographic map of Côte d'Ivoire. Mapping software: Generic Mapping Tools (GMT) scripting toolset. Data source: GEBCO/SRTM. Cartography: authors.
+	\label{fig01}}
+\end{figure} 
+
+\hl{C\^ote d'Ivoire is notable for diverse} terrain structure \hl{which has two distinct} parts: a coastal \hl{region} formed by the alluvium and marine sands and a continental \hl{region} with hilly relief \cite{Thomasset}. The land cover types are associated with the two major ecosystem types -- forest and savanna\hl{ with} forests\hl{ }distributed \hl{mostly} in the southern part of the country, while savanna -- in the north\hl{,} off Bouak\'{e} \cite{Rougerie}. The vegetation types are largely controlled by the equatorial or subequatorial rainfall regime: long dry season is typical for the northern half of Côte d'Ivoire with \hl{dominating} savannah, while tropical regime characterises \hl{the} southern part \hl{of the country} with \hl{prevailing} forests \cite{Tricart}. Favourable climatic and environmental setting maintain farming and agricultural activities which make Côte d'Ivoire the\hl{ }largest cocoa producer\hl{ in the world} \cite{Losch,Planhol,Smithetal2014,Laderach} and \hl{an} active exporter of food-producing crops \cite{Sawadogo}, such as coffee, bananas, pineapples and palm oil \cite{Pelissier}. Besides agriculture, the activities of population include exploration and mining \cite{SAKO2018297,SAUERWEIN2020104323,MURRAY2019351} and limited fishing along the narrow continental shelf \hl{of the Atlantic Ocean} \cite{Sournia}. 
+
+Recently, Côte d'Ivoire experiences environmental changes common for humid West Africa, which include deforestation and fragmentation of ecosystems \cite{Chatelain}, \hl{decrease} in species richness in savannah biomes \cite{Kolongo}, and increase in habitat heterogeneity\hl{,} which affects biodiversity and species community structure \cite{Yeo}. \hl{Apart from climate effects}, urban sprawl is exceptional for Côte d'Ivoire since 1950s, due to the natural demographic growth and acceleration of population in the industrial agglomerations \cite{Dubresson,Chaleard,Cotten1974,Cotten1973}. Geographically, this results in \hl{the} increased areas of cities and modified transport network \cite{Cotten1985}. \hl{Other environmental problems include water supply issues and pollution caused by the agro-industrial plantations} \cite{Doumouya}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+\section{Materials and Methods}
+
+\subsection{Data}
+The data were collected from the \hl{United States Geological Survey} (USGS) \hl{Global Visualization Viewer} (GloVis), a satellite image repository with open access to remotely sensed data, Figure \ref{fig02}. 
+
+\begin{figure}[H]
+     \begin{subfigure}[r]{0.60\textwidth}
+         \centering
+         \includegraphics[width=9cm]{Fig_02a}
+         \caption{Collecting Landsat 9 OLI/TIRS C2 L1.}
+     \end{subfigure} \vfill \vspace{2mm}
+     \begin{subfigure}[r]{0.60\textwidth}
+         \includegraphics[width=9cm]{Fig_02b}
+         \caption{Collecting SRTM Void Filled DEM.}
+     \end{subfigure}
+        \caption{Data capture from the USGS Global Visualization Viewer (GloVis) satellite image repository to accessing remote sensing data: Landsat 9 OLI/TIRS C2 L1 and SRTM DEM for terrain analysis}
+        \label{fig02}
+\end{figure}
+
+The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The space-based images were obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments onboard -- the Operational Land Imager (OLI-2) and Thermal Infrared Sensor (TIRS-2) for optical and thermals sensors, and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis is SRTM Void Filled DEM, from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA} with 3 arc-second resolution, 90 m. Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N. Acquisition: 2000-02-11. The general map showing study area has been plotted based on the \hl{General Bathymetric Chart of the Oceans} (GEBCO) \cite{GEBCO} \hl{by} GMT scripting \cite{Wessel}\hl{, using existing methodology} \cite{Lemenkova2022b,Lemenkova202217}. 
+
+%\newpage
+\subsection{Image processing in R}
+The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The colour scheme resource of RColorBrewer package \hl{was} used for visualization and plotting \cite{Neuwirth}.
+
+\subsubsection{Deriving information on satellite image properties and spatial statistics}
+To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using\hl{ }regular expression by the command-line utilities of Unix as a combination of grep, \hl{Geospatial Data Abstraction Library} (GDAL) and echo, Listing \ref{lst:01}. 
+
+\begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs, label={lst:01}]
+for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
+
+\end{lstlisting}The spatial resolution\hl{, corresponding to }the pixel size\hl{, }is\hl{ }30 m for Bands 1 to 7, 9 and 10, while 15 m for Band 8 (Panchromatic). Figure \ref{fig:03a}. 
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Fig_03a}
+         \caption{Using grep and echo Unix utilities with 'gdalinfo' module\hl{ }to scan \hl{the} metadata}
+         \label{fig:03a}
+     \end{subfigure} \hfill \hspace{2mm}
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Fig_03b}
+         \caption{Creating SpatRaster objects in R and \hl{checking} spatial data: projection, datum, ellipsoid\hl{.}}
+         \label{fig:03b}
+     \end{subfigure}
+        \caption{Inspecting the geometry of Landsat bands (a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra' (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
+        \label{fig03}
+\end{figure}
+
+The spatial information of the Landsat channels (bands) is presented in metadata\hl{, as} shown in Figure \ref{fig:03b}, inspected by R. It \hl{indicates} the number and location of the spectral measurements, spatial extent, geodetic information (Coordinate Reference System \hl{(CRS)}, ellipsoid and datum) obtained by the \hl{Global Positioning System} (GPS) of the spacecraft, spatial and the radiometric resolution of the image. Each image (the band of the Landsat scene) is read-in to \hl{the} R SpatRaster object class, which represents the equalised area of \hl{the} rectangular cells \hl{with} regards \hl{to} the units of the \hl{CRS}, Figure \ref{fig:03b}. 
+
+\subsubsection{Visualising single bands and generating composite maps}
+
+The properties of the image were accessed from a SpatRaster object using R commands \hl{presented in} Listing \ref{lst:02}\hl{. Here} we inspected the \hl{Coordinate Reference System} (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other \hl{bands} (here: target Band 1, Ultra Blue) by \hl{creating} a RasterBrick multi-layer object, Listing \ref{lst:02}. 
+
+\begin{lstlisting}[language=r, caption=R code used for \hl{inspecting the information and} statistics \hl{on} the Landsat 8-9 OLI bands, label={lst:02}]
+library(terra)
+## terra version 1.2.11
+# Change working directory
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+b2 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF') # Blue
+b3 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF') # Green
+b4 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF') # Red
+b5 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF') # Near Infrared (NIR)
+# Checking metadata by printing the variables
+b2
+# Checking coordinate reference system (CRS)
+crs(b2)
+# Number of cells
+ncell(b2)
+# Number of rows & columns
+dim(b2)
+# Image information and statistics spatial resolution
+res(b2)
+# Number of bands
+nlyr(b2)
+# Comparing bands extent, number of rows and columns, projection, resolution and origin
+compareGeom(b5, b4)
+# Creating a SpatRaster with multiple layers from the existing SpatRaster (single layer) objects.
+s <- c(b5, b4, b3)
+# Checking properties of the multi-band image
+s
+# Creating a list of raster layers to use
+filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
+filenames
+# Resampling raster in Band 8 (panchromatic) to the structure of Band 1:
+library(raster)
+r1 = raster::brick("LC09_L1TP_197055_20220111_20220122_02_T1_B8.tif")
+r2 = raster::brick("LC09_L1TP_197055_20220111_20220122_02_T1_B1.tif")
+r1 <- resample(r1, r2, method="bilinear")
+s <- stack(r1, r2)
+# Creating the multi-layer SpatRaster using the filenames
+landsat <- rast(filenames)
+landsat
+\end{lstlisting} 
+
+The layers were then read in the 'landsat' object where \hl{they} are represented by the bands of Landsat-9 OLI with reflection intensity in the following wavelengths: Ultra Blue, a.k.a., coastal aerosol (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). 
+
+The \hl{visualization} of\hl{ }single bands has been performed using Listing \ref{lst:03} and presented as a subplot of grayscale scenes in Figure \ref{fig04}. \hl{Visual} inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) is useful to extract\hl{ }general information on\hl{ }large-scale features, such as river systems, lakes, mountains, fracture patterns, large geological lineaments, city extent with notable objects (highways). These objects are visible and can be identified by their shape and size, and interpreted using \hl{ }spatial properties related to the \hl{values of the} pixel brightness. 
+
+\begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the multi-spectral image Landsat-9 as grayscale bitmap images, label={lst:03}]
+library(terra)
+## terra version 1.2.11
+# Change working directory
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+b1 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B1.TIF') # Ultra Blue
+b2 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF') # Blue
+b3 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF') # Green
+b4 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF') # Red
+b5 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF') # NIR
+b6 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF') # Green
+b7 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF') # Red
+b8 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B8.TIF') # Panchrom.
+b9 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B9.TIF') # Cirrus
+b10 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B10.TIF') # TIRS 1
+b11 <- rast('LC09_L1TP_197055_20220111_20220122_02_T1_B11.TIF') # TIRS 2.
+# Plotting natural color composite from bands B4, B3 and B2.
+landsatRGB <- c(b4, b3, b2)
+plotRGB(landsatRGB, stretch = "lin")
+# Plotting 11 original individual layers as raw bands of the Landsat-9 OLI.
+par(mfrow = c(4, 3))
+plot(b1, main = "Ultra Blue (Band 1)", col = gray(0:100 / 100), legend=FALSE)
+plot(b2, main = "Blue (Band 2)", col = gray(0:100 / 100), legend=FALSE)
+plot(b3, main = "Green (Band 3)", col = gray(0:100 / 100), legend=FALSE)
+plot(b4, main = "Red (Band 4)", col = gray(0:100 / 100), legend=FALSE)
+plot(b5, main = "NIR (Band 5)", col = gray(0:100 / 100), legend=FALSE)
+plot(b6, main = "SWIR (Band 6)", col = gray(0:100 / 100), legend=FALSE)
+plot(b7, main = "NIR (Band 7)", col = gray(0:100 / 100), legend=FALSE)
+plot(b8, main = "Panchrom. (Band 8)", col = gray(0:100 / 100), legend=FALSE)
+plot(b9, main = "Cirrus (Band 9)", col = gray(0:100 / 100), legend=FALSE)
+plot(b10, main = "TIRS 1 (Band 10)", col = gray(0:100 / 100), legend=FALSE)
+plot(b11, main = "TIRS 2 (Band 11)", col = gray(0:100 / 100), legend=TRUE)
+landsatRGB <- c(b4, b3, b2)
+plotRGB(landsatRGB, stretch = "lin")
+\end{lstlisting} 
+
+The difference in shades of grey \hl{corresponds} to the numerical values and range of pixel values in\hl{ diverse} channels of Landsat, which is owing to the spectral \hl{reflectance} that differs in various bands for the objects of the Earth surface. Due to the individual reflectance of the solar radiation by features, the values differ accordingly. \hl{This} fundamental properties \hl{of} features enables to use combinations of various bands for a better \hl{representing} diverse phenomena and objects on the \hl{Earth's} surface. For example, particular applications of Landsat bands have for geology (SWIR Band 7, NIR Band 5 and Red Band 4) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR Band 7, Red Band 4 and Green Band 2), identifying difference between soil and vegetation (Green in Band 3) \cite{Richards,CampbellWynne}. \hl{Besides, the reflectance data from the selected bands of the Landsat images were used in the calculation of the four vegetation indices for study area using interactions of pixels in raster.}
+
+Subsetting\hl{ }large files, such as multispectral Landsat dataset\hl{,} was done using\hl{ }SpatRaster object and 'subset' function for processing \hl{of} necessary bands. In this \hl{respect}, it enables to ignore the Cirrus, TIRS and other not relevant bands and \hl{to leave} only the visible spectra. In this way, a\hl{ }subset of target layers was selected from \hl{the} SpatRaster\hl{, while} the other bands were removed from the dataset, respectively, using Listing \ref{lst:04}.
+
+\begin{figure}[H]
+\makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_04.jpg}}%
+	\caption{Original individual 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 'LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in grayscale \hl{mode}: Ultra Blue (Band 1), Blue (Band 2), Green (Band 3), Red (Band 4), Near Infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), Panchromatic (Band 8), Cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10), Thermal Infrared (TIRS) 2 (Band 11). Plotting: R.}
+	\label{fig04}
+\end{figure} 
+
+\begin{lstlisting}[language=r, caption=R code for \hl{subsetting the }large files using SpatRaster object, label={lst:04}]
+library(terra)
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+filenames <- paste0('LC09_L1TP_197055_20220111_20220122_02_T1_B', 1:11, ".tif")
+filenames
+landsat <- rast(filenames)
+landsat
+# Removing the unnecessary four bands: Panchromatic, Cirrus, TIRS1, TIRS2.
+landsatsub <- subset(landsat, 1:7)
+names(landsatsub)
+# Checking Nnumber of bands in the original and new data
+nlyr(landsatsub)
+# Renaming the bands
+names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SWIR2")
+names(landsatsub)
+\end{lstlisting} 
+
+\hl{To more thoroughly investigate the relationship between the spectral response of various land cover types in different wavelength diapasons, we examined pairwise correlation between the selected bands. To this end, we compared the} bands in\hl{ }pairwise combinations (Bands 1 vs 2 and Band 4 vs 5) in \hl{the} selected parts of the spectrum, the images were plotted pixel-by-pixel against those from \hl{the} corresponding bands, Listing \ref{lst:05}. The resulting plot shows a narrow correlation ellipse \hl{and} a histogram representing a strong positive correlation between these two bands - Green and Blue, and Red to NIR, Figure \ref{fig05}.
+
+\begin{lstlisting}[language=r, caption=R code for inspecting the correlation between \hl{the} selected Landsat bands, label={lst:05}]
+# Relation between bands
+library(terra)
+pairs(landsatsub[[1:2]], hist=TRUE, cor=TRUE, use="pairwise.complete.obs", maxcells=100000, main = "Correlation of Band 1 (Ultra-blue) against Blue (Band 2)")
+pairs(landsatsub[[4:5]], hist=TRUE, cor=TRUE, maxcells=100000, main = "Correlation of Band 4 (Red) against NIR (Band 5)")
+\end{lstlisting} 
+
+\hl{The cells} with low spectral reflectance in a target band mostly have low reflectance in all the rest of the bands, which is caused by the albedo of the Earth's surface. However, the correlation between the Bands 1 and 2 shows more similarity between \hl{these} bands, since all the pixels almost form the same line, while NIR and Red Bands demonstrate more differences in spectral reflectance of \hl{the} selected objects, which results in the scattered cloud of points representing the pixels on the scenes. The brightness of pixels in each layer indicate the amount of  incident solar radiation, which is reflected by the Earth's surface in a given wavelength diapason, which \hl{affects} the similarity and \hl{the} difference in spectral bands \hl{of the Landsat scene}. 
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Fig_05a.jpg}
+         \caption{Band 1 against Band 2}
+     \end{subfigure} \hfill \hspace{2mm}
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=7cm]{Fig_05b.jpg}
+         \caption{Band 4 against Band 5.}
+     \end{subfigure}
+        \caption{Correlation between \hl{the} selected Landsat-8 OLI/TIRS C1 bands in \hl{a} multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig05}
+\end{figure}
+
+Since there is not much information in the monochrome bands, they were combined into\hl{ }several composites to create more meaningful plots. Plotting the colour composites of the Landsat OLI/TIRS image is based on the combinations of the three channel sensor bands used as elements of \hl{the} matrix scene. The three bands assigned to each of the three colour primaries \hl{Red Green Blue} (RGB) displayed the image, Listing \ref{lst:06}.
+
+\begin{lstlisting}[language=r, caption=R code used for plotting \hl{the} color composites for bands of the satellite image, label={lst:06}]
+library(raster)
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535)
+plotRGB(rgb, stretch="lin")
+plotRGB(rgb, stretch="hist")
+# False color composites
+# Color Infrared: colors near-infrared (band 5) as red, red (band 4) as green, and green (band 3) as blue
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="lin")
+# Landsat 9 OLI/TIRS colour composite image, RGB=753
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 9 OLI/TIRS colour composite image, RGB=765.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 9 OLI/TIRS colour composite image, RGB=742.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B2.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 9 OLI/TIRS colour composite image, RGB=573.
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B7.TIF")
+blue = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(red, green, blue)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 9 OLI/TIRS colour composite image, Color Infrared: RGB=543
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B3.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
+# Landsat 9 OLI/TIRS colour composite image, Color Infrared: RGB=654
+green = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B6.TIF")
+red = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B5.TIF")
+near.infrared = raster("LC09_L1TP_197055_20220111_20220122_02_T1_B4.TIF")
+rgb = stack(near.infrared, red, green)
+plotRGB(rgb, scale=65535, stretch="hist")
+\end{lstlisting}
+
+The vegetation indices were computed based on the arithmetically transformed combination of \hl{Landsat OLI/TIRS} bands. This results from the existing formulae for band computations using mathematical operations among the cell brightness in the scenes using \hl{techniques of map algebra including }addition, subtraction and division of the brightnesses of the NIR and Red Bands of \hl{the} Landsat image. \hl{The} differences in bands highlight the regions of \hl{the} enhanced and more healthy vegetation in the target area of image\hl{,} which is useful for \hl{the} environmental monitoring and ecological assessment. The resultant image shows the brightness values of vegetation modified by colour palettes made using arithmetic operations on \hl{the} composite bands. 
+
+The most widely used and well known vegetation index is the Normalised Difference Vegetation Index (NDVI)\hl{,} which applies the ratio of the difference in values between Red and NIR bands and their sum. Similar to the NDVI, Enhanced Vegetation Index (EVI) quantifies vegetation greenness with added corrections for \hl{the} atmospheric conditions and canopy background noise. Besides, EVI is more sensitive in \hl{the} forest areas with \hl{much} more dense canopy and vegetation coverage, which is useful for the forest regions of Côte d'Ivoire. The Soil Adjusted Vegetation Index (SAVI) is built up using NDVI with \hl{a} correction for the effects from soil brightness in the regions where vegetative cover is low, e.g.\hl{, in} newly deforested areas, desert and fragmented savannah of Côte d'Ivoire. \hl{The} Atmospherically Resistant Vegetation Index 2 (ARVI2) is the most applicable {index} in \hl{the} regions of high atmospheric aerosol content. \hl{Examples of other environmental indices include, for instance, Normalized Difference Water Index (NDWI), modified Normalized Difference Water Index (MNDWI), and Water Ratio Index (WRI)} \cite{s22186827}.
+
+Computing vegetation indices is an important environmental tool\hl{, which is }based on the information from pixel value, \hl{indicating} spectral reflectance of \hl{the} Red and NIR bands\hl{,} measured by the sensor. It is commonly computed with a spatial statistics and algebra of bands, using cell values defined on the scene, \hl{as we demonstrated in} Listing \ref{lst:07}. The reason for selecting \hl{the} NIR and Red \hl{bands} for computing\hl{ }vegetation indices is because\hl{ }vegetation appears brighter in these bands\hl{, }since it reflects more energy in NIR/Red bands compared to \hl{the} other wavelengths. Contrarily, water absorbs most of the energy in the NIR band and is represented by black to very dark brown colours. Through a series of interactions among \hl{the} scene elements, they are allocated to the classes\hl{,} based on the weighted values of their relative proportions.
+
+\begin{lstlisting}[language=r, caption=R code used for computing vegetation indices from bands of the satellite image, label={lst:07}]
+# Computing vegetation indices
+library(terra)
+library(RColorBrewer)
+setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
+# 1. Normalized Difference Vegetation Index (NDVI) = (NIR - R) / (NIR + R) NDVI = (Band 5 - Band 4) / (Band 5 + Band 4).
+vi <- function(img, k, i) {
+  bk <- img[[k]]
+  bi <- img[[i]]
+  vi <- (bk - bi) / (bk + bi)
+  return(vi)
+}
+# For Landsat NIR = 5, red = 4.
+ndvi <- vi(landsat, 5, 4)
+plot(ndvi, col=rev(terrain.colors(20)), font.main = 1, main = "NDVI for Landsat-9 OLI/TIRS C1 image LC09_L1TP_197055_20220111_20220122_02_T1: Yamassoukro, central C\^ote d'Ivoire", cex.main=0.9)
+# Plotting histogram of the NDVI
+hist(ndvi, font.main = 1, main = "NDVI values for Landsat-9 OLI/TIRS C1 image \n LC09_L1TP_197055_20220111_20220122_02_T1, Yamassoukro, central C\^ote d'Ivoire", xlab = "NDVI", ylab= "Frequency",
+    col = "darkolivegreen1", xlim = c(-0.5, 1),  breaks = 30, xaxt = "n")
+axis(side=1, at = seq(-0.6, 1, 0.1), labels = seq(-0.6, 1, 0.1))
+#
+# 2. Soil Adjusted Vegetation Index (SAVI) corrects NDVI for the influence of soil brightness in areas where vegetative cover is low
+# SAVI = ((Band 5 - Band 4) / (Band 5 + Band 4 + 0.5)) * (1.5).
+savi_fun = function(nir, red){
+  ((nir - red) / (nir + red + 0.5)) * 1.5
+}
+savi = lapp(landsat[[c(4, 3)]],
+            fun = savi_fun)
+#plot(savi, col = topo.colors(30), font.main = 2, main = "Soil Adjusted Vegetation Index (SAVI) for Landsat-9 OLI/TIRS C1 image \nLC09_L1TP_197055_20220111_20220122_02_T1: Yamassoukro, central C\^ote d'Ivoire", cex.main=1.0)
+plot(savi, col = brewer.pal(11, "Accent"), font.main = 2, main = "Soil Adjusted Vegetation Index (SAVI) for Landsat-9 OLI/TIRS C1 image \nLC09_L1TP_197055_20220111_20220122_02_T1: Yamassoukro, central C\^ote d'Ivoire", cex.main=1.0)
+# Computing histogram for SAVI
+hist(savi, font.main = 1, main = "SAVI values for Landsat-9 OLI/TIRS C1 image \n LC09_L1TP_197055_20220111_20220122_02_T1, Yamassoukro, central C\^ote d'Ivoire", xlab = "SAVI", ylab= "Frequency",
+    col = "darkgoldenrod1", xlim = c(-0.4, 0.4),  breaks = 30, xaxt = "n")
+axis(side=1, at = seq(-0.4, 0.4, 0.1), labels = seq(-0.4, 0.4, 0.1))
+#
+# 3. Enhanced Vegetation Index 2
+# EVI2 = 2.4 * (Band 5 - Band 4) / (Band 5 + Band 4 + 1).
+evi2_fun = function(nir, red){
+  2.4 * ((nir - red) / (nir + red + 1))
+}
+evi2 = lapp(landsat[[c(4, 3)]],
+            fun = evi2_fun)
+plot(evi2, col = brewer.pal(9, "Set1"), font.main = 2, main = "Enhanced Vegetation Index 2 (EVI2) for Landsat-9 OLI/TIRS C1 image \nLC09_L1TP_197055_20220111_20220122_02_T1: Yamassoukro, central C\^ote d'Ivoire", cex.main=0.9)
+# Computing histogram for EVI2
+hist(evi2, font.main = 1, main = "EVI2 values for Landsat-9 OLI/TIRS C1 image \n LC09_L1TP_197055_20220111_20220122_02_T1, Yamassoukro, central C\^ote d'Ivoire", xlab = "SAVI", ylab= "Frequency",
+    col = "darkorchid1", xlim = c(-0.4, 0.4),  breaks = 30, xaxt = "n")
+axis(side=1, at = seq(-0.4, 0.4, 0.1), labels = seq(-0.4, 0.4, 0.1))
+#
+# 4. Atmospherically Resistant Vegetation Index 2 (ARVI2)
+# ARVI2 = -0.18 + 1.17 ((nir - red) / (nir + red))
+arvi_fun = function(nir, red){
+  ((nir - red) / (nir + red)) * 1.17 - 0.18
+}
+arvi = lapp(landsat[[c(4, 3)]],
+            fun = arvi_fun)
+plot(arvi, col = brewer.pal(12, "Paired"), font.main = 1, main = "Atmospherically Resistant Vegetation Index 2 (ARVI2) for Landsat-9 OLI/TIRS C1 \nimage LC09_L1TP_197055_20220111_20220122_02_T1: Yamassoukro, C\^ote d'Ivoire", cex.main=0.9)
+# Computing histogram for ARVI2
+hist(arvi, font.main = 1, main = "ARVI2 values for Landsat-9 OLI/TIRS C1 image \n LC09_L1TP_197055_20220111_20220122_02_T1, Yamassoukro, C\^ote d'Ivoire", xlab = "ARVI2", ylab= "Frequency",
+    col = "cyan1", xlim = c(-0.4, 0.1),  breaks = 30, xaxt = "n")
+axis(side=1, at = seq(-0.4, 0.1, 0.1), labels = seq(-0.4, 0.1, 0.1))
+\end{lstlisting}
+
+\hl{Mapping vegetation indices demonstrates a great potential of using map algebra and calculations techniques for the Landsat OLI/TIRS for detection of decline in vegetation and environmental monitoring. Moreover, this technique is also useful for agricultural applications where deteriorated sites may require remediation or close monitoring.} 
+ 
+\subsection{Terrain Analysis in Python}
+\hl{To model the relationship between topographic variables and appearance, we applied Python algorithms for processing SRTM data by the 3D approach.} The 3D visualization of the terrain surface is based on modelling azimuth and altitude of the artificial light imitating the sun illumination. Technically, the terrain analysis has been performed using integration of Python libraries EarthPy \cite{wasser2019EarthPyAP}, Matplotlib \hl{for data visualization} \cite{Hunter2007MatplotlibA2}, Rasterio \hl{for processing gridded raster datasets} \cite{gillies_2019}, and auxiliary packages NumPy \cite{harris2020array} and Plotly \cite{plotly}\hl{, where NumPy operates with arrays in the matrix of raster cells and Plotly is used as additional graphical and plotting library.}
+
+The geospatial \hl{Tagged Image File Format (TIFF)} has been visualized for modelling DEM \hl{as GeoTIFF} using\hl{ }Rasterio library which \hl{reads} the dataset as a raster array of cells, reads the GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images, Listing \ref{lst:08}. Using\hl{ }Rasterio, the elevation data were read in as values of heights \hl{that are} contained in the cells of the \hl{corresponding} raster. The terrain is then plotted as an array of cells representing land surface according to the elevation values, \hl{as shown in} Listing \ref{lst:08}. 
+
+\begin{lstlisting}[language=python, caption=Python code (1) used for plotting DEM in Figure 2, label={lst:08}]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Open DEM by Rasterio 
+with rio.open(dtm) as src:
+    elevation = src.read(1)
+# Plot the data
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    elevation,
+    ax=ax,
+    cmap="terrain",
+    title="Ditigal Terrain Model (DTM) of Kossou Lake, C\^ote d'Ivoire. \n Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. \nEntity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cpt: 'terrain'",
+    figsize=(10, 6),
+)
+plt.show()
+# Save figure with 300 dpi resolution
+plt.savefig('Figure_2_DEM_Kossou_1609.jpg', dpi=300)
+\end{lstlisting}
+
+The hillshade was calculated using the altitude of sun as a light source in zenith and azimuth of the illumination source, Listing \ref{lst:09}. The slope and aspect of the terrain are used as auxiliary variables for \hl{the} terrain modelling. The hillshade modelling inherently related to \hl{a} static cartographic representations of the Earth's topography\hl{, thus, }hillshade is used for the geomorphometric representation of the terrain of Côte d'Ivoire. 
+
+\begin{lstlisting}[language=python, caption=Python code (2) used for plotting hillshade in Figure 3, label={lst:09}]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Generate hillshade from DTM
+hillshade = es.hillshade(elevation)
+# Plot the data
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade,
+    ax=ax,
+    cbar=True,
+    cmap="cividis",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. \n Data source: SRTM3 (3 arc-second resolution, 90 m), NASA/NGA. \nEntity ID: SRTM3N07W006V2. Aquisition date: 2000-02-11. cmap=cividis",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_3_Hillshade_Kossou_1609.png', dpi=300)
+\end{lstlisting}
+
+Hillshade represents the terrain with hypothetical illumination value in \hl{the} monochrome scale (0-255) with cells on the raster scene showing the terrain surface with a given specified light source. The illumination was changed to 10\degree and 230 \degree (in radians) to better represent \hl{geospatial} model of the \hl{topographic} relief of Côte d'Ivoire, Listing \ref{lst:10}. 
+
+\begin{lstlisting}[language=python, caption=Python code used for plotting the hillshade with changed azimuth and sun angle values for Figures 4 and 5, label={lst:10}]
+python3.10
+# Set home directory
+import os
+os.chdir('/Users/polinalemenkova/Documents/Python/Image_Processing')
+os. getcwd()
+# Set data source
+dtm = "n07_w006_3arc_v2.tif"
+# Load libraries
+from glob import glob
+import earthpy as et
+import earthpy.spatial as es
+import earthpy.plot as ep
+import rasterio as rio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import ListedColormap
+import plotly.graph_objects as go
+np.seterr(divide='ignore', invalid='ignore')
+# Open DEM by Rasterio which reads GeoTIFF format and stores gridded raster datasets of digital terrain models (DTMs) and satellite images
+with rio.open(dtm) as src:
+    elevation = src.read(1)
+# Changing the azimuth of the sun of the hillshade layer to 210 degrees
+hillshade_azimuth_230 = es.hillshade(elevation, azimuth=230)
+# Plotting the hillshade layer with the modified azimuth
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade_azimuth_230,
+    ax=ax,
+    cbar=True,
+    cmap="plasma",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. Azimuth of sun is adjusted to 230 \N{DEGREE SIGN}",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_4_Azimuth_hillshade_Kossou.jpg', dpi=300)
+# Changing the angle altitude of sun
+hillshade_angle_10 = es.hillshade(elevation, altitude=10)
+# Plotting the hillshade layer with the modified angle altitude
+fig, ax = plt.subplots(figsize=(10, 10))
+ep.plot_bands(
+    hillshade_angle_10,
+    ax=ax,
+    cbar=True,
+    cmap="magma",
+    title="Hillshade from DTM of Kossou Lake, C\^ote d'Ivoire. Angle altitude is defined as 10 \N{DEGREE SIGN}",
+    figsize=(10, 10),
+)
+plt.show()
+plt.savefig('Figure_5_Angle_hillshade_Kossou.jpg', dpi=300)
+\end{lstlisting}
+
+\hl{Our current limitations is that we assume the data to be of high resolution which, however, may affect the resulting topographic model by coarse resolution data, i.e., lesser meters in one pixel will give a rough representation of the Earth's surface and miss smaller landforms in the landscape. With this regard, it is strongly recommended to apply high-resolution data for a precise representation of the Earth. Another point of concern is to select a correct view shed and azimuth for modelling aspect, slope and elevation, which is is actual for the mountainous regions and rugged relief. Therefore, although Python-based method of the terrain modelling can potentially handle materials with coarser or unknown resolution of the original data,  the results may be hiding selected structures on the Earth's surface. The same point concerns the applications of R for image processing which results in data precision corresponding to the original resolution of the input dataset. In our future woks, we are very interested in extending our work to handle higher resolution imagery, such as Sentinel 2A with 10 m, or Satellite pour l'Observation de la Terre (SPOT) with up to 1.5 m spatial resolution in panchromatic and multispectral channels.}
+
+We applied\hl{ }Python and R algorithms which take the terrain characteristics of the Earth and image properties into account when plotting raster scenes. Exploiting the characteristics of the satellite bands\hl{, }we recover from each channel in various wavebands data on spectral reflectance of the cells which correspond to the objects located on the Earth. Interpretation of these values \hl{is} based on their spectral reflectance in various wavebands\hl{, }which \hl{gives} information regarding the characteristics of typical \hl{land} cover types. \hl{This is possible by the analysis of different} brightness of each land cover types\hl{, }e.g., forests, rivers, lakes and other water bodies, urban spaces\hl{. }In turn, the \hl{geomorphometric} models \hl{performed} using Python scripts\hl{ }enable to predict the distribution of various soil properties and associated vegetation types which are related to \hl{the} specific slope steepness \hl{and regional topographic features}. Another application \hl{of terrain models} is hazard risk assessment in applied geology, \hl{for instance}, estimation of \hl{the} probability of erosion, landslides and avalanche events in the mountainous \hl{regions}. \hl{Major advantage of} using scripts of Python and R for environmental modelling \hl{is that it} reduces the time of data processing and increases the precision of models through automation of data processing\hl{, since scripts can be repeated for other regions and applied in similar studies.}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+\section{Results and Discussion}
+%--------
+\subsection{Color composites}
+Colour image maps \hl{were} created by different combinations of \hl{the} recorded Landsat OLI/TIRS bands\hl{. In} the sequence from top to bottom \hl{they are} displayed respectively as natural and false composites, \hl{see} Figure \ref{fig06}. The use of natural (or true) colour composites is widely applied for general environmental monitoring, since it exposes more characteristics regarding the landscape and land cover types \hl{compared to} the monochrome images. 
+
+Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour composite. Since its appearance is similar to the normal aerial photograph, this composite is advantageous for mapping vegetation and agricultural coverage and discriminating the vegetation from bare soils and growing crop, Figure \ref{fig06}, a) and b). In Figure \ref{fig06}c) Bands 3-4-5 were taken in \hl{the} inverse way where NIR Band 5 was representing red, Red Band 4 as green, and Green Band 3 as blue. The improvement of the image has been performed using linear and histogram stretching\hl{, which consists in the adjustment of contrast in the colour tones of the images}. In this band composite, the broadleaf healthy vegetation has a deeper reddish hue, while lighter hues are related to the grasslands, savannahs or sparsely vegetated areas, and soil is represented by various hues depending on the soil type, from dark to light browns. The populated urban areas are shown in light-grey to white spots. 
+
+\begin{figure}[H]
+\makebox[0.90\linewidth][r]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_06a}
+		\caption{Bands 2-3-4, stretch improvement: 'linear'}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{Fig_06b}
+		\caption{Bands 2-3-4, stretch improvement: 'histogram'.}
+	\end{subfigure}%
+}\\
+\vfill \vspace{1mm}
+\makebox[0.90\linewidth][r]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_06c}
+		\caption{Bands 3-4-5.}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{Fig_06d}
+		\caption{Bands 7-6-5}
+	\end{subfigure}%
+}
+\caption{Natural color composites: (a) and (b). False color composites: (c) and (d). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig06}
+\end{figure}
+
+The false colour composite\hl{, }where NIR, Red, and Green bands are mixed\hl{, is} represented by the mix of \hl{bands} 3-4-5, which prints the optical data with vegetation dominating by the bright red hues due to the chlorophyll reflection, while agricultural lands are depicted by cyan. The bare soils \hl{in this combination appears}  as shades of white to light grey, blueish, or green in the agricultural regions, depending on the crop type. The darker shades of each colour indicate moister soil\hl{ }and cities by hues of steel grey, Figure \ref{fig06}, c). The combination of Bands 7-6-5 shows the mix of SWIR 2, SWIR 1 and NIR. Here the crop lands are coloured yellow, while vegetation areas are shown as bright ultramarine blue, Figure \ref{fig06}, d). 
+
+Figure \ref{fig07} shows different cases of false colour composites mixed with NIR, SWIR2 and Green (a), SWIR 2, Red and Blue (b), NIR, Red and Green (c) and SWIR 1, Red and Green (d). \hl{Since NIR light is reflected from the surfaces with higher levels of vegetation, but is absorbed by water, such band combinations are useful for vegetation and agriculture applications, e.g. mapping forests and crops.}
+
+\begin{figure}[H]
+\makebox[0.90\linewidth][c]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_07a}
+		\caption{Bands 5-7-3.}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_07b}
+		\caption{Bands 7-4-2}
+	\end{subfigure}%
+}\\
+ \vfill \vspace{1mm}
+\makebox[0.90\linewidth][c]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_07c}
+		\caption{Bands 5-4-3 (Color Infrared).}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_07d}
+		\caption{Bands 6-5-4}
+	\end{subfigure}%
+}
+\caption{False color composite visualization of Landsat 8 OLI image of Kossou Lake surroundings, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig07}
+\end{figure}
+
+
+\subsection{Computing Vegetation Indices}
+\subsubsection{Normalized Difference Vegetation Index (NDVI)}
+
+The NDVI aims at quantifying the concentrations of \hl{the} green leaf canopy\hl{. It indicates} healthy vigour vegetation by using the arithmetics of bands in Red and NIR, \hl{as shown in} Equation \ref{eq:1}  \cite{1974NASSP}:
+
+\begin{equation}\label{eq:1}
+NDVI=\dfrac{(NIR-Red)}{(NIR+Red)}
+\end{equation}
+
+Originally tested in 1974 \cite{1974NASSP}, \hl{the NDVI} received a wide recognition \hl{in image processing for environmental modelling,} and is now \hl{it is} the most famous and often used vegetation index. The selection of the Red and NIR bands in the NDVI is explained by the specific certain abilities of plants to selectively absorb, reflect or transmit the frequencies in the wavebands: plants absorbs Red and strongly reflect NIR waves. Practically, the NDVI enables to indicate\hl{ }green vegetation density covering the terrain surface and identify where plants are thriving and where they are under stress, i.e., due to lack of water.
+
+\begin{figure}[H]
+\makebox[0.97\linewidth][r]{%
+	\begin{subfigure}[b]{.68\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_08a.jpg}
+		\caption{NDVI ratio based vegetation index}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.61\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_08b.jpg}
+		\caption{Data distribution within the computed NDVI}
+	\end{subfigure}%
+}
+       \caption{Normalized Difference Vegetation Index (NDVI) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig08}
+\end{figure}
+
+Using this fundamental property, the NDVI is used to evaluate vegetation health and assess vigour of plants in agricultural regions. The general NDVI lies in the diapason of -1 to +1, \hl{however,} the majority of values are restricted by the range of -0.1 to 0.5, Figure \ref{fig08}. Negative values of the NDVI correspond to water or very moist soil areas, as shown by beige to white colours in Figure \ref{fig08}, while higher NDVI values signify a dense vegetation canopy\hl{, }which is depicted by \hl{the} bright green, Figure \ref{fig08}. 
+
+\subsubsection{Soil Adjusted Vegetation Index (SAVI)}
+The \hl{Soil Adjusted Vegetation Index} (SAVI) is a distance-based vegetation index\hl{ which is based on NDVI but included an adjustment factor to reduce the noise from the NDVI by eliminating the effects from the canopy background and atmospheric conditions. Thus, it} adjusts the NDVI for soil brightness where vegetation coverage is low in urban densely built-up areas and bare soil\hl{ }using the arithmetic expression in Equation \ref{eq:2}, proposed by \cite{HUETE1988295}:
+
+\begin{equation}\label{eq:2}
+SAVI=\dfrac{(NIR-Red)}{(NIR+Red+L)}*(1+L)
+\end{equation}
+
+where L is a soil brightness correction factor, which is defined as 0.5 to adjust the most of land cover types. The SAVI index is a more finer indicator, compared to NDVI, used to analyse the Landsat OLI/TIRS scene and assess whether the land coverage contains healthy green vegetation with correction on brightness with the majority of values lying in the diapason of -0.1 to 0.1, Figure \ref{fig09}. Thus, the main advantage of SAVI is the emphasised colour of the vegetation canopy corrected for soil brightness, \hl{because SAVI excludes the atmospheric or meteorological effects and those from soil}. Compared to the NDVI and EVI, which are affected by the soil brightness, SAVI index showed better results in differentiating between the vegetation and soil land cover types.
+
+\begin{figure}[H]
+\makebox[0.97\linewidth][r]{%
+	\begin{subfigure}[b]{.68\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_09a.jpg}
+		\caption{SAVI ratio based vegetation index}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.61\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_09b.jpg}
+		\caption{Data distribution within the computed SAVI}
+	\end{subfigure}%
+}
+       \caption{Soil Adjusted Vegetation Index (SAVI) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig09}
+\end{figure}
+
+\hl{Thus, SAVI index is more suitable and better adjusted to the agricultural monitoring. At the same time, because C\^ote d'Ivoire is a highly productive agricultural region (as provided with more information is in Study area section, e.g., world' most important cocoa producer), the agricultural monitoring is of importance for this country and the analysis of these vegetation indices is valuable for sustainable development and environmental planning in C\^ote d'Ivoire.}
+
+\subsubsection{Enhanced Vegetation Index 2 (EVI2)}
+
+The EVI (Figure \ref{fig10}) is an optimised spectral imaging transformation of NIR and Red image bands aimed at enhancing the contribution of vegetation properties using Equation \ref{eq:3} by \cite{JIANG20083833}:
+
+\begin{equation}\label{eq:3}
+EVI=\dfrac{(NIR-Red)}{(NIR+C1*Red-C2*Blue+L)}
+\end{equation}
+
+\begin{figure}[H]
+\makebox[0.97\linewidth][r]{%
+	\begin{subfigure}[b]{.68\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_10a.jpg}
+		\caption{EVI2 ratio based vegetation index}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.61\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_10b.jpg}
+		\caption{Data distribution within the computed EVI2}
+	\end{subfigure}%
+}
+       \caption{Enhanced Vegetation Index 2 (EVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig10}
+\end{figure}
+
+For\hl{ }the updated and adjusted formula\hl{ }EVI2 was developed as a satellite vegetation index for the Moderate Resolution Imaging Spectroradiometers (MODIS) and adopted for the Landsat \hl{Thematic Mapper (TM)} or \hl{Landsat Enhanced Thematic Mapper Plus (ETM+)} series. The expression is defined as follows, Equation \ref{eq:4}, \hl{optimized by} \cite{JIANG20083833}: 
+
+\begin{equation}\label{eq:4}
+EVI2=2.4*\dfrac{(NIR-Red)}{(NIR+Red+1)}
+\end{equation}
+
+It allows \hl{a} robust spatial and temporal correlation of \hl{the} terrestrial chlorophyll and photosynthetic activity\hl{, }which affects the structure of canopy in various types of vegetation\hl{, }including\hl{ }savannah and forests. \hl{The }ratios of NIR and Red spectral bands on the image enable to decrease the topographic \hl{effects from} the Earth's relief. Therefore, the visualised EVI highlights and stresses \hl{smaller} differences in\hl{ characteristics of }spectral reflectance between vegetation and all other land cover types. The range of the values \hl{normally} lies in the diapason between the -0.2 to 0.2, \hl{as can be also seen in} Figure \ref{fig10}. 
+ 
+\subsubsection{Atmospherically Resistant Vegetation Index 2 (ARVI2)}
+
+\hl{ARVI2 is adjusted to be resistant to atmospheric effects, but at the same time, it is more sensitive to a wider spectrum of concentrations of chlorophyll in leaves. }For Côte d'Ivoire, the values of ARVI range from -0.28 to -0.1, Figure \ref{fig11}, although in general the diapason of ARVI values may vary from -1 to 1 following the Equation \ref{eq:5}, \cite{134076}: 
+
+\begin{equation}\label{eq:5}
+ARVI=\dfrac{(NIR-Red-y(Red-Blue))}{(NIR+Red-y(Red-Blue))}
+\end{equation}
+
+where y is the quotient derived from the components of atmospheric reflectance in the blue and red channel
+the adjusted ARVI (ARVI2) vegetation index\hl{, which is more sensitive to vegetation fraction,} is Equation \ref{eq:6}, \cite{134076}: 
+
+\begin{equation}\label{eq:6}
+ARVI2=\dfrac{(NIR-Red)}{(NIR+Red)}*1.17 - 0.18
+\end{equation}
+
+It shows the regions of high atmospheric aerosol content with higher moisture. Compared to NDVI, the ARVI adjusts and minimises the atmospheric scattering effects due to the blue light reflectance values, which also \hl{affects} the reflectance in the red light \cite{134076}. 
+
+\begin{figure}[H]
+\makebox[0.97\linewidth][r]{%
+	\begin{subfigure}[b]{.68\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_11a.png}
+		\caption{ARVI2 ratio based vegetation index}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.61\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_11b.jpg}
+		\caption{Data distribution within the computed EVI2}
+	\end{subfigure}%
+}
+       \caption{Atmospherically Resistant Vegetation Index 2 (ARVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}.}
+        \label{fig11}
+\end{figure}
+
+\hl{Similar to the NDVI, ARVI2 is also sensitive to vegetation ratio in the landscape, as well as is useful in climate and environmental studies, specifically, to evaluate the absorption of solar radiation, which is applicable in tropical African regions, such as C\^ote d'Ivoire}.
+
+%\newpage
+\subsection{Terrain Analysis}
+
+Cartographic visualization is an essential application of satellite image \hl{analysis} as a geospatial dataset. With this regard, terrain visualization using remote sensing data has been performed using the integrated approach of Python and R, Figure \ref{fig12}. The data were linked with \hl{the} Digital Elevation Model (DEM) to \hl{demonstrate} the effective approach of both \hl{the} languages to modelling\hl{ }Earth observation data. \hl{The DEM with high spatial resolution is one of the most crucial base layer factors for environmental modelling} \cite{AVAND20221}, \hl{therefore, we selected it for terrain modelling. The advances} in cartographic modelling using programming scripts in recent years changed the terrain visualization from a GUI-based GIS mapping to a dynamic scripts with automatic representation of the output images. Processing DEM from the SRTM using Python scripts based on EarthPy library has demonstrated advantages and flexibility of workflow \hl{aimed at} deriving topographic information for spatial analysis. \hl{The} DEM developed from the SRTM\hl{ }of a rugged terrain in Côte d'Ivoire yielded a spatial resolution of 3 arc seconds, which corresponds to $\pm 90$ m.
+
+\begin{figure}[H]
+%     \centering
+\makebox[0.97\linewidth][r]{%
+     \begin{subfigure}[r]{0.68\textwidth}
+%         \centering
+%        		\includegraphics[width=8.6cm]{Fig_12a}
+		\includegraphics[width=0.95\textwidth]{Fig_12a}
+         \caption{}
+     \end{subfigure} \hfill \hspace{2mm}
+     \begin{subfigure}[r]{0.56\textwidth}
+ %        \centering
+ %        \includegraphics[width=7cm]{Fig_12b}
+         \includegraphics[width=0.95\textwidth]{Fig_12b}
+         \caption{}
+     \end{subfigure}
+}
+        \caption{\textbf{(a)}: Landsat OLI/TIRS image with enlarged fragment of Kossou Lake: grayscale visualization of SWIR Band 6. Mapping: R. \textbf{(b)}: Enlarged fragment of the cropped SRTM3 Void Filled DEM overlayed on top of the hillshade. cmaps: 'turbo' and 'gist\_yarg'. Mapping: Python.}
+        \label{fig12}
+\end{figure}
+
+\hl{The }topographic variation is represented by Python \hl{scripts} using data modelling in EarthPy library based on the processing of the fields (raster layers), spatial entities (elevation objects with 3D coordinates as attributes), and network (topology of spatial links among the geographic objects). This approach is based on the relational data modelling with heights as a primary identifier in a dataset. The DEM data are modelled by EarthPy using raster data structure as a square-grid matrix with the topography defined by\hl{ }sampled points with XYZ dimensions indicating the continuous field of \hl{the} spatial altitudes. 
+
+\hl{The }object modelling which continues topographic representation using discrete boundaries is based on the topographic attributes derived from DEM \hl{aimed to} to define features for geomorphic and hydrological modelling using environmental gradients. These derivatives include \hl{such attributes as} slope, aspect, upslope drainage and catchment areas, tangential, plan and profile curvature of the cross-sections, upslope and flow-path length\hl{ and hillshade}, Figure \ref{fig13}. Determining \hl{the} drainage direction and connectivity of raster points forming \hl{the} DEM depends on \hl{the} surface attributes of \hl{the} topographic hillslopes and stream channels \hl{which comprise} the hydrological network system. In this regard, \hl{the} morphometric modelling contributes to the landscape analysis through \hl{visual} representation of spatial variability and connectivity of the primary attributes of the terrain features \hl{distributed on the surface of the Earth}. 
+
+Numerous applications of topographic modelling in Earth and environmental studies motivated the development of\hl{ }Python programming approaches aimed at calculating the terrain. This is especially advantageous for the topographically diverse landscapes with interspersed forest and savannah areas, as typical for the West Africa. The advantages of EarthPy library consist in a straightforward and robust topographic modelling\hl{, }which presents the visualised series of \hl{the} topographic attributes, derived from the square-grid DEM\hl{. These include} slope, aspect and topographic \hl{relief} shading with varied attributes, i.e., sun azimuth and angle altitude\hl{, as demonstrated in} Figure \ref{fig13}.
+
+\begin{figure}[H]
+\makebox[0.90\linewidth][c]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_13a}
+		\caption{DTM of Kossou Lake, Côte d'Ivoire.}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_13b}
+		\caption{Hillshade from DTM of Kossou Lake, Côte d'Ivoire.}
+	\end{subfigure}%
+}\\
+ \vfill \vspace{2mm}
+\makebox[0.90\linewidth][c]{%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_13c}
+		\caption{Azimuth of sun: 230\textdegree , hillshade from DTM.}
+	\end{subfigure}%
+	\begin{subfigure}[b]{.6\textwidth}
+		\centering
+			\includegraphics[width=0.95\textwidth]{Fig_13d}
+		\caption{Sun angle altitude: 10\textdegree , hillshade from DTM.}
+	\end{subfigure}%
+}
+\caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors.} \label{fig13}
+\end{figure}
+
+The environmental effects from the terrain \hl{landforms} are reflected in soil characteristics, as its formation is regulated, besides the geologic substrate, by the direction of stream flow, and susceptibility of hillslopes \hl{towards soil} erosion\hl{, }which in turn depends on \hl{the} slope steepness and relief curvature. Application of the terrain model \hl{includes} the analysis of \hl{the} sediment transport, which is based on the terrain type and \hl{contributes to soil} erosion. Besides the morphometric aspects, differences\hl{ }topographic heights, disposition of slope and aspect and topographic horizon affect the distribution of solar radiation which controls\hl{ }soil-vegetation system through the alteration in biophysical processes of evapotranspiration and photosynthesis. Thus, the disposition of hill slopes towards the sun angle as a slope aspect contributes to the distribution of vegetation types through the effects of microclimate. For instance, more sensitive plants grow on the southern flanks of the hillslopes to benefit the solar energy. \hl{Thus, spatial} continuity of the environmental processes is \hl{deeply} linked to the \hl{regional} topographic properties \hl{of the terrain}. Therefore, models of the topographic attributes computed by Python scripts using high-resolution DEM reveal the variability of terrain structure in complex heterogeneous landscapes, \hl{and contribute to the environmental analysis of} Côte d'Ivoire.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+The problem of \hl{the} terrain analysis in image processing can be referred as spatial data modelling with classification of cells according to \hl{the} values of elevations and obtaining relevant derivatives and variables for visualization of slope, aspect and hillshade using parameters of sun and azimuth. The terrain analysis using Python is based on \hl{mapping} the topographic data as 3D \hl{plots}, which highlights \hl{their} fundamental importance\hl{ }for Earth modelling. The \hl{topographic} relief has effects on various components of the Earth’s system, \hl{including the} tectonic-geological, climate, hydrologic processes and soil-vegetation parameters. \hl{Topography} regulates and controls climate processes, e.g., precipitation, wind direction and strength. Therefore, it plays a crucial role in the environmental dynamics and ecosystem functioning, which includes the uneven distribution and contrasting types of vegetation in the hilly and coastal areas of Côte d'Ivoire. 
+
+Integrated\hl{ }use of regional environmental resources \hl{presents} the potential for sustainable development of Côte-d'Ivoire. This requires regular monitoring of the environmental conditions of the country using satellite images. In \hl{data} science\hl{, }processing satellite images using advanced programming methods is a challenge \hl{which consists in adaptation and optimization of algorithms towards spatial data modelling and analysis}. In this study, we presented \hl{a} solution of this problem by\hl{ }straightforward yet effective approach \hl{which combines} libraries of Python and R\hl{ }for processing\hl{ }raster data in a scripting framework. \hl{The use of both programming languages can allow to find the best packages for topographic and environmental modelling separately when handling satellite images. That is the reason why we applied the libraries of two scripting languages as a combination for the terrain mapping and environmental image processing}. 
+
+\hl{The techniques of R language realized image processing by using information derived from pixels on the image scene. Thus, the} terrain surface materials were differentiated by the RGB triplet colours by plotting the colour composite of the Landsat\hl{ }8 OLI/TIRS image using R library 'raster' \hl{which presents adaptation of general syntax of R for spatial data processing }. The colours correspond to the composites of the RGB signals scattered from the natural and built-up environment which resulted in various DN values of pixel cells in a raster matrix. The combinations of the three channels were tested by\hl{ }R library 'terra' as sensor bands, which enabled \hl{us} to display the image and to visualise the appearance of various objects on the terrain using the distinct colours. We compared the correlation between\hl{ } the selected bands of \hl{the} Landsat-8 OLI/TIRS C1 in a multispectral image for bands 1 and 2 (Blue and Green) and 4 and 5 (red and \hl{NIR}), \hl{respectively}. We then computed \hl{} four selected vegetation indices - NDVI, SAVI, EVI2 and ARVI2 using the principles of map algebra based on the DNs of reflectance value of pixels in the selected spectral bands -- NIR and red. \hl{The} major effect of spectral reflectance from healthy green vegetation in visible in the NIR region of image spectrum with a strong NIR response raising sharply for healthy vegetation. Conversely, the areas with poor or damaged vegetation are represented by\hl{ }low NIR response which \hl{notably} decreases\hl{, as shown on} the vegetation indices. 
+
+\hl{For a terrain modelling, we applied the solutions of Python language where the problem of 3D spatial modelling from raster grid pattern is introduced by interpolation of cell values to spatial polygons, by EarthPy library}. The terrain modelling was performed based on the high-resolution SRTM DEM using\hl{embedded }algorithms by processing the topographic\hl{ }data for \hl{3D} geomorphic visualization of slope, aspect, hillshade and elevation. We \hl{ demonstrated these} methods as a series of scripts with detailed explanation of their functionality and the effects of the varied parameters on the image. The main advantage of \hl{using Python for spatial modelling} is that \hl{it enables to derive }information from the satellite images\hl{ in the } efficient \hl{way due to its straightforward syntax, and} to handle complex scenes of the remotely sensed data. As we demonstrated, using programming algorithms for processing multiple variables as raster matrices enables to automatically model spatial data with aim at depicting the nonlinear environmental \hl{and topographic} links among the near-surface processes and highlighting the complex relationships between the objects forming the terrain \hl{shape and diverse} landscapes on the Earth. 
+
+\hl{A }wide variety of \hl{Earth's features can} be depicted on the maps by \hl{satellite images} interpretation: climate change, urban sprawl, vegetation degradation, deforestation, \hl{topographic variations, or land cover change. At the same time, the analysis of the complexity of particular spatial phenomena require advanced methods of data processing to reveal the links and correlations among the objects and to map spatial patterns. For instance, topographic variations }in the relief \hl{may be caused} by the geologic effects and anthropogenic activities\hl{; the }environmental dynamics of the \hl{Earth's landscapes may involve nonlinear} long-term and short-term variations. \hl{The comprehensive analysis of such processes} requires\hl{ }automatic processing of\hl{ }large \hl{datasets} where conventional GIS \hl{are not effective enough}. 
+
+\hl{As we demonstrated in this paper, the} effective way to handle this issue includes the performant technologies of\hl{ }high-level programming languages, such as Python and R, for automatic image processing \hl{and retrieval of spatial information from raster images. We shown that} algorithms of \hl{scripting} libraries can \hl{can be successfully used for}processing \hl{ }Earth observation data\hl{ and }geospatial\hl{ }modelling in a robust, automatic and effective way. \hl{Programming algorithms} for the terrain analysis and environmental monitoring from satellite images have been successful in dealing with challenging multispectral remote sensing data. Compared to the state-of-the-art GIS solutions, the functionality of Python and R scripts proved the effective and robust handling of the geospatial data. 
+
+\hl{The advantages of Python and R in image processing include} their scripting algorithms \hl{which ensures automation of data processing. As} demonstrated \hl{in this study,} high quality, speed and effectiveness of code \hl{outperformes} the existing GIS approaches for remote sensing data processing. Due to the high level of spatial detail, high-resolution satellite images require efficient algorithms of data handling, including image resampling, band composition, statistical processing and map algebra for\hl{ }calculation of the \hl{vegetation indices}. This requires the advanced programming targeted at image processing. The upscaled mapping was shown at the two hierarchical levels: regional environmental analysis of the Yamoussoukro surroundings and local topographic modelling of the Kossou Lake.
+
+\hl{In future work, we plan to utilize combinations of other libraries of Python and R for spatial datasets, such as Sentinel-2A, SAR data for retrieving environmental parameters aimed at tropical forest mapping of Africa. Specifically, we intend to focus on the long-term analysis of the environmental dynamics using time series of satellite images. Spatial modelling of large series of satellite images involves several challenging problems with regard of their processing. For example, it is computationally challenging to deal with large spatio-temporal datasets and necessarily requires complex methods of their handling. To this end, we plan to develop effective approaches to map and model complex and large spatio-temporal datasets using scripting languages, which creates a valuable approach in the context of big Earth observation data and contributes to the development of contemporary cartography and mapping.}
+
+\abbreviations{Abbreviations}{
+The following abbreviations are used in this manuscript:\\
+
+\noindent 
+\begin{tabular}{@{}ll}
+ARVI & Atmospherically Resistant Vegetation Index \\
+CPT & Colour Palette Table \\
+CRS & Coordinate Reference System \\
+DCW & Digital Chart of the World \\
+DEM & Digital Elevation Model \\
+DN & Digital Number \\
+DTM & Digital Terrain Model \\
+EVI & Enhanced Vegetation Index \\
+GEBCO & General Bathymetric Chart of the Oceans \\
+GDAL & Geospatial Data Abstraction Library \\
+GIS & Geographic Information System \\
+GloVis & Global Visualization Viewer \\
+GMT & Generic Mapping Tools \\
+GPS & Global Positioning System \\
+GUI & Graphical User Interface \\
+Landsat 8-9 OLI/TIRS & Landsat 8-9 Operational Land Imager and Thermal Infrared Sensor \\
+Landsat TM & Landsat Thematic Mapper \\
+Landsat ETM+ & Landsat Enhanced Thematic Mapper Plus \\
+LiDAR & Light Detection and Ranging \\ 
+ML & Machine Learning \\
+MODIS & Moderate Resolution Imaging Spectroradiometers \\
+MNDWI & Modified Normalized Difference Water Index \\
+NASA & National Aeronautics and Space Administration \\
+NDVI & Normalized Difference Vegetation Index \\
+NDWI & Normalized Difference Water Index \\
+NGA & National Geospatial-Intelligence Agency \\
+NIR & Near Infrared \\
+RGB & Red Green Blue \\
+SAGA & System for Automated Geoscientific Analyses \\
+SAVI & Soil-Adjusted Vegetation Index \\
+SPOT & Satellite pour l'Observation de la Terre \\
+SRTM & Shuttle Radar Topography Mission \\
+SWIR & Short Wave InfraRed \\
+3D & Three-dimensional \\
+TIFF & Tagged Image File Format \\
+USGS & United States Geological Survey \\
+WRI & Water Ratio Index \\
+\end{tabular}
+}
+
+
+\authorcontributions{Supervision, conceptualization, methodology, resources, funding acquisition, project administration, O.D; writing---original draft preparation, software, data curation, visualization, formal analysis, validation, writing---review and editing, investigation, P.L. All authors have read and agreed to the published version of the manuscript.}
+
+\funding{This research has received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
+
+\institutionalreview{Not applicable}
+
+\informedconsent{Not applicable}
+
+\dataavailability{The open GitHub repository with Python and R scripts used for image processing in this study: \href{https://github.com/paulinelemenkova/Cote_d_Ivoire_R_Python_Listings}{https://github.com/paulinelemenkova/Cote\_d\_Ivoire\_R\_Python\_Listings} (accessed on 02 November 2022)}
+
+\acknowledgments{The authors thank the anonymous reviewers for their careful reading, critical suggestions and constructive comments that helped improve a previous version of this manuscript.}
+
+\conflictsofinterest{The authors declare no conflict of interest} 
+
+\begin{adjustwidth}{-\extralength}{0cm}
+\reftitle{References}
+
+% Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: external bibliography
+%=====================================
+\bibliography{IvoryCoast.bib}
+%\nocite{*}
+
+\section*{Short Biography of Authors}
+\bio
+{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_1.jpg}}}
+{\textbf{Polina Lemenkova} is an Engineer and a PhD student of Prof. Dr. O. Debeir in the Image Analysis Research Unit (LISA-IA) in École polytechnique de Bruxelles, Université Libre de Bruxelles. Her research interests are focused on image processing, cartography, spatial data analysis, remote sensing and applied programming. She has a strong research experience in Earth and environmental sciences, mapping and data visualization, specifically in geological and geophysical domains. Her current topic is on seismic data processing using machine learning methods and scripting languages.}
+%
+\bio
+{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_2.jpg}}}
+{\textbf{Olivier Debeir} is a Head of the Image Analysis Research Unit (LISA-IA) in the École polytechnique de Bruxelles (Brussels Faculty of Engineering), Université Libre de Bruxelles. His research interest is in addressing questions related to artificial intelligence and machine learning in general, and specifically on computer vision, graphics, image analysis, segmentation and classification, pattern recognition and deep learning. His research activity also concerns applied statistics and diverse algorithms of data analysis and modelling in natural sciences. He is an expert in programming languages.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{adjustwidth}
+\end{document}
+
