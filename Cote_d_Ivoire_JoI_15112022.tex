@@ -888,9 +888,9 @@ The data were linked with the Digital Elevation Model (DEM) to demonstrate the e
 \caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors.} \label{fig13}
 \end{figure}
 
-The topographic variation is represented by Python scripts using data modelling in EarthPy library based on the processing of the fields (raster layers), spatial entities (elevation objects with 3D coordinates as attributes), and network (topology of spatial links among the geographic objects). This approach is based on the relational data modelling with heights as a primary identifier in a dataset. The DEM data are modelled by EarthPy using raster data structure as a square-grid matrix with the topography defined by sampled points with XYZ dimensions indicating the continuous field of the spatial altitudes. 
+The topographic variation is \hl{modelled} by Python \hl{library} EarthPy\hl{, }based on the processing of\hl{ }fields (raster layers), spatial entities (elevation objects with 3D coordinates as attributes), and network (topology of spatial links among the geographic objects). This approach \hl{uses} relational data modelling with heights as a primary identifier in a dataset. The DEM data are modelled by EarthPy using raster data structure as a square-grid matrix with the topography defined by sampled points with XYZ dimensions indicating the continuous field of the spatial altitudes. 
 
-The object modelling which continues topographic representation using discrete boundaries is based on the topographic attributes derived from DEM aimed to to define features for geomorphic and hydrological modelling using environmental gradients. These derivatives include such attributes as slope, aspect, upslope drainage and catchment areas, tangential, plan and profile curvature of the cross-sections, upslope and flow-path length and hillshade, Figure \ref{fig13}. Determining the drainage direction and connectivity of raster points forming the DEM depends on the surface attributes of the topographic hillslopes and stream channels which comprise the hydrological network system. In this regard, the morphometric modelling contributes to the landscape analysis through visual representation of spatial variability and connectivity of the primary attributes of the terrain features distributed on the surface of the Earth. 
+\hl{Spatial} modelling\hl{ }continues topographic representation using discrete boundaries, Figure \ref{fig13}. \hl{. It }is based on the topographic attributes derived from DEM aimed to\hl{ }define \hl{geomorphic and hydrological} features \hl{as} environmental gradients. These derivatives include such attributes as slope, aspect, upslope drainage and catchment areas, tangential, plan and profile curvature of the cross-sections, upslope and flow-path length and hillshade. Determining the drainage direction and connectivity of raster points \hl{from} the DEM depends on\hl{ }surface attributes of the topographic hillslopes and stream channels which comprise the hydrological network system. In this regard,\hl{ }morphometric modelling contributes to the landscape analysis through visual representation of spatial variability and connectivity of the primary \hl{terrain} attributes\hl{ }distributed on the surface of the Earth. 
 
 Numerous applications of topographic modelling in Earth and environmental studies motivated the development of Python programming approaches aimed at calculating the terrain. This is especially advantageous for the topographically diverse landscapes with interspersed forest and savannah areas, as typical for the West Africa. The advantages of EarthPy library consist in a straightforward and robust topographic modelling, which presents the visualised series of the topographic attributes, derived from the square-grid DEM. These include slope, aspect and topographic relief shading with varied attributes, i.e., sun azimuth and angle altitude, as demonstrated in Figure \ref{fig13}.
 
@@ -916,6 +916,20 @@ As we demonstrated in this paper, the effective way to handle this issue include
 The advantages of Python and R in image processing include their scripting algorithms which ensures automation of data processing. As demonstrated in this study, high quality, speed and effectiveness of code outperformes the existing GIS approaches for remote sensing data processing. Due to the high level of spatial detail, high-resolution satellite images require efficient algorithms of data handling, including image resampling, band composition, statistical processing and map algebra for calculation of the vegetation indices. This requires the advanced programming targeted at image processing. The upscaled mapping was shown at the two hierarchical levels: regional environmental analysis of the Yamoussoukro surroundings and local topographic modelling of the Kossou Lake.
 
 In future work, we plan to utilize combinations of other libraries of Python and R for spatial datasets, such as Sentinel-2A, SAR data for retrieving environmental parameters aimed at tropical forest mapping of Africa. Specifically, we intend to focus on the long-term analysis of the environmental dynamics using time series of satellite images. Spatial modelling of large series of satellite images involves several challenging problems with regard of their processing. For example, it is computationally challenging to deal with large spatio-temporal datasets and necessarily requires complex methods of their handling. To this end, we plan to develop effective approaches to map and model complex and large spatio-temporal datasets using scripting languages, which creates a valuable approach in the context of big Earth observation data and contributes to the development of contemporary cartography and mapping.
+
+\authorcontributions{Supervision, conceptualization, methodology, software, resources, funding acquisition, project administration, O.D; writing---original draft preparation, methodology, software, data curation, visualization, formal analysis, validation, writing---review and editing, investigation, P.L. All authors have read and agreed to the published version of the manuscript.}
+
+\funding{This research has received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
+
+\institutionalreview{Not applicable}
+
+\informedconsent{Not applicable}
+
+\dataavailability{The open GitHub repository with Python and R scripts used for image processing in this study: \href{https://github.com/paulinelemenkova/Cote_d_Ivoire_R_Python_Listings}{https://github.com/paulinelemenkova/Cote\_d\_Ivoire\_R\_Python\_Listings} (accessed on 02 November 2022)}
+
+\acknowledgments{The authors thank the anonymous reviewers for their careful reading, critical suggestions and constructive comments that helped improve a previous version of this manuscript.}
+
+\conflictsofinterest{The authors declare no conflict of interest} 
 
 \abbreviations{Abbreviations}{
 The following abbreviations are used in this manuscript:\\
@@ -962,21 +976,6 @@ USGS & United States Geological Survey \\
 WRI & Water Ratio Index \\
 \end{tabular}
 }
-
-
-\authorcontributions{Supervision, conceptualization, methodology, resources, funding acquisition, project administration, O.D; writing---original draft preparation, software, data curation, visualization, formal analysis, validation, writing---review and editing, investigation, P.L. All authors have read and agreed to the published version of the manuscript.}
-
-\funding{This research has received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
-
-\institutionalreview{Not applicable}
-
-\informedconsent{Not applicable}
-
-\dataavailability{The open GitHub repository with Python and R scripts used for image processing in this study: \href{https://github.com/paulinelemenkova/Cote_d_Ivoire_R_Python_Listings}{https://github.com/paulinelemenkova/Cote\_d\_Ivoire\_R\_Python\_Listings} (accessed on 02 November 2022)}
-
-\acknowledgments{The authors thank the anonymous reviewers for their careful reading, critical suggestions and constructive comments that helped improve a previous version of this manuscript.}
-
-\conflictsofinterest{The authors declare no conflict of interest} 
 
 \begin{adjustwidth}{-\extralength}{0cm}
 \reftitle{References}
