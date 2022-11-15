@@ -154,7 +154,7 @@ A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has rec
 \hl{Compared} to Python, R has a more\hl{ }rich collection of libraries\hl{ due to the }long history of stable development\hl{. They contain} a wide variety of the mathematical statistical tools, starting from the very basic functions to the highly sophisticated algorithms \hl{of data analysis} \cite{9675988}. \hl{Recent} advances in geospatial data processing \cite{8226275} and image classification \cite{9844952,8117873} have made R successful for remote sensing data processing, including image classification and segmentation. This poses us a new way to process and model satellite images and derive spatially structured information from the complex scenes. \hl{In this regard, 'terra' and 'raster' libraries of R present essential tools for }modelling geospatial \hl{data. The functionality of these libraries includes essential options for image classification, such as reading spatial dimensions from raster image, supporting spectral bands of Landsat scenes, evaluating the} similarity between \hl{the values of pixels, extracting features from variables such as} vegetation types, variations in landscape structure and topography. 
 
 %---------------------%
-\subsection{Contribution and Objectives}
+\subsection{Contribution}
 
 \hl{The }goal of this paper is to present the application of Python and R algorithms for image processing\hl{. This work is motivated by }the idea of using\hl{ }advanced programming methods\hl{ }to visualise\hl{ }object features and classes on the Earth's surface\hl{. The }specific objectives include the following tasks: \emph{i)} plotting the colour composite of the Landsat Operational Land Imager and Thermal Infrared (OLI/TIRS) image by\hl{ } combinations of \hl{the} three channel sensor bands to display the image; \emph{ii)}; computing the selected vegetation indices using the principles of map algebra based on \hl{the} DN of reflectance value of pixels in selected spectral bands -- Near Infrared (NIR) and \hl{R}ed; \emph{iii)} terrain modelling with geomorphic visualization of slope, aspect, hillshade and elevation for relief analysis using the \hl{data derived from the }Shuttle Radar Topography Mission (SRTM) Digital Elevation Model (DEM). 
 
@@ -186,7 +186,7 @@ Recently, Côte d'Ivoire \hl{experienced} environmental changes\hl{, typical for
 \section{Materials and Methods}
 
 \subsection{Data}
-The data were collected from the United States Geological Survey (USGS) Global Visualization Viewer (GloVis), a satellite image repository with open access to remotely sensed data, Figure \ref{fig02}. 
+The data were collected from the United States Geological Survey (USGS) Global Visualization Viewer (GloVis), a satellite image repository with \hl{publicly available} open access to remotely sensed data, Figure \ref{fig02}. 
 
 \begin{figure}[H]
      \begin{subfigure}[r]{0.60\textwidth}
@@ -202,14 +202,14 @@ The data were collected from the United States Geological Survey (USGS) Global V
         \label{fig02}
 \end{figure}
 
-The satellite image used for data processing is Landsat 9 OLI/TIRS C2 L1 scene covering the central part of Côte d'Ivoire, \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1}; Scene Identifier: LC91970552022011LGN01; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The space-based images were obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments onboard -- the Operational Land Imager (OLI-2) and Thermal Infrared Sensor (TIRS-2) for optical and thermals sensors, and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis is SRTM Void Filled DEM, from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA} with 3 arc-second resolution, 90 m. Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N. Acquisition: 2000-02-11. The general map showing study area has been plotted based on the General Bathymetric Chart of the Oceans (GEBCO) \cite{GEBCO} by GMT scripting \cite{Wessel}, using existing methodology \cite{Lemenkova2022b,Lemenkova202217}. 
+The \hl{data} used \hl{in this study include the satellite image Landsat 9 OLI/TIRS C2 L1 and the SRTM DEM for terrain modelling. The} satellite image \hl{covers the} central part of Côte d'Ivoire\hl{. It has the following technical parameters: }Scene Identifier: LC91970552022011LGN01; Landsat Product ID: LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1; Land Cloud Coverage: 1.29; Date acquired: 2022/01/11. The\hl{ }image\hl{ was }obtained from the Landsat 9 Earth observation satellite which has two remote sensing instruments \hl{for} optical and thermals sensors onboard -- the Operational Land Imager (OLI-2) \hl{sensor} and \hl{the} Thermal Infrared Sensor (TIRS-2) and nine spectral bands \cite{USGS,Landsat9}. More technical information is available online: \href{https://www.usgs.gov/landsat-missions/landsat-9}{Landsat 9}. The data used for terrain analysis \hl{includes the} SRTM Void Filled DEM, \hl{obtained} from the \href{https://lpdaac.usgs.gov/products/srtmgl3v003/}{SRTM3 NASA/NGA}\hl{. It has a resolution of} 3 arc-seconds\hl{ (90 m) and following technical parameters:} Entity ID: SRTM3N07W006V2; tile coordinates: 5°-6°W, 7°-8°N\hl{; }Acquisition \hl{date}: 2000-02-11. The general map showing study area \hl{was} plotted based on the General Bathymetric Chart of the Oceans (GEBCO) \cite{GEBCO} \hl{using the} GMT scripting \cite{Wessel}, \hl{following the} existing methodology \cite{Lemenkova2022b,Lemenkova202217}. 
 
 %\newpage
-\subsection{Image processing in R}
+\subsection{Image Processing in R}
 The R packages 'terra' \cite{RTerra} and 'raster' \cite{Hijmans} were used for computing vegetation indices and image processing. The colour scheme resource of RColorBrewer package was used for visualization and plotting \cite{Neuwirth}.
 
-\subsubsection{Deriving information on satellite image properties and spatial statistics}
-To cope with a series of Landsat bands and for searching metadata, we examined the properties of the digital images using regular expression by the command-line utilities of Unix as a combination of grep, Geospatial Data Abstraction Library (GDAL) and echo, Listing \ref{lst:01}. 
+\subsubsection{Information Retrieval and Spatial Statistics}
+To cope with a series of Landsat bands and \hl{to search for} metadata, we examined \hl{image parameters} using regular expression by the command-line utilities of Unix as a combination of grep, Geospatial Data Abstraction Library (GDAL) and echo, Listing \ref{lst:01}. \hl{Here grep searches for text in a file according to a given pattern of characters, GDAL filters spatial information in the dataset, and echo outputs the strings using defined arguments.}
 
 \begin{lstlisting}[language=bash, caption=Unix shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs, label={lst:01}]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
@@ -230,13 +230,13 @@ for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
          \caption{Creating SpatRaster objects in R and checking spatial data: projection, datum, ellipsoid.}
          \label{fig:03b}
      \end{subfigure}
-        \caption{Inspecting the geometry of Landsat bands (a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra' (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
+        \caption{Inspecting the geometry of Landsat bands\hl{; }(a) which shows 30 pixels resolution for all the bands except for Band 8 (panchromatic) with 15-pixels resolution. Checking image properties in R package 'terra'\hl{; } (b) for single Landsat-8 OLI/TIRS C1 bands (1:11)}
         \label{fig03}
 \end{figure}
 
-The spatial information of the Landsat channels (bands) is presented in metadata, as shown in Figure \ref{fig:03b}, inspected by R. It indicates the number and location of the spectral measurements, spatial extent, geodetic information (Coordinate Reference System (CRS), ellipsoid and datum) obtained by the Global Positioning System (GPS) of the spacecraft, spatial and the radiometric resolution of the image. Each image (the band of the Landsat scene) is read-in to the R SpatRaster object class, which represents the equalised area of the rectangular cells with regards to the units of the CRS, Figure \ref{fig:03b}. 
+The spatial information of the Landsat channels (bands) is presented in metadata, as shown in Figure \ref{fig:03b} \hl{and} inspected by R. It indicates the number and location of the spectral measurements, spatial extent, geodetic information (Coordinate Reference System (CRS), ellipsoid and datum) obtained by the Global Positioning System (GPS) of the spacecraft, spatial and the radiometric resolution of the image. Each image \hl{corresponding to a given} band of the Landsat scene is read-in to the R SpatRaster object class, which represents the equalised area of the rectangular cells with regards to the units of the CRS, Figure \ref{fig:03b}. 
 
-\subsubsection{Visualising single bands and generating composite maps}
+\subsubsection{Spectral Bands for Colour Composites}
 
 The properties of the image were accessed from a SpatRaster object using R commands presented in Listing \ref{lst:02}. Here we inspected the Coordinate Reference System (CRS), the geometry of the image (Number of cells, rows and columns), bands extent, resolution and origin. The panchromatic channel (Band 8) has a higher resolution (15 m) compared to the set of the multispectral bands in visible and thermal bands of spectra (30 m). To ignore this difference in the matrix of the image, the raster in Band 8 (panchromatic) was resampled to the structure of the same number of rows and columns as in other bands (here: target Band 1, Ultra Blue) by creating a RasterBrick multi-layer object, Listing \ref{lst:02}. 
 
@@ -640,7 +640,7 @@ We applied Python and R algorithms which take the terrain characteristics of the
 %\newpage
 \section{Results and Discussion}
 %--------
-\subsection{Color composites}
+\subsection{Color Composites}
 Colour image maps were created by different combinations of the recorded Landsat OLI/TIRS bands. In the sequence from top to bottom they are displayed respectively as natural and false composites, see Figure \ref{fig06}. The use of natural (or true) colour composites is widely applied for general environmental monitoring, since it exposes more characteristics regarding the landscape and land cover types compared to the monochrome images. 
 
 Thus, band combination 2-3-4 (Blue-Green-Red), well represents natural colour composite. Since its appearance is similar to the normal aerial photograph, this composite is advantageous for mapping vegetation and agricultural coverage and discriminating the vegetation from bare soils and growing crop, Figure \ref{fig06}, a) and b). In Figure \ref{fig06}c) Bands 3-4-5 were taken in the inverse way where NIR Band 5 was representing red, Red Band 4 as green, and Green Band 3 as blue. The improvement of the image has been performed using linear and histogram stretching, which consists in the adjustment of contrast in the colour tones of the images. In this band composite, the broadleaf healthy vegetation has a deeper reddish hue, while lighter hues are related to the grasslands, savannahs or sparsely vegetated areas, and soil is represented by various hues depending on the soil type, from dark to light browns. The populated urban areas are shown in light-grey to white spots. 
