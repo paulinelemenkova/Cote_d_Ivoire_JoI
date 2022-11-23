@@ -226,7 +226,7 @@ for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
 
 \end{lstlisting}
 
-The spatial resolution, corresponding to the pixel size, was 30 m for Bands 1--7, 9 and 10, while it was 15 m for Band 8 (panchromatic) (Figure \ref{fig03}a). 
+The spatial resolution, corresponding to the pixel size, was 30 m for Bands 1--7, 9 and 10, while it was 15 m for Band 8 (panchromatic) (Figure \ref{fig03}a). The spatial information of the Landsat channels (bands) is presented in metadata, as shown in Figure \ref{fig03}b, {and} inspected by R. It indicates the number and location of the spectral measurements, spatial extent, geodetic information (coordinate reference system (CRS), ellipsoid and datum obtained by the global positioning system (GPS) of the spacecraft and the spatial and radiometric resolutions of the image. Each image {corresponding to a given} band of the Landsat scene was read into the R SpatRaster object class, which represents the equalised area of the rectangular cells with regard to the units of the CRS (Figure \ref{fig03}b). 
 
 \begin{figure}[H]
 
@@ -246,8 +246,6 @@ The spatial resolution, corresponding to the pixel size, was 30 m for Bands 1--7
         \caption{Inspecting the geometry of Landsat bands{ with }({\bf a}) 30-pixel resolution for all the bands, except for Band 8 (panchromatic) with a 15-pixel resolution, checking image properties in R package 'terra'{ and} ({\bf b}) for single Landsat-8 OLI/TIRS C1 bands (1:11).}
         \label{fig03}
 \end{figure}
-
-The spatial information of the Landsat channels (bands) is presented in metadata, as shown in Figure \ref{fig03}b, {and} inspected by R. It indicates the number and location of the spectral measurements, spatial extent, geodetic information (coordinate reference system (CRS), ellipsoid and datum obtained by the global positioning system (GPS) of the spacecraft and the spatial and radiometric resolutions of the image. Each image {corresponding to a given} band of the Landsat scene was read into the R SpatRaster object class, which represents the equalised area of the rectangular cells with regard to the units of the CRS (Figure \ref{fig03}b). 
 
 \subsubsection{Spectral Bands for Colour Composites}
 
@@ -294,9 +292,7 @@ landsat <- rast(filenames)
 landsat
 \end{lstlisting} 
 
-{Afterwards, }the layers were read in the `landsat' object {class of R,} where they were represented by the bands of {the} Landsat-9 OLI {image.~The} reflection intensity {had} the following wavelengths: Ultra Blue {or} coastal aerosol (Band 1), blue (Band 2), green (Band~3), red (Band 4), near infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), panchromatic (Band 8), cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10) {and} Thermal Infrared (TIRS) 2 (Band 11). 
-
-The visualisation of single bands was performed using Listing \ref{lst:03} and is presented as a subplot of grayscale scenes in Figure \ref{fig04}. {The }visual inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) was useful for extracting general information on {the} large-scale features,{ }such as river systems, lakes, mountains, fracture patterns, large geological lineaments {or the extent of the city} with notable objects{ such as }highways. These objects are visible and can be identified by their shape and size and interpreted using spatial properties related to the{ }pixel brightness{ values}. 
+{Afterwards, }the layers were read in the `landsat' object {class of R,} where they were represented by the bands of {the} Landsat-9 OLI {image.~The} reflection intensity {had} the following wavelengths: Ultra Blue {or} coastal aerosol (Band 1), blue (Band 2), green (Band~3), red (Band 4), near infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), panchromatic (Band 8), cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10) {and} Thermal Infrared (TIRS) 2 (Band 11). The visualisation of single bands was performed using Listing \ref{lst:03} and is presented as a subplot of grayscale scenes in Figure \ref{fig04}. 
 
 \begin{lstlisting}[language=r, caption=R code for plotting the 11 original individual layers (raw bands) of the Landsat-9 multi-spectral images as grayscale bitmap images., label={lst:03}]
 library(terra)
@@ -334,19 +330,11 @@ landsatRGB <- c(b4, b3, b2)
 plotRGB(landsatRGB, stretch = "lin")
 \end{lstlisting} 
 
-There was a difference in {nuance} between the grey corresponds and the numerical values and range of pixel values in diverse channels of Landsat.%Check meaning retained.
+There was a difference in {nuance} between the grey corresponds and the numerical values and range of pixel values in diverse channels of Landsat.%Check meaning retained. <-- Answer: Correct.
 ~{This} is {explained by} the spectral reflectance that differs in various bands for objects on the Earth's surface. Due to the individual reflectance of{ }solar radiation by {these} features, the values differed accordingly. {Such effects from spectral reflectance }enabled {us} to use combinations of various bands {to} better represent{ the }diverse phenomena and objects on Earth{. }For {instance}, the particular applications of Landsat bands are for geology (SWIR (Band 7), NIR (Band 5) and red (Band~4)) \cite{VOLESKY2003235}, mineralogical identification of soil and rock (SWIR (Band 7), red (Band 4) and green (Band 2)) and identifying {the} difference between soil and vegetation (green in Band 3) \cite{Richards,CampbellWynne}. Aside from that, the reflectance data from the selected bands of the Landsat images were used in the calculation of{ }four vegetation indices for the study area using the interactions of pixels in the raster.
 
 Subsetting large files, such as multispectral Landsat {images}, was {performed} using {the} SpatRaster object and 'subset' function, {which enabled} processing{ }the necessary bands{ of the Landsat image}. In this respect, it enabled ignoring{ }the cirrus, TIRS and other{ }bands{ that were not relevant  for a given task }and to leave only{ }the visible spectra. In this way, a subset of {the} target layers was selected from the SpatRaster object, while{ }other bands were removed from the dataset{ }using Listing \ref{lst:04}.
-\vspace{-4pt}
-\begin{figure}[H]
-\makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_04.jpg}}%
-	\caption{Original individual %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000". <--  Answer: corrected (Figure 4 is replotted).
-%MDPI: Please change the terms into scientific notations in the figure,  e.g., "$8 \times 10^{3}$", not "8E3". <--  Answer: corrected, Figure 4 is replotted (both X and Y axes are corrected as requested).
- 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 `LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in greyscale mode: ultra blue (Band 1), blue (Band 2), green (Band 3), red (Band 4), near infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), panchromatic (Band 8), cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10) and Thermal Infrared (TIRS) 2 (Band 11), plotted with R.}
-	\label{fig04}
-\end{figure} 
-\newpage
+
 \begin{lstlisting}[language=r, caption=R code for subsetting the large files using SpatRaster object., label={lst:04}]
 library(terra)
 setwd("/Users/polinalemenkova/Documents/R/Image_Processing/LC09_L1TP_197055_20220111_20220122_02_T1")
@@ -363,6 +351,19 @@ nlyr(landsatsub)
 names(landsatsub) <- c("ultra-blue", "blue", "green", "red", "NIR", "SWIR1", "SWIR2")
 names(landsatsub)
 \end{lstlisting} 
+
+Visual inspection of the satellite image product built from the monochrome image data (Figure \ref{fig04}) was useful for extracting general information on {the} large-scale features,{ }such as river systems, lakes, mountains, fracture patterns, large geological lineaments {or the extent of the city} with notable objects{ such as }highways. These objects are visible and can be identified by their shape and size and interpreted using spatial properties related to the{ }pixel brightness{ values}. 
+
+\vspace{-4pt}
+\begin{figure}[H]
+\makebox[\textwidth][r]{\includegraphics[width=1.3\textwidth]{Fig_04.jpg}}%
+	\caption{Original individual %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000". <--  Answer: corrected (Figure 4 is replotted).
+%MDPI: Please change the terms into scientific notations in the figure,  e.g., "$8 \times 10^{3}$", not "8E3". <--  Answer: corrected, Figure 4 is replotted (both X and Y axes are corrected as requested).
+ 11 layers (raw bands) of the multi-spectral image Landsat-9 OLI/TIRS C1 `LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1' in greyscale mode: ultra blue (Band 1), blue (Band 2), green (Band 3), red (Band 4), near infrared (NIR) (Band 5), Shortwave Infrared (SWIR) 1 (Band 6), Shortwave Infrared (SWIR) 2 (Band 7), panchromatic (Band 8), cirrus (Band 9), Thermal Infrared (TIRS) 1 (Band 10) and Thermal Infrared (TIRS) 2 (Band 11), plotted with R.}
+	\label{fig04}
+\end{figure} 
+%\newpage
+
 
 To more thoroughly investigate the relationship between the spectral responses of various land cover types in different wavelength diapasons, we examined the pairwise correlation between the selected bands{ of the Landsat image}. To this end, we compared the bands in pairwise combinations (Band 1 {against} Band 2 and Band 4 {against} Band 5) in the selected parts of the spectrum{. The }images were plotted pixel by pixel against those from the corresponding bands{ using }Listing \ref{lst:05}. The resulting plot showed a narrow correlation ellipse and a histogram representing a strong positive correlation between the two bands of green and blue as well as red to NIR (Figure \ref{fig05}).
 
@@ -665,9 +666,6 @@ In Figure \ref{fig06}c, Bands 3,4 and 5 were taken in the inverse way, where Ban
 
 \textls[-15]{The false colour composite{ was }represented by the mix of bands 3, 4 and 5, where the NIR, red, and green bands were {used. This} printed the optical data, with vegetation dominating through the bright red hues due to the chlorophyll reflection, while agricultural lands were depicted in cyan. The bare soils in this combination appeared{ }as shades of white to light grey and blueish or green in the agricultural regions, depending on the crop type. The darker shades of each colour {generally} indicated moister soil and cities with hues of steel grey (Figure \ref{fig06}c). The combination of Bands 7,6 and 5 showed the mix of SWIR 2, SWIR 1 and NIR. Here, the crop lands were coloured yellow, while vegetation areas were shown as bright ultramarine blue {colour} (Figure \ref{fig06}d). }
 
-
-
-Figure \ref{fig07} shows different cases of false colour composites mixed using NIR, SWIR2 and green (a), SWIR 2, red and blue (b), NIR, red and green (c) and SWIR 1, red and green (d). Since NIR light is reflected from the surfaces with higher levels of vegetation{ }but{ }absorbed by water, such band combinations are useful for vegetation and agriculture applications (e.g.{, }mapping forests and crops).
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
 	\begin{subfigure}[b]{.6\textwidth}
@@ -697,7 +695,7 @@ Figure \ref{fig07} shows different cases of false colour composites mixed using 
 \caption{Natural color composites ({\bf a},{\bf b}). False color composites ({\bf c},{\bf d}). Landsat 9 OLI image of Kossou Lake region and Yamoussoukro, Côte d'Ivoire. Mapping: RStudio. Source: authors.}\label{fig06}
 \end{figure}
 
-
+Figure \ref{fig07} shows different cases of false colour composites mixed using NIR, SWIR2 and green (a), SWIR 2, red and blue (b), NIR, red and green (c) and SWIR 1, red and green (d). Since NIR light is reflected from the surfaces with higher levels of vegetation{ }but{ }absorbed by water, such band combinations are useful for vegetation and agriculture applications (e.g.{, }mapping forests and crops).
 
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
@@ -767,7 +765,10 @@ The Soil-Adjusted Vegetation Index (SAVI) is a distance-based vegetation index w
 \begin{equation}\label{eq:2}
 SAVI=\dfrac{(NIR-Red)}{(NIR+Red+L)}\times(1+L)
 \end{equation}
-where L is a soil brightness correction factor, which is defined as 0.5 to adjust to most land cover types. {Compared with the NDVI, }the SAVI{ }is a finer indicator, {which enables it to be }used {for the assessment of} { if }land coverage contains healthy green vegetation with correction for brightness, with the majority of values lying in the diapason from $-$0.1 to 0.1 (Figure \ref{fig09}). Thus, the main advantage of the SAVI is the emphasised colour of the vegetation canopy corrected for the soil brightness, because the SAVI excludes the atmospheric or meteorological effects and those from soil. Compared with the{ }NDVI and EVI, which were affected by the soil brightness, the SAVI{ demonstrated }better results in differentiating between{ }vegetation and soil{.}
+
+where L is a soil brightness correction factor, which is defined as 0.5 to adjust to most land cover types. {Compared with the NDVI, }the SAVI{ }is a finer indicator, {which enables it to be }used {for the assessment of} { if }land coverage contains healthy green vegetation with correction for brightness, with the majority of values lying in the diapason from $-$0.1 to 0.1 (Figure \ref{fig09}). Thus, the main advantage of the SAVI is the emphasised colour of the vegetation canopy corrected for the soil brightness, because the SAVI excludes the atmospheric or meteorological effects and those from soil. 
+
+Compared with the{ }NDVI and EVI, which were affected by the soil brightness, the SAVI{ demonstrated }better results in differentiating between{ }vegetation and soil{.} Thus, the SAVI index was more suitable and better adjusted to agricultural monitoring. At the same time, because C\^ote d'Ivoire is a highly productive agricultural region, {being the} world's most important cocoa producer{, the }agricultural monitoring {of its landscapes} is of high importance{.~Therefore, }analysis of {the} vegetation indices is valuable for sustainable development and environmental planning in C\^ote d'Ivoire.
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -789,24 +790,9 @@ computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_0
         \label{fig09}
 \end{figure}
 
-Thus, the SAVI index was more suitable and better adjusted to agricultural monitoring. At the same time, because C\^ote d'Ivoire is a highly productive agricultural region, {being the} world's most important cocoa producer{, the }agricultural monitoring {of its landscapes} is of high importance{.~Therefore, }analysis of {the} vegetation indices is valuable for sustainable development and environmental planning in C\^ote d'Ivoire.
-
 \subsubsection{Enhanced Vegetation Index 2 (EVI2)}
 
 The EVI (Figure \ref{fig10}) is an optimised spectral imaging transformation of the NIR and red image bands aimed at enhancing the contribution of vegetation properties{. Computing this index is performed} using Equation (\ref{eq:3}), {originally proposed }by \cite{JIANG20083833}.
-
-
-{EVI2} was developed {as an} updated and adjusted formula {of the EVI. In this form, it was developed} as a satellite vegetation index for the Moderate Resolution Imaging Spectroradiometers (MODIS) and adopted for the Landsat Thematic Mapper (TM) or Landsat Enhanced Thematic Mapper Plus (ETM+) series. The expression is defined as follows in Equation (\ref{eq:4}), which was optimised in \cite{JIANG20083833}: 
-
-\begin{equation}\label{eq:4}
-EVI2=2.4*\dfrac{(NIR-Red)}{(NIR+Red+1)}
-\end{equation}
-
-This allows a robust spatial and temporal correlation of the terrestrial chlorophyll and photosynthetic activity, which affects the structure of the canopy in various types of vegetation, including savannahs and forests. The ratios of the NIR and red spectral bands in the image enable decreasing the topographic effects from the Earth's relief. Therefore, the visualised EVI highlights and stresses smaller differences in the characteristics of spectral reflectance between vegetation and all other land cover types. The range of the values normally lies in the diapason between $-$0.2 and 0.2, as can be also seen in Figure \ref{fig10}:
- 
-\begin{equation}\label{eq:3}
-EVI=\dfrac{(NIR-Red)}{(NIR+C1*Red-C2*Blue+L)}
-\end{equation}
 
 \begin{figure}[H]
 \makebox[0.97\linewidth][r]{%
@@ -827,6 +813,19 @@ computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_0
  ({\bf b}) Data distribution within the computed EVI2.}
         \label{fig10}
 \end{figure}
+
+{EVI2} was developed {as an} updated and adjusted formula {of the EVI. In this form, it was developed} as a satellite vegetation index for the Moderate Resolution Imaging Spectroradiometers (MODIS) and adopted for the Landsat Thematic Mapper (TM) or Landsat Enhanced Thematic Mapper Plus (ETM+) series. The expression is defined as follows in Equation (\ref{eq:4}), which was optimised in \cite{JIANG20083833}: 
+
+\begin{equation}\label{eq:4}
+EVI2=2.4*\dfrac{(NIR-Red)}{(NIR+Red+1)}
+\end{equation}
+
+This allows a robust spatial and temporal correlation of the terrestrial chlorophyll and photosynthetic activity, which affects the structure of the canopy in various types of vegetation, including savannahs and forests. The ratios of the NIR and red spectral bands in the image enable decreasing the topographic effects from the Earth's relief. Therefore, the visualised EVI highlights and stresses smaller differences in the characteristics of spectral reflectance between vegetation and all other land cover types. The range of the values normally lies in the diapason between $-$0.2 and 0.2, as can be also seen in Figure \ref{fig10}:
+ 
+\begin{equation}\label{eq:3}
+EVI=\dfrac{(NIR-Red)}{(NIR+C1*Red-C2*Blue+L)}
+\end{equation}
+
 \subsubsection{Atmospherically Resistant Vegetation Index 2 (ARVI2)}
 
 ARVI2 is adjusted to be resistant to atmospheric effects{. At} the same time, it is more sensitive to a wider spectrum of concentrations of chlorophyll in leaves. {Specifically, for} Côte d'Ivoire, the values of the ARVI ranged from $-$0.28 to $-$0.1 (Figure \ref{fig11}), although in general, the diapason of the ARVI values may vary from $-$1 to 1 by following Equation (\ref{eq:5}), {which was originally developed in} \cite{134076}: 
@@ -893,6 +892,11 @@ Cartographic visualisation is an essential application of satellite image analys
 \end{figure}
 
 The data were linked with the digital elevation model (DEM) to demonstrate the effective approach of both{ } languages to modelling Earth observation data. {We selected} a DEM with a high spatial resolution {for terrain modelling because it }is one of the most crucial base layer factors for environmental modelling \cite{AVAND20221}{. }The advances in cartographic modelling using programming scripts in recent years changed the terrain visualisation from GUI-based GIS mapping to dynamic scripts with automatic representation of the output images. Processing the DEM from the SRTM using Python scripts based on the EarthPy library demonstrated the advantages and flexibility of the workflow, aimed at deriving topographic information for spatial analysis (Figure \ref{fig13}). The DEM developed from the SRTM of rugged terrain in Côte d'Ivoire{ had }a spatial resolution of 3 arc seconds, which corresponds to $\pm 90$ m.
+
+The topographic variation was {modelled} with the Python {library} EarthPy{, }based on the processing of{ }fields (raster layers), spatial entities (elevated objects with 3D coordinates as attributes) and the network (topology of spatial links among the geographic objects). This approach {uses} relational data modelling with height as the primary identifier in a dataset. The DEM data are modelled by EarthPy using a raster data structure as a square grid matrix, with the topography defined by the sampled points and with XYZ dimensions indicating the continuous field of the spatial altitudes. 
+
+{Spatial} modelling{ }continues topographic representation using discrete boundaries (Figure \ref{fig13}). {It }is based on the topographic attributes derived from the DEM and aims to{ }define {the geomorphic and hydrological} features {as} environmental gradients.~These derivatives include such attributes as the slope, aspect, upslope drainage and catchment areas, tangential, plan and profile curvature of the cross-sections, upslope and flow path length and hillshade. Determining the drainage direction and connectivity of the raster points {from} the DEM depends on{ }the surface attributes of the topographic hillslopes and stream channels which comprise the hydrological network system. In this regard,{ }morphometric modelling contributes to landscape analysis through visual representation of spatial variability and connectivity of the primary {terrain} attributes{ }distributed on the surface of the Earth. 
+
 \vspace{-6pt}
 \begin{figure}[H]
 \makebox[0.90\linewidth][c]{%
@@ -924,10 +928,6 @@ The data were linked with the digital elevation model (DEM) to demonstrate the e
  Côte d'Ivoire; 
  (\textbf{b}) Hillshade from DTM of Kossou Lake, Côte d'Ivoire. (\textbf{c})~Azimuth of Sun: 230\textdegree. Hillshade from DTM. (\textbf{d}) Sun angle altitude: 10\textdegree. Hillshade from DTM.} \label{fig13}
 \end{figure}
-
-The topographic variation was {modelled} with the Python {library} EarthPy{, }based on the processing of{ }fields (raster layers), spatial entities (elevated objects with 3D coordinates as attributes) and the network (topology of spatial links among the geographic objects). This approach {uses} relational data modelling with height as the primary identifier in a dataset. The DEM data are modelled by EarthPy using a raster data structure as a square grid matrix, with the topography defined by the sampled points and with XYZ dimensions indicating the continuous field of the spatial altitudes. 
-
-{Spatial} modelling{ }continues topographic representation using discrete boundaries (Figure \ref{fig13}). {It }is based on the topographic attributes derived from the DEM and aims to{ }define {the geomorphic and hydrological} features {as} environmental gradients.~These derivatives include such attributes as the slope, aspect, upslope drainage and catchment areas, tangential, plan and profile curvature of the cross-sections, upslope and flow path length and hillshade. Determining the drainage direction and connectivity of the raster points {from} the DEM depends on{ }the surface attributes of the topographic hillslopes and stream channels which comprise the hydrological network system. In this regard,{ }morphometric modelling contributes to landscape analysis through visual representation of spatial variability and connectivity of the primary {terrain} attributes{ }distributed on the surface of the Earth. 
 
 Numerous applications of topographic modelling in Earth and environmental studies motivated the development of Python programming approaches aimed at calculating the terrain. This is especially advantageous for the topographically diverse landscapes with interspersed forest and savannah areas which are{ }typical for{ }West Africa. The {principal} advantages of the EarthPy library consist of straightforward and robust topographic modelling, which presents the visualised series of the topographic attributes derived from a square grid DEM. These include the slope, aspect and topographic relief shading with{ }their attributes (i.e., {hillshade with varied }Sun azimuths and angle altitudes), as demonstrated in Figure \ref{fig13}.
 
@@ -2110,7 +2110,7 @@ Avand, M.; Kuriqi, A.; Khazaei, M.; Ghorbanzadeh, O.
 
 %\nocite{*}
 
-%\section*{\hl{Short Biography of Authors:} %MDPI: this journal has no this part, please confirm} <-- Answer: yes, we confirm.
+%\section*{Short Biography of Authors: %MDPI: this journal has no this part, please confirm} <-- Answer: yes, we confirm.
 %\bio
 %{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Photo_author_1.jpg}}}
 %{\textbf{Polina Lemenkova} is an Engineer and a PhD student of Prof. Dr. O. Debeir in the Image Analysis Research Unit (LISA-IA) in École polytechnique de Bruxelles, Université Libre de Bruxelles. Her research interests are focused on image processing, cartography, spatial data analysis, remote sensing and applied programming. She has a strong research experience in Earth and environmental sciences, mapping and data visualization, specifically in geological and geophysical domains. Her current topic is on seismic data processing using machine learning methods and scripting languages.}
