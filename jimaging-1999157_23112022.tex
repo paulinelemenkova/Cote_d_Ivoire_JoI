@@ -128,12 +128,10 @@ Building L, Campus de Solbosch, ULB--LISA CP165/57, Avenue~Franklin D. Roosevelt
 % Keywords
 \keyword{image processing; remote sensing; programming; Python; R; satellite image; digital terrain model; cartography; mapping; spatial analysis} 
 
-% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
-
-\PACS{\hl{91.10.Da; 91.10.Jf; 91.10.Sp; 91.10.Xa; 96.25.Vt; 91.10.Fc; 95.40.+s; 95.75.Qr; 95.75.Rs; 42.68.Wt}%MDPI: please confirm if these three parts need keep
+\PACS{91.10.Da; 91.10.Jf; 91.10.Sp; 91.10.Xa; 96.25.Vt; 91.10.Fc; 95.40.+s; 95.75.Qr; 95.75.Rs; 42.68.Wt %MDPI: please confirm if these three parts need keep. <--  Answer: yes, correct. PACS, MSC and JEL are needed for indexation of the paper.
 }
-\MSC{\hl{86A30; 86-08; 86A99; 86A04}}
-\JEL{\hl{Y91; Q20; Q24; Q23; Q3; Q01; R11; O44; O13; Q5; Q51; Q55; N57; C6; C61}}
+\MSC{86A30; 86-08; 86A99; 86A04}
+\JEL{Y91; Q20; Q24; Q23; Q3; Q01; R11; O44; O13; Q5; Q51; Q55; N57; C6; C61}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -165,8 +163,8 @@ A collection of Python libraries \cite{ROBERTS2022105192,CHEN2022105362} has rec
 %---------------------%
 \subsection{Contribution}
 
-{The }goal of this paper is to present the application of Python and R algorithms for image processing{. This work is motivated by }the idea of using{ }advanced programming methods{ }to visualise{ }object features and classes on the Earth's surface{. The }specific objectives include the following tasks: \emph{\hl{(1)} %MDPI: Please confirm if the italics is unnecessary and can be removed. The following highlights are the same.
-} plotting the colour composite of a Landsat Operational Land Imager and Thermal Infrared (OLI/TIRS) image by{ } combinations of {the} three channel sensor bands to display the image; \emph{\hl{(2)}} computing the selected vegetation indices using the principles of map algebra based on {the} DN of reflectance value of the pixels in the selected spectral bands of near infrared (NIR) and {r}ed; and \emph{\hl{(3)}} terrain modelling with geomorphic visualisation of the slope, aspect, hillshade and elevation for relief analysis using the {data derived from the }Shuttle Radar Topography Mission (SRTM) digital elevation model (DEM). 
+{The }goal of this paper is to present the application of Python and R algorithms for image processing{. This work is motivated by }the idea of using{ }advanced programming methods{ }to visualise{ }object features and classes on the Earth's surface{. The }specific objectives include the following tasks: (1) %MDPI: Please confirm if the italics is unnecessary and can be removed. The following highlights are the same. <--  Answer: yes, can be removed. 
+plotting the colour composite of a Landsat Operational Land Imager and Thermal Infrared (OLI/TIRS) image by{ } combinations of {the} three channel sensor bands to display the image; (2) computing the selected vegetation indices using the principles of map algebra based on {the} DN of reflectance value of the pixels in the selected spectral bands of near infrared (NIR) and red; and (3) terrain modelling with geomorphic visualisation of the slope, aspect, hillshade and elevation for relief analysis using the {data derived from the }Shuttle Radar Topography Mission (SRTM) digital elevation model (DEM). 
 
 {We propose} two approaches{ }to{ }satellite image processing by{ }Python and R{. }In the first approach, we {use }R packages `terra' and `raster' for calculation of the vegetation indices {of Landsat bands} and creating colour band composites.~For the second approach, we {present} an application of the Python library EarthPy for terrain analysis supported by auxiliary libraries (Matplotlib, NumPy, Rasterio and Plotly) for data processing and visualisation. The combination of several libraries {has been demonstrated to be effective in utilising} the properties and functionality of each to achieve effective image processing for {geospatial} analysis {using the Python syntax}.
 
@@ -208,7 +206,7 @@ The data were collected from the United States Geological Survey (USGS)'s Global
          \includegraphics[width=9.5cm]{Fig_02b}
          \caption{\centering}
      \end{subfigure}
-        \caption{Data captured from the USGS Global Visualization Viewer (GloVis)'s satellite image repository, accessing remote sensing data from Landsat 9 OLI/TIRS C2 L1 and SRTM DEM for terrain analysis. ({\bf a})\hl{~Collected from Landsat 9 OLI/TIRS C2 L1.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+        \caption{Data captured from the USGS Global Visualization Viewer (GloVis)'s satellite image repository, accessing remote sensing data from Landsat 9 OLI/TIRS C2 L1 and SRTM DEM for terrain analysis. ({\bf a})~Collected from Landsat 9 OLI/TIRS C2 L1. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <--  Answer: yes, agree.
  ({\bf b}) Collected from SRTM void-filled DEM.}
         \label{fig02}
 \end{figure}
@@ -222,7 +220,7 @@ The R packages `terra' \cite{RTerra} and `raster' \cite{Hijmans} were used for c
 \subsubsection{Information Retrieval and Spatial Statistics}
 To cope with a series of Landsat bands and {search for} metadata, we examined the {image parameters} using regular expression with the command line utilities of Unix as a combination of grep, the Geospatial Data Abstraction Library (GDAL) and echo (Listing \ref{lst:01}). {Here, grep searches for text in a file according to a given pattern of characters, the GDAL filters spatial information in the dataset, and echo outputs the strings using the defined arguments.}
 
-\begin{lstlisting}[language=bash, caption=\hl{Unix} %MDPI: please check and confirm all the listing format.
+\begin{lstlisting}[language=bash, caption=Unix %MDPI: please check and confirm all the listing format. <-- Answer: yes, we confirm.
 shell script by GDAL and echo-grep utilities to inspect the geometry of Landsat TIFs., label={lst:01}]
 for f in *tif ; do  echo $f; gdalinfo $f | grep Size; done
 
@@ -391,7 +389,7 @@ Since there was not much information in the monochrome bands {of the Landsat OLI
          \caption{   \centering}
      \end{subfigure}
         \caption{\hl{Correlation } %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000".
-between the selected Landsat-8 OLI/TIRS C1 bands in a multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) \hl{Band 1 against Band 2.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+between the selected Landsat-8 OLI/TIRS C1 bands in a multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) Band 1 against Band 2. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Band 4 against Band~5.}
         \label{fig05}
 \end{figure}
@@ -729,11 +727,9 @@ Figure \ref{fig07} shows different cases of false colour composites mixed using 
 		\caption{\centering }
 	\end{subfigure}%
 }
-\caption{False color composite visualisation of Landsat 8 OLI image of Kossou Lake surroundings in Côte d'Ivoire. Mapping: RStudio. Source: authors. ({\bf a}) \hl{Bands 5, 7 and 3.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+\caption{False color composite visualisation of Landsat 8 OLI image of Kossou Lake surroundings in Côte d'Ivoire. Mapping: RStudio. Source: authors. ({\bf a}) Bands 5, 7 and 3. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Bands 7, 4 and 2. ({\bf c}) Bands 5, 4 and 3 (color infrared). ({\bf d}) Bands 6, 5 and 4.}\label{fig07}
 \end{figure}
-
-
 
 \subsection{Computing Vegetation Indices}
 \subsubsection{Normalized Difference Vegetation Index (NDVI)}
@@ -760,18 +756,18 @@ Originally tested in 1974 \cite{1974NASSP}, the NDVI received wide recognition i
 		\caption{\centering}
 	\end{subfigure}%
 } %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000".
-       \caption{\hl{NDVI} computed for multispectral {Landsat-9 OLI/TIRS} image.~({\bf a}) \hl{NDVI ratio-based vegetation index.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+       \caption{NDVI computed for multispectral {Landsat-9 OLI/TIRS} image.~({\bf a}) NDVI ratio-based vegetation index. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Data distribution within the computed NDVI.}
         \label{fig08}
 \end{figure}
 
 
 \subsubsection{Soil-Adjusted Vegetation Index (SAVI)}
-The Soil-Adjusted Vegetation Index (SAVI) is a distance-based vegetation index which is based on the NDVI but includes an adjustment factor to reduce the noise from the NDVI by eliminating the effects from the canopy background and atmospheric conditions. Thus, it adjusts the NDVI for soil brightness where vegetation coverage is low in urban, densely built up areas and bare soil using the arithmetic expression in Equation (\ref{eq:2}), proposed \hl{in}%MDPI: please confirm if * in equation should be correct to \times
+The Soil-Adjusted Vegetation Index (SAVI) is a distance-based vegetation index which is based on the NDVI but includes an adjustment factor to reduce the noise from the NDVI by eliminating the effects from the canopy background and atmospheric conditions. Thus, it adjusts the NDVI for soil brightness where vegetation coverage is low in urban, densely built up areas and bare soil using the arithmetic expression in Equation (\ref{eq:2}), proposed in %MDPI: please confirm if * in equation should be correct to \times <--  Answer: yes, \times is correct.
 ~\cite{HUETE1988295}:
 
 \begin{equation}\label{eq:2}
-SAVI=\dfrac{(NIR-Red)}{(NIR+Red+L)}*(1+L)
+SAVI=\dfrac{(NIR-Red)}{(NIR+Red+L)}\times(1+L)
 \end{equation}
 where L is a soil brightness correction factor, which is defined as 0.5 to adjust to most land cover types. {Compared with the NDVI, }the SAVI{ }is a finer indicator, {which enables it to be }used {for the assessment of} { if }land coverage contains healthy green vegetation with correction for brightness, with the majority of values lying in the diapason from $-$0.1 to 0.1 (Figure \ref{fig09}). Thus, the main advantage of the SAVI is the emphasised colour of the vegetation canopy corrected for the soil brightness, because the SAVI excludes the atmospheric or meteorological effects and those from soil. Compared with the{ }NDVI and EVI, which were affected by the soil brightness, the SAVI{ demonstrated }better results in differentiating between{ }vegetation and soil{.}
 
@@ -790,7 +786,7 @@ where L is a soil brightness correction factor, which is defined as 0.5 to adjus
 }
        \caption{\hl{SAVI } %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000".
  %MDPI: Please change the hyphen (-) into a minus sign ($-$, "U+2212"). e.g., "-1" should be "$-$1".
-computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) \hl{SAVI ratio-based vegetation index.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) SAVI ratio-based vegetation index. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Data distribution within the computed SAVI.}
         \label{fig09}
 \end{figure}
@@ -829,7 +825,7 @@ EVI=\dfrac{(NIR-Red)}{(NIR+C1*Red-C2*Blue+L)}
 }
        \caption{\hl{EVI2, } %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000".
  %MDPI: Please change the hyphen (-) into a minus sign ($-$, "U+2212"). e.g., "-1" should be "$-$1".
-computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) \hl{EVI2 ratio-based vegetation index.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) EVI2 ratio-based vegetation index. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Data distribution within the computed EVI2.}
         \label{fig10}
 \end{figure}
@@ -867,12 +863,10 @@ Similar to{ }the NDVI, ARVI2 is also sensitive to the vegetation ratio in the la
 }
        \caption{\hl{Atmospherically} %MDPI: Please use commas to separate thousands for numbers with five or more digits (not four digits) in the picture, e.g., "10000" should be "10,000".
 %MDPI: Please change the hyphen (-) into a minus sign ($-$, "U+2212"). e.g., "-1" should be "$-$1".
- Resistant Vegetation Index 2 (ARVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) \hl{ARVI2 ratio-based vegetation index.} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+ Resistant Vegetation Index 2 (ARVI2) computed for multispectral image \emph{LC09\_L1TP\_197055\_20220111\_20220122\_02\_T1\_B}. ({\bf a}) ARVI2 ratio-based vegetation index. %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  ({\bf b}) Data distribution within the computed EVI2. }
         \label{fig11}
 \end{figure}
-
-
 
 %\newpage
 \subsection{Terrain Analysis}
@@ -928,7 +922,7 @@ The data were linked with the digital elevation model (DEM) to demonstrate the e
 		\caption{\centering}
 	\end{subfigure}%
 }
-\caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors. (\textbf{a}) \hl{DTM of Kossou Lake,} %MDPI: We moved the subfigure explanations into the figure caption. Please confirm.
+\caption{Terrain modelling for Kossou Lake area, Côte d'Ivoire. Mapping: Python. Source: authors. (\textbf{a}) DTM of Kossou Lake, %MDPI: We moved the subfigure explanations into the figure caption. Please confirm. <-- Answer: yes, we confirm.
  Côte d'Ivoire; 
  (\textbf{b}) Hillshade from DTM of Kossou Lake, Côte d'Ivoire. (\textbf{c})~Azimuth of Sun: 230\textdegree. Hillshade from DTM. (\textbf{d}) Sun angle altitude: 10\textdegree. Hillshade from DTM.} \label{fig13}
 \end{figure}
@@ -964,7 +958,7 @@ In future works, we plan to {use} combinations of other libraries of Python and 
 \vspace{6pt}
 \authorcontributions{Supervision, conceptualisation, methodology, software, resources, funding acquisition and project administration, O.D.; writing---original draft preparation, methodology, software, data curation, visualisation, formal analysis, validation, writing---review and editing and investigation, P.L. All authors have read and agreed to the published version of the manuscript.}
 
-\funding{This research received partial funding from the Multidisciplinary Digital Publishing Institute (MDPI).}
+\funding{This project was supported by The Federal Public Planning Service Science Policy or Belgian Science Policy Office, Federal Science Policy - BELSPO (B2/202/P2/SEISMOSTORM).}
 
 \institutionalreview{Not applicable.}
 
@@ -1090,8 +1084,8 @@ Koné, M.; Coulibaly, L.; Kouadio, Y.L.; Neuba, D.F.; Malan, D.F.
 \newblock Multitemporal monitoring of the forest cover in Côte d'Ivoire from
   the 1960s to the 2000s, using Landsat satellite images.
 \newblock In Proceedings of the 2016 IEEE International Geoscience and Remote
-  Sensing Symposium (IGARSS),  \hl{Beijing, China, 10--15 July }2016; pp. 1325--1328.
-\newblock {https://doi.org/10.1109/IGARSS.2016.7729337}. %MDPI: newly added information, please confirm.
+  Sensing Symposium (IGARSS), Beijing, China, 10--15 July 2016; pp. 1325--1328.
+\newblock {https://doi.org/10.1109/IGARSS.2016.7729337}. %MDPI: newly added information, please confirm. <-- Answer: yes, we confirm.
 
 \bibitem[Lemenkova(2020)]{Lemenkova2020d}
 Lemenkova, P.
@@ -1106,8 +1100,8 @@ Wang, J.; Wang, H.; Li, X.
 \newblock Down scaling vegetation fraction by fusing multi-temporal MODIS and
   Landsat data.
 \newblock In Proceedings of the 2014 IEEE Geoscience and Remote Sensing
-  Symposium,  \hl{Quebec City, QC, USA, 13--18 July} 2014; pp. 757--760.
-\newblock {https://doi.org/10.1109/IGARSS.2014.6946534}.
+  Symposium, Quebec City, QC, USA, 13--18 July 2014; pp. 757--760.
+\newblock {https://doi.org/10.1109/IGARSS.2014.6946534}. %MDPI: newly added information, please confirm. <-- Answer: yes, we confirm.
 
 \bibitem[Lemenkova(2020)]{Lemenkova202019}
 Lemenkova, P.
@@ -1121,8 +1115,8 @@ Wang, H.; Hajnsek, I.; Kinzelbach, W.
 \newblock Calibrated Landsat TM LAI retrieval for monitoring vegetation cover
   change after ecological releases to the lower Tarim river.
 \newblock In Proceedings of the 2012 IEEE International Geoscience and Remote
-  Sensing Symposium,  \hl{Munich, Germany, 22--27 July} 2012; pp. 6279--6282.
-\newblock {https://doi.org/10.1109/IGARSS.2012.6352694}.
+  Sensing Symposium, Munich, Germany, 22--27 July 2012; pp. 6279--6282.
+\newblock {https://doi.org/10.1109/IGARSS.2012.6352694}. %MDPI: newly added information, please confirm. <-- Answer: yes, we confirm.
 
 \bibitem[N’go(2015)]{2015hydrologie}
 N’go, Y.
